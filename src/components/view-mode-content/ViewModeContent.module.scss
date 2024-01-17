@@ -1,0 +1,38 @@
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 31px;
+}
+
+.theme {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 21px;
+}
+
+.wrapper {
+  img {
+    width: 570px;
+    height: 380px;
+    object-fit: contain;
+    margin-bottom: 21px;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 39px;
+}
