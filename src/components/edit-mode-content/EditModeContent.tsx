@@ -1,8 +1,7 @@
 import { FC } from 'react'
 import { Button } from 'antd'
 import { useMyContext } from 'provider'
-import { getLabel } from 'utils'
-import { Paragraph } from 'UI'
+import { Panel, Paragraph } from 'UI'
 import s from './EditModeContent.module.scss'
 
 interface EditModeContentProps {
@@ -11,30 +10,24 @@ interface EditModeContentProps {
 
 export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const { onViewClick } = props
-  const { data, deleteBlock, addBlock } = useMyContext()
+  const { data } = useMyContext()
 
   return (
     <>
       <div className={s.buttonGroup}>
-        <Button type="primary" onClick={onViewClick}>
-          Переглянути
+        <Button type="primary" className={s.viewBtn} onClick={onViewClick}>
+          Попередній перегляд
         </Button>
+        <Button type="primary">Опублікувати</Button>
       </div>
-
-      {data.map(({ type, text, url, id }) => (
-        <Paragraph
-          key={id}
-          id={id}
-          label={getLabel(type)}
-          type={type}
-          text={text}
-          url={url}
-          onDelete={deleteBlock}
-        />
-      ))}
-      <Button onClick={() => addBlock({ type: 'text', id: '' })} type="primary">
-        Додати блок
-      </Button>
+      <div className={s.wrapper}>
+        <div className={s.paragraphWrapper}>
+          {data.map(({ type, text, url, id, theme }) => (
+            <Paragraph key={id} id={id} type={type} text={text} url={url} theme={theme} />
+          ))}
+        </div>
+        <Panel />
+      </div>
     </>
   )
 }

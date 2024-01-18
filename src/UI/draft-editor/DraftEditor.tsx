@@ -8,18 +8,19 @@ import htmlToDraft from 'html-to-draftjs'
 import DOMPurify from 'dompurify'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import 'draft-js/dist/Draft.css'
+import { DataTypeItem } from 'types'
 
 interface DraftEditorProps {
   defaultValue?: string
   placeholder?: string
   editorClassName?: string
+  onChange: (inputText: string) => void
 }
 
 export const DraftEditor: FC<DraftEditorProps> = (props) => {
-  const { defaultValue, editorClassName, placeholder } = props
+  const { defaultValue, editorClassName, placeholder, onChange } = props
 
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-  const [convertedInHTMLContent, setConvertedInHTMLContent] = useState<TrustedHTML | string>('')
 
   useEffect(() => {
     if (defaultValue) {
@@ -29,13 +30,13 @@ export const DraftEditor: FC<DraftEditorProps> = (props) => {
       const editorStateInitial = EditorState.createWithContent(contentStateFromHTML)
       setEditorState(editorStateInitial)
     }
-  }, [defaultValue])
+  }, [])
 
   useEffect(() => {
     const rawContentState = convertToRaw(editorState.getCurrentContent())
     const html = draftToHtml(rawContentState)
     const cleanHTML = DOMPurify.sanitize(html) // XSS sanitizer for HTML,
-    setConvertedInHTMLContent(cleanHTML)
+    onChange(cleanHTML)
   }, [editorState])
 
   return (
@@ -46,15 +47,15 @@ export const DraftEditor: FC<DraftEditorProps> = (props) => {
       editorClassName={editorClassName}
       editorStyle={{ height: 'fit-content' }}
       wrapperStyle={{ width: '100%', maxHeight: '100%' }}
-      toolbar={{
-        //  remove some default toolbar option
-        options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
-        inline: { inDropdown: true },
-        list: { inDropdown: true },
-        textAlign: { inDropdown: true },
-        link: { inDropdown: true },
-        history: { inDropdown: true },
-      }}
     />
   )
 }
+//  remove some default toolbar option
+// toolbar={{
+//   options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
+//   inline: { inDropdown: true },
+//   list: { inDropdown: true },
+//   textAlign: { inDropdown: true },
+//   link: { inDropdown: true },
+//   history: { inDropdown: true },
+// }}

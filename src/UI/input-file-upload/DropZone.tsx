@@ -1,18 +1,24 @@
-import { Button } from 'antd'
-import { FC, useState, useRef, DragEvent, ChangeEvent } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useState, useRef, DragEvent, ChangeEvent, useEffect } from 'react'
+import { ImageIcon, UploadIcon, DeleteIcon } from 'assets'
 import s from './DropZone.module.scss'
 
 interface DropZoneProps {
   label: string
   url?: string
+  placeholder: string
+  onChange: (inputUrl: string) => void
 }
 
 export const DropZone: FC<DropZoneProps> = (props) => {
-  const { label, url = '' } = props
+  const { label, url = '', placeholder, onChange } = props
   const [fileURL, setFileURL] = useState(url)
   const [file, setFile] = useState<Blob | string>('')
-  const [text, setText] = useState('Перетягніть сюди зображення або натисніть')
   const [error, setError] = useState(false)
+
+  useEffect(() => {
+    onChange(fileURL)
+  }, [fileURL])
 
   const dropzoneRef = useRef<HTMLDivElement>(null)
 
@@ -21,29 +27,16 @@ export const DropZone: FC<DropZoneProps> = (props) => {
       setFile(event.target.files[0])
       setFileURL(URL.createObjectURL(event.target.files[0]))
     }
-    if (dropzoneRef.current) {
-      dropzoneRef.current.style.border = ''
-    }
   }
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.stopPropagation()
     event.preventDefault()
-    setText('Перетягніть сюди зображення')
-    if (dropzoneRef.current) {
-      dropzoneRef.current.style.border = ''
-      dropzoneRef.current.style.backgroundColor = 'lightgray'
-      dropzoneRef.current.style.color = '#000'
-    }
   }
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.stopPropagation()
     event.preventDefault()
-    if (dropzoneRef.current) {
-      dropzoneRef.current.style.backgroundColor = ''
-      dropzoneRef.current.style.color = ''
-    }
 
     if (event.dataTransfer?.files.length) {
       setFile(event.dataTransfer.files[0])
@@ -52,13 +45,8 @@ export const DropZone: FC<DropZoneProps> = (props) => {
   }
 
   const handleCancel = () => {
-    setText('Перетягніть сюди зображення або натисніть')
     setFile('')
     setFileURL('')
-
-    if (dropzoneRef.current) {
-      dropzoneRef.current.style.border = ''
-    }
   }
 
   const handleUpload = async () => {
@@ -68,10 +56,6 @@ export const DropZone: FC<DropZoneProps> = (props) => {
     try {
       // TODO make request
       // body: formData
-
-      if (dropzoneRef.current) {
-        dropzoneRef.current.style.border = '3px solid green'
-      }
     } catch (e) {
       setError(true)
     }
@@ -85,7 +69,14 @@ export const DropZone: FC<DropZoneProps> = (props) => {
           ref={dropzoneRef}
           onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e)}>
-          {fileURL ? <img src={fileURL} alt="uploaded" /> : text}
+          {fileURL ? (
+            <img src={fileURL} alt="uploaded" />
+          ) : (
+            <>
+              <ImageIcon />
+              <div>{placeholder}</div>
+            </>
+          )}
         </div>
       </label>
       <input
@@ -96,24 +87,21 @@ export const DropZone: FC<DropZoneProps> = (props) => {
         style={{ display: 'none' }}
         onChange={(e) => handleClickDropZone(e)}
       />
-      <div className={s.buttonWrapper}>
-        <Button
-          type="primary"
-          size="middle"
-          onClick={() => {
-            handleUpload()
-          }}>
-          Звантажити
-        </Button>
-        <Button
-          type="default"
-          size="middle"
-          onClick={() => {
-            handleCancel()
-          }}>
-          Видалити
-        </Button>
-      </div>
+      {fileURL && (
+        <div className={s.buttonWrapper}>
+          <UploadIcon
+            onClick={() => {
+              handleUpload()
+            }}
+          />
+          <DeleteIcon
+            onClick={() => {
+              handleCancel()
+            }}
+          />
+        </div>
+      )}
+
       {!!error && <div>Нажаль зображення не вдалось завантажити</div>}
     </div>
   )

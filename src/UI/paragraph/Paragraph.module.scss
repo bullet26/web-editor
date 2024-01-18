@@ -1,20 +1,33 @@
 @import '../../theme/variables.scss';
 
-.label {
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 5px;
-}
-
 .wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  column-gap: 12px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.icons {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  column-gap: 24px;
+  justify-content: flex-end;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .paragraph {
-  border-radius: 2px;
+  border-radius: 6px;
   border: 1px solid $light-border;
   padding: 5px 12px;
 }
@@ -37,16 +50,4 @@
 .text {
   font-size: 14px;
   font-weight: 400;
-}
-
-.icons {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
 }

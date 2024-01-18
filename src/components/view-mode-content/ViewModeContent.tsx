@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 import { Button } from 'antd'
 import { useMyContext } from 'provider'
 import s from './ViewModeContent.module.scss'
@@ -12,6 +12,8 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
 
   const { data } = useMyContext()
 
+  console.log(data)
+
   return (
     <div className={s.wrapper}>
       <div className={s.buttonGroup}>
@@ -19,13 +21,20 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           Редагувати
         </Button>
       </div>
-      {data.map(({ text = '', type, id, url }) =>
-        type === 'image' ? (
-          <img key={id} src={url} alt="lesson" />
-        ) : (
-          <div className={s[type]} dangerouslySetInnerHTML={{ __html: text }} key={id} />
-        ),
-      )}
+      {data.map(({ text = '', theme = '', type, id, url }) => (
+        <Fragment key={id}>
+          {type === 'text' && (
+            <>
+              <div className={s.theme} dangerouslySetInnerHTML={{ __html: theme }} />
+              <div className={s[type]} dangerouslySetInnerHTML={{ __html: text }} />
+            </>
+          )}
+          {type === 'image' && <img src={url} alt="lesson" />}
+          {(type === 'title' || type === 'subtitle' || type === 'note' || type === 'custom') && (
+            <div className={s[type]} dangerouslySetInnerHTML={{ __html: text }} />
+          )}
+        </Fragment>
+      ))}
     </div>
   )
 }

@@ -1,18 +1,12 @@
 import { FC, useState } from 'react'
-import { CreateModeContent, ViewModeContent, EditModeContent } from 'components'
-import { useMyContext } from 'provider'
+import { ViewModeContent, EditModeContent } from 'components'
 
 export const App: FC = () => {
-  const [isEditMode, setEditModeStatus] = useState(false)
-  const { isContentConsist } = useMyContext()
+  const [isEditMode, setEditModeStatus] = useState(true)
 
-  return isContentConsist ? (
-    isEditMode ? (
-      <EditModeContent onViewClick={() => setEditModeStatus(false)} />
-    ) : (
-      <ViewModeContent onEditClick={() => setEditModeStatus(true)} />
-    )
+  return isEditMode ? (
+    <EditModeContent onViewClick={() => setEditModeStatus(false)} />
   ) : (
-    <CreateModeContent />
+    <ViewModeContent onEditClick={() => setEditModeStatus(true)} />
   )
 }

@@ -1,5 +1,7 @@
-export type Type = 'title' | 'subtitle' | 'theme' | 'text' | 'image'
+export const types = ['title', 'subtitle', 'custom', 'note', 'text', 'image']
 
-export type DataTypeItem = { text?: string; type: Type; id: string; url?: string }
+export type Type = (typeof types)[number]
+
+export type DataTypeItem = { text?: string; type: Type; id: string; url?: string; theme?: string }
 
 export type DataType = DataTypeItem[]

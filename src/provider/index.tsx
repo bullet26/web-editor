@@ -1,5 +1,6 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useState, useEffect } from 'react'
 import { ConfigProvider } from 'antd'
 import { ThemeConfig } from 'theme/createTheme'
 import { DataType, DataTypeItem } from 'types'
@@ -16,10 +17,10 @@ const dataAPI: DataType = [
     id: '02',
     text: 'Навчитися вітатися, представлятися, запитувати та давати особисту інформацію про себе та інших.',
   },
-  { type: 'theme', id: '03', text: 'Привітання' },
   {
     type: 'text',
     id: '04',
+    theme: 'Привітання',
     text: '(hello, hi, good morning, good afternoon, good evening, good night, goodbye, bye, see you), особові займенники (I, you, he, she, it, we, they), присвійні займенники (my, your, his, her, its, our, their), числівники (one, two, three, ..., ten), країни та національності (Ukraine, Ukrainian, France, French, etc.), професії (teacher, student, doctor, engineer, etc.), сім`я (mother, father, sister, brother, etc.).',
   },
   {
@@ -32,28 +33,55 @@ const dataAPI: DataType = [
 const Context = createContext<{
   dataAPI: DataType
   data: DataType
-  isContentConsist: boolean
   deleteBlock: (id: string) => void
   addBlock: (block: DataTypeItem) => void
+  copyBlock: (id: string) => void
 }>({
   dataAPI: [],
   data: [],
-  isContentConsist: false,
   deleteBlock: () => {},
   addBlock: () => {},
+  copyBlock: () => {},
 })
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const [data, EditData] = useState(dataAPI)
+  const [data, EditData] = useState<DataType>([{ type: 'title', id: '01' }])
+
+  // TODO get from API
+  useEffect(() => {
+    EditData(dataAPI)
+  }, [])
 
   const deleteBlock = (id: string) =>
     EditData((prevState) => prevState.filter((item) => item.id !== id))
 
-  const addBlock = (block: DataTypeItem) =>
-    EditData((prevState) => [...prevState, { ...block, id: generateId() }])
+  const addBlock = (block: DataTypeItem) => {
+    if (!block.id) {
+      EditData((prevState) => [...prevState, { ...block, id: generateId() }])
+    } else {
+      EditData((prevState) =>
+        prevState.map((item) => {
+          if (item.id === block.id) {
+            return { ...item, ...block }
+          }
+          return item
+        }),
+      )
+    }
+  }
 
-  const value = { dataAPI, data, deleteBlock, addBlock, isContentConsist: !!data.length }
+  const copyBlock = (id: string) => {
+    const block = data.find((item) => item.id === id)
+    const index = data.findIndex((item) => item.id === id)
 
+    if (!block) {
+      return false
+    }
+
+    EditData((prevState) => prevState.toSpliced(index, 0, { ...block, id: generateId() }))
+  }
+
+  const value = { dataAPI, data, deleteBlock, addBlock, copyBlock }
   return (
     <ConfigProvider theme={ThemeConfig}>
       <Context.Provider value={value}>{children}</Context.Provider>

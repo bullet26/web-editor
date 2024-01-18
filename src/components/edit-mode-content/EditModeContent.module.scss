@@ -1,3 +1,25 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 24px;
+}
+
+.paragraphWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 8px;
+  flex: 1;
+}
+
+.viewBtn {
+  background-color: $accent;
+  color: #fff;
+}
+
 .title {
   font-size: 24px;
   font-weight: 500;
@@ -25,5 +47,6 @@
 .buttonGroup {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 39px;
+  column-gap: 40px;
+  margin-bottom: 29px;
 }
