@@ -15,10 +15,12 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
   return (
     <>
       <div className={s.buttonGroup}>
-        <Button type="primary" className={s.viewBtn} onClick={onViewClick}>
+        <Button type="default" className={s.viewBtn} shape="round" onClick={onViewClick}>
           Попередній перегляд
         </Button>
-        <Button type="primary">Опублікувати</Button>
+        <Button type="primary" shape="round">
+          Опублікувати
+        </Button>
       </div>
       <div className={s.wrapper}>
         <div className={s.paragraphWrapper}>

@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useState, useRef, DragEvent, ChangeEvent, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { ImageIcon, UploadIcon, DeleteIcon } from 'assets'
+import { message, Upload } from 'antd'
+import type { GetProp, UploadProps } from 'antd'
 import s from './DropZone.module.scss'
 
 interface DropZoneProps {
@@ -10,84 +12,83 @@ interface DropZoneProps {
   onChange: (inputUrl: string) => void
 }
 
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0]
+
+const getBase64 = (img: FileType, callback: (url: string) => void) => {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result as string))
+  reader.readAsDataURL(img)
+}
+
+const beforeUpload = (file: FileType) => {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+  if (!isJpgOrPng) {
+    message.error('Ви можете завантажувати лише файл JPG/PNG!')
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2
+  if (!isLt2M) {
+    message.error('Розмір зображення має бути менше 2 МБ!')
+  }
+  return isJpgOrPng && isLt2M
+}
+
 export const DropZone: FC<DropZoneProps> = (props) => {
   const { label, url = '', placeholder, onChange } = props
-  const [fileURL, setFileURL] = useState(url)
-  const [file, setFile] = useState<Blob | string>('')
-  const [error, setError] = useState(false)
+  const [imageUrl, setImageURL] = useState(url)
+  const [file, setFile] = useState<Blob | null>(null)
+
+  const handleChange: UploadProps['onChange'] = (info) => {
+    if (info.file.status === 'done') {
+      console.log(info.file)
+
+      getBase64(info.file.originFileObj as FileType, (inputUrl) => {
+        setImageURL(inputUrl)
+      })
+    }
+  }
 
   useEffect(() => {
-    onChange(fileURL)
-  }, [fileURL])
-
-  const dropzoneRef = useRef<HTMLDivElement>(null)
-
-  const handleClickDropZone = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setFile(event.target.files[0])
-      setFileURL(URL.createObjectURL(event.target.files[0]))
-    }
-  }
-
-  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-    event.stopPropagation()
-    event.preventDefault()
-  }
-
-  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.stopPropagation()
-    event.preventDefault()
-
-    if (event.dataTransfer?.files.length) {
-      setFile(event.dataTransfer.files[0])
-      setFileURL(URL.createObjectURL(event.dataTransfer.files[0]))
-    }
-  }
+    onChange(imageUrl)
+  }, [imageUrl])
 
   const handleCancel = () => {
-    setFile('')
-    setFileURL('')
+    setFile(null)
+    setImageURL('')
   }
 
   const handleUpload = async () => {
     const formData = new FormData()
-    formData.append(label, file)
+    !!file && formData.append(label, file)
 
     try {
       // TODO make request
+      // action	Uploading URL
+      // либо заюзать customRequest	/ см доку
       // body: formData
     } catch (e) {
-      setError(true)
+      message.error('Нажаль зображення не вдалось завантажити')
     }
   }
 
   return (
     <div className={s.wrapper}>
-      <label htmlFor={label}>
-        <div
-          className={s.dropZoneWrapper}
-          ref={dropzoneRef}
-          onDragOver={(e) => handleDragOver(e)}
-          onDrop={(e) => handleDrop(e)}>
-          {fileURL ? (
-            <img src={fileURL} alt="uploaded" />
-          ) : (
-            <>
-              <ImageIcon />
-              <div>{placeholder}</div>
-            </>
-          )}
-        </div>
-      </label>
-      <input
-        type="file"
-        id={label}
-        name={label}
-        accept=".jpg, .jpeg, .png, .webp"
-        style={{ display: 'none' }}
-        onChange={(e) => handleClickDropZone(e)}
-      />
-      {fileURL && (
+      <Upload
+        name="avatar"
+        listType="picture"
+        showUploadList={false}
+        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+        beforeUpload={beforeUpload}
+        onChange={handleChange}>
+        {imageUrl ? (
+          <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        ) : (
+          <div className={s.uploadWrapper}>
+            <ImageIcon />
+            <div>{placeholder}</div>
+          </div>
+        )}
+      </Upload>
+      {imageUrl && (
         <div className={s.buttonWrapper}>
           <UploadIcon
             onClick={() => {
@@ -101,8 +102,6 @@ export const DropZone: FC<DropZoneProps> = (props) => {
           />
         </div>
       )}
-
-      {!!error && <div>Нажаль зображення не вдалось завантажити</div>}
     </div>
   )
 }

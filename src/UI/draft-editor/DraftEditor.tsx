@@ -8,7 +8,6 @@ import htmlToDraft from 'html-to-draftjs'
 import DOMPurify from 'dompurify'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import 'draft-js/dist/Draft.css'
-import { DataTypeItem } from 'types'
 
 interface DraftEditorProps {
   defaultValue?: string
@@ -35,12 +34,30 @@ export const DraftEditor: FC<DraftEditorProps> = (props) => {
   useEffect(() => {
     const rawContentState = convertToRaw(editorState.getCurrentContent())
     const html = draftToHtml(rawContentState)
-    const cleanHTML = DOMPurify.sanitize(html) // XSS sanitizer for HTML,
+    // XSS sanitizer for HTML,
+    const cleanHTML = DOMPurify.sanitize(html, {
+      ALLOWED_URI_REGEXP: /^(blob:)?https?:/i,
+    })
     onChange(cleanHTML)
   }, [editorState])
 
+  const uploadImageCallBack = (fileInput: Blob | MediaSource) => {
+    const localSrc = URL.createObjectURL(fileInput)
+    // TODO - upload
+    // console.log(fileInput)
+
+    return new Promise((resolve, reject) => {
+      resolve({ data: { link: localSrc } })
+    })
+  }
+
   return (
     <Editor
+      toolbar={{
+        image: { previewImage: true, uploadCallback: uploadImageCallBack },
+        inputAccept:
+          'application/pdf,text/plain,application/vnd.openxmlformatsofficedocument.wordprocessingml.document,application/msword,application/vnd.ms-excel',
+      }}
       editorState={editorState}
       placeholder={placeholder}
       onEditorStateChange={setEditorState}

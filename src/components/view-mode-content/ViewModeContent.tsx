@@ -17,7 +17,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.buttonGroup}>
-        <Button type="primary" onClick={onEditClick}>
+        <Button type="primary" shape="round" onClick={onEditClick}>
           Редагувати
         </Button>
       </div>
@@ -25,13 +25,16 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
         <Fragment key={id}>
           {type === 'text' && (
             <>
-              <div className={s.theme} dangerouslySetInnerHTML={{ __html: theme }} />
-              <div className={s[type]} dangerouslySetInnerHTML={{ __html: text }} />
+              <div className={s[type]}>{theme}</div>
+              <div className={s[type]}>{text}</div>
             </>
           )}
           {type === 'image' && <img src={url} alt="lesson" />}
-          {(type === 'title' || type === 'subtitle' || type === 'note' || type === 'custom') && (
+          {type === 'custom' && (
             <div className={s[type]} dangerouslySetInnerHTML={{ __html: text }} />
+          )}
+          {(type === 'title' || type === 'subtitle' || type === 'note') && (
+            <div className={s[type]}>{text}</div>
           )}
         </Fragment>
       ))}

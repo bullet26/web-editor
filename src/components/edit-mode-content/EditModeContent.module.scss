@@ -18,6 +18,11 @@
 .viewBtn {
   background-color: $accent;
   color: #fff;
+
+  &:hover {
+    background-color: $accent;
+    color: #fff;
+  }
 }
 
 .title {

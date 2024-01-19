@@ -1,0 +1,11 @@
+@import '../../theme/variables.scss';
+
+.cancelBtn {
+  background-color: $third;
+  color: #fff;
+
+  &:hover {
+    background-color: $third;
+    color: #fff;
+  }
+}
