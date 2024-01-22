@@ -1,0 +1,1 @@
+export { RightAnswerPut } from './RightAnswerPut'

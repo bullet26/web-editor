@@ -1,0 +1,45 @@
+@import '../../../theme/variables.scss';
+
+.buttonGroup {
+  display: flex;
+  column-gap: 20px;
+
+  button {
+    width: 188px;
+  }
+}
+
+.label {
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  font-weight: 400;
+  color: $lightgrey-color-text;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 450;
+}
+
+.checkboxGroup {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  column-gap: 24px;
+  row-gap: 16px;
+}
+
+.cancelBtn {
+  background-color: $third;
+  color: #fff;
+
+  &:hover {
+    background-color: $third;
+    color: #fff;
+  }
+}
+
+.error {
+  color: tomato;
+}

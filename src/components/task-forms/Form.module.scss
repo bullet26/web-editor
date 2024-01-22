@@ -1,0 +1,47 @@
+@import '../../theme/variables.scss';
+
+.inputTabWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 115px;
+}
+
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.checkboxButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.blockTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.redBtn {
+  background-color: $third;
+  color: #fff;
+
+  &:hover {
+    background-color: $third;
+    color: #fff;
+  }
+}
+
+.blueBtn {
+  background-color: $accent;
+  color: #fff;
+
+  &:hover {
+    background-color: $accent;
+    color: #fff;
+  }
+}

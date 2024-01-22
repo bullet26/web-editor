@@ -1,0 +1,47 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  background: $task-bgc;
+  padding: 16px 24px;
+}
+
+.outerWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.innerWrapper {
+  align-self: flex-end;
+  height: fit-content;
+}
+
+.difficultyLevel {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.difficultyLevelItems {
+  display: flex;
+  column-gap: 24px;
+
+  .active {
+    font-weight: 600;
+    padding-bottom: 3px;
+    border-bottom: 3px solid $main;
+  }
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Input } from 'antd'
-import { Type } from 'types'
+import { RightAnswerTask, Type } from 'types'
+import { RightAnswerView } from 'components'
 import { DraftEditor, DropZone } from 'UI'
 import { DeleteIcon, CopyIcon, MoveIcon } from 'assets'
 import { useMyContext } from 'provider'
@@ -12,13 +13,14 @@ interface ParagraphProps {
   text?: string
   url?: string
   theme?: string
+  taskData?: RightAnswerTask
   id: string
 }
 
 export const Paragraph: FC<ParagraphProps> = (props) => {
   const { deleteBlock, addBlock, copyBlock } = useMyContext()
 
-  const { text, type, id, url, theme } = props
+  const { text, type, id, url, theme, taskData } = props
   const { label, placeholder } = getLabel(type)
 
   const onChangeDraft = (inputText: string) => {
@@ -76,6 +78,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
           onChange={(event) => addBlock({ type, id, text: event.target.value })}
         />
       )}
+      {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="edit" />}
     </div>
   )
 }

@@ -36,16 +36,26 @@ const Context = createContext<{
   deleteBlock: (id: string) => void
   addBlock: (block: DataTypeItem) => void
   copyBlock: (id: string) => void
+  isModalOpen: boolean
+  setModalStatus: (status: boolean) => void
+  chosenTaskID: string
+  setChosenTaskID: (taskID: string) => void
 }>({
   dataAPI: [],
   data: [],
   deleteBlock: () => {},
   addBlock: () => {},
   copyBlock: () => {},
+  isModalOpen: false,
+  setModalStatus: () => {},
+  chosenTaskID: '',
+  setChosenTaskID: () => {},
 })
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [data, EditData] = useState<DataType>([{ type: 'title', id: '01' }])
+  const [isModalOpen, setModalStatus] = useState(false)
+  const [chosenTaskID, setChosenTaskID] = useState('')
 
   // TODO get from API
   useEffect(() => {
@@ -81,7 +91,17 @@ export default function Providers({ children }: { children: ReactNode }) {
     EditData((prevState) => prevState.toSpliced(index, 0, { ...block, id: generateId() }))
   }
 
-  const value = { dataAPI, data, deleteBlock, addBlock, copyBlock }
+  const value = {
+    dataAPI,
+    data,
+    deleteBlock,
+    addBlock,
+    copyBlock,
+    isModalOpen,
+    setModalStatus,
+    chosenTaskID,
+    setChosenTaskID,
+  }
   return (
     <ConfigProvider theme={ThemeConfig}>
       <Context.Provider value={value}>{children}</Context.Provider>

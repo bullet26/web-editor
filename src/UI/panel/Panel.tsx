@@ -30,9 +30,8 @@ function getItem(
 export const Panel = () => {
   const [disabledBtn, setDisabledBtnStatus] = useState(true)
   const [chosenItem, setChosenItem] = useState<string | null>(null)
-  const [modalStatus, setModalStatus] = useState(false)
 
-  const { addBlock } = useMyContext()
+  const { addBlock, setModalStatus, setChosenTaskID } = useMyContext()
 
   const clickMenuItem: MenuProps['onClick'] = (e) => {
     const [item, category] = e.keyPath
@@ -42,6 +41,7 @@ export const Panel = () => {
       setChosenItem(item)
     } else if (category === 'sub2') {
       setModalStatus(true)
+      setChosenTaskID('')
       setChosenItem(item)
     } else {
       setChosenItem(null)
@@ -56,8 +56,6 @@ export const Panel = () => {
     }
   }
 
-  const closeModal = () => setModalStatus(false)
-
   const items: MenuProps['items'] = [
     getItem('Інформаційнi блоки', 'sub1', null, [
       getItem('Заголовок розділу', 'title', <MenuItemInfo />),
@@ -68,7 +66,7 @@ export const Panel = () => {
       getItem('Власний блок', 'custom', <MenuItemInfo />),
     ]),
     getItem('Завдання та тести', 'sub2', null, [
-      getItem('Правильна відповідь', 'g1', <MenuItemTask />),
+      getItem('Правильна відповідь', 'rightAnswerTask', <MenuItemTask />),
     ]),
     getItem('Службові', 'sub3'),
   ]
@@ -90,7 +88,7 @@ export const Panel = () => {
           Додати блок
         </Button>
       </div>
-      <CreateTaskModal isModalOpen={modalStatus} taskType={chosenItem} handleCancel={closeModal} />
+      <CreateTaskModal taskType={chosenItem} />
     </>
   )
 }

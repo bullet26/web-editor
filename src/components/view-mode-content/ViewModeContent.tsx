@@ -2,6 +2,7 @@
 import { FC, Fragment } from 'react'
 import { Button } from 'antd'
 import { useMyContext } from 'provider'
+import { RightAnswerView } from 'components'
 import s from './ViewModeContent.module.scss'
 
 interface ViewModeContentProps {
@@ -21,7 +22,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           Редагувати
         </Button>
       </div>
-      {data.map(({ text = '', theme = '', type, id, url }) => (
+      {data.map(({ text = '', theme = '', type, id, url, taskData }) => (
         <Fragment key={id}>
           {type === 'text' && (
             <>
@@ -36,6 +37,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           {(type === 'title' || type === 'subtitle' || type === 'note') && (
             <div className={s[type]}>{text}</div>
           )}
+          {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="view" />}
         </Fragment>
       ))}
     </div>

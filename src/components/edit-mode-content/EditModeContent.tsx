@@ -24,8 +24,16 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
       </div>
       <div className={s.wrapper}>
         <div className={s.paragraphWrapper}>
-          {data.map(({ type, text, url, id, theme }) => (
-            <Paragraph key={id} id={id} type={type} text={text} url={url} theme={theme} />
+          {data.map(({ type, text, url, id, theme, taskData }) => (
+            <Paragraph
+              key={id}
+              id={id}
+              type={type}
+              text={text}
+              url={url}
+              theme={theme}
+              taskData={taskData}
+            />
           ))}
         </div>
         <Panel />

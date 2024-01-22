@@ -17,6 +17,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
       }
     case 'custom':
       return { label: 'Власний блок', placeholder: 'Введіть текст та додайте елементи' }
+    case 'rightAnswerTask':
+      return {
+        label: 'Завдання: Правильна відповідь',
+        placeholder: '',
+      }
 
     default:
       return { label: type, placeholder: 'Введіть текст' }
