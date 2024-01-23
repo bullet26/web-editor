@@ -1,1 +1,1 @@
-export { RightAnswerPut } from './RightAnswerPut'
+export { RightAnswerForm } from './right-answer-task/RightAnswerForm'

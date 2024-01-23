@@ -1,6 +1,6 @@
 export const getTitle = (taskType?: string) => {
   switch (taskType) {
-    case 'g1':
+    case 'rightAnswerTask':
       return 'Правильна відповідь'
 
     default:

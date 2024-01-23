@@ -36,12 +36,8 @@ export const Panel = () => {
   const clickMenuItem: MenuProps['onClick'] = (e) => {
     const [item, category] = e.keyPath
 
-    if (category === 'sub1') {
+    if (category === 'sub1' || category === 'sub2') {
       setDisabledBtnStatus(false)
-      setChosenItem(item)
-    } else if (category === 'sub2') {
-      setModalStatus(true)
-      setChosenTaskID('')
       setChosenItem(item)
     } else {
       setChosenItem(null)
@@ -51,8 +47,13 @@ export const Panel = () => {
 
   const clickButton = () => {
     if (!!chosenItem && types.includes(chosenItem)) {
-      const type = chosenItem as Type
-      addBlock({ type, id: '' })
+      if (chosenItem === 'rightAnswerTask') {
+        setChosenTaskID('')
+        setModalStatus(true)
+      } else {
+        const type = chosenItem as Type
+        addBlock({ type, id: '' })
+      }
     }
   }
 

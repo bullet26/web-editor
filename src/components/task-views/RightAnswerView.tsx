@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { Button } from 'antd'
 import { RightAnswerTask } from 'types'
@@ -36,7 +37,7 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
         </div>
       </div>
       <div className={s.subtitle}>{data?.subtitle}</div>
-      <div className={s.title}>{data?.taskText}</div>
+      <div className={s.title} dangerouslySetInnerHTML={{ __html: data?.taskText }} />
       <Button
         type="primary"
         shape="round"

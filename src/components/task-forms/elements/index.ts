@@ -1,4 +1,5 @@
 export { SubmitButtonGroup } from './SubmitButtonGroup'
 export { Input } from './Input'
-export { CheckboxGroup } from './CheckBoxGroup'
+export { CheckboxGroup } from './CheckboxGroup'
 export { DifficultyLevelTab } from './DifficultyLevelTab'
+export { InputFromEditableDiv } from './InputFromEditableDiv'

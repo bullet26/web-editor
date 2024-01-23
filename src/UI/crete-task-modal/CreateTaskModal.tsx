@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { Modal, Divider } from 'antd'
-import { RightAnswerPut } from 'components'
+import { RightAnswerForm } from 'components'
 import { useMyContext } from 'provider'
 import { getTitle } from './utils'
 
 interface CreateTaskModalProps {
-  taskType?: string
+  taskType: string | null
 }
 
 export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
@@ -27,7 +27,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
       cancelButtonProps={{ style: { display: 'none' } }}
       okButtonProps={{ style: { display: 'none' } }}>
       <Divider style={{ margin: '16px 0' }} />
-      {taskType === 'rightAnswerTask' && <RightAnswerPut taskData={initialTaskData} />}
+      {taskType === 'rightAnswerTask' && <RightAnswerForm taskData={initialTaskData} />}
     </Modal>
   )
 }

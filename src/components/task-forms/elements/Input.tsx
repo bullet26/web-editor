@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC } from 'react'
-import { Input as AntInput } from 'antd'
+import { FC, Ref } from 'react'
+import { Input as AntInput, InputRef } from 'antd'
 import { useField } from 'formik'
 import s from './FormElements.module.scss'
 
@@ -9,10 +9,11 @@ interface InputProps {
   placeholder?: string
   type?: 'input' | 'textarea'
   style?: object
+  refProp?: Ref<InputRef>
 }
 
 export const Input: FC<InputProps> = (props) => {
-  const { name, placeholder, type = 'input', style = {} } = props
+  const { name, placeholder, type = 'input', style = {}, refProp } = props
   const [field, meta, helpers] = useField(name)
 
   const { TextArea } = AntInput
@@ -29,6 +30,7 @@ export const Input: FC<InputProps> = (props) => {
             value={field.value}
             onChange={(e) => helpers.setValue(e?.target.value, true)}
             style={style}
+            ref={refProp}
           />
 
           {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
@@ -44,6 +46,7 @@ export const Input: FC<InputProps> = (props) => {
             onChange={(e) => helpers.setValue(e?.target.value, true)}
             rows={4}
             style={{ ...style, resize: 'none' }}
+            ref={refProp}
           />
 
           {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
