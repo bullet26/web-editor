@@ -13,8 +13,6 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
 
   const { data } = useMyContext()
 
-  console.log(data)
-
   return (
     <div className={s.wrapper}>
       <div className={s.buttonGroup}>

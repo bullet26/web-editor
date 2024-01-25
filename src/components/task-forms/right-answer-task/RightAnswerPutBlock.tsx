@@ -1,19 +1,24 @@
-import { FC, useRef } from 'react'
+import { FC, MouseEvent, useRef, useState } from 'react'
 import { Button } from 'antd'
-import { useField } from 'formik'
-import { Input, InputFromEditableDiv } from '../elements'
+import { Input } from '../elements'
+import { InputFromEditableDiv } from './add-skip'
 import s from '../Form.module.scss'
+import { coldColors } from './add-skip/utils'
 
 export const RightAnswerPutBlock: FC = () => {
-  const [field, , helpers] = useField('taskText')
+  const inputName = 'taskText'
+  const inputRef = useRef<HTMLElement>(null)
 
-  const addSkip = () => {
-    let inputValue = field.value
-    const skipItem = `<span contentEditable=false style="display: inline-block; width: 38px; height: 25px; border-bottom: 2px solid #2D8CFF;"/>`
-    inputValue += skipItem
-    console.log(inputValue)
+  const [counterSkip, setCounterSkip] = useState(1)
 
-    helpers.setValue(inputValue, true)
+  const addSkip = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault() // fix for move cursor in the end
+
+    const skipItem = `&nbsp;<span contentEditable=false class="skip" data-skip=${counterSkip} style="border-bottom-color: ${coldColors[counterSkip]}"/>`
+    if (inputRef.current) {
+      document.execCommand('insertHTML', false, skipItem)
+      setCounterSkip((prevState) => prevState + 1)
+    }
   }
 
   return (
@@ -28,7 +33,8 @@ export const RightAnswerPutBlock: FC = () => {
       </div>
       <InputFromEditableDiv
         placeholder="Введіть текст"
-        name="taskText"
+        name={inputName}
+        innerRef={inputRef}
         style={{ margin: '16px 0' }}
       />
       <div className={s.inputTabWrapper}>

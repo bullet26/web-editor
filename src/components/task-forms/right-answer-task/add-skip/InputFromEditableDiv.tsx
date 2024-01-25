@@ -1,27 +1,24 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, useRef, useEffect } from 'react'
+import { FC, RefObject } from 'react'
 import { useField } from 'formik'
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
-import s from './FormElements.module.scss'
+import s from '../RAElements.module.scss'
 
 interface InputProps {
   name: string
   style?: object
   placeholder?: string
+  innerRef: RefObject<HTMLElement>
 }
 
 export const InputFromEditableDiv: FC<InputProps> = (props) => {
-  const { style, name, placeholder } = props
+  const { style, name, placeholder, innerRef } = props
   const [field, meta, helpers] = useField(name)
-  const inputRef = useRef(null)
 
   const onChange = (e: ContentEditableEvent) => {
     const { value } = e.target
     helpers.setValue(value, true)
   }
-
-  // https://stackoverflow.com/questions/69956977/html-contenteditable-keep-caret-position-when-inner-html-changes
-  // https://codepen.io/feketegy/pen/RwGBgyq
 
   return (
     <>
@@ -31,7 +28,7 @@ export const InputFromEditableDiv: FC<InputProps> = (props) => {
         data-placeholder={placeholder}
         style={style}
         onChange={onChange}
-        innerRef={inputRef}
+        innerRef={innerRef}
       />
 
       {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}

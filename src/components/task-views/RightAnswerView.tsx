@@ -37,7 +37,7 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
         </div>
       </div>
       <div className={s.subtitle}>{data?.subtitle}</div>
-      <div className={s.title} dangerouslySetInnerHTML={{ __html: data?.taskText }} />
+      <div className={s.title} dangerouslySetInnerHTML={{ __html: data?.taskText || '' }} />
       <Button
         type="primary"
         shape="round"

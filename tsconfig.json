@@ -32,6 +32,14 @@
       "api/*": ["api/*"]
     }
   },
-  "include": ["src", ".eslintrc.cjs", "vite.config.ts", "./setup-tests.ts"],
+  "include": [
+    "src",
+    ".eslintrc.cjs",
+    "vite.config.ts",
+    "./setup-tests.ts",
+    "../разное_неиспользуемое/AddSkip.tsx",
+    "../разное_неиспользуемое/InputEditable.tsx",
+    "../разное_неиспользуемое/utils.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

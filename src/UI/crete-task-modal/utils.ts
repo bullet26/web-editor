@@ -1,4 +1,4 @@
-export const getTitle = (taskType?: string) => {
+export const getTitle = (taskType: string | null) => {
   switch (taskType) {
     case 'rightAnswerTask':
       return 'Правильна відповідь'

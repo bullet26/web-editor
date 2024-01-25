@@ -7,7 +7,7 @@ export interface RightAnswerTask {
   title: string
   difficultyLevel: 'easy' | 'middle' | 'hard'
   subtitle: string
-  taskText: string
+  taskText: string | TrustedHTML
   parameters: string[]
 }
 

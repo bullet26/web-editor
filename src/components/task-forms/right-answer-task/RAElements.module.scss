@@ -1,0 +1,26 @@
+@import '../../../theme/variables.scss';
+
+.inputDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 12px;
+  height: 180px;
+  width: 100%;
+  font-size: 17px;
+  border-radius: 6px;
+  border: 1px solid $light-border;
+  outline: none;
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    border-color: $main;
+  }
+}
+
+[contentEditable='true']:empty:not(:focus):before {
+  content: attr(data-placeholder);
+  color: $light-border;
+  font-size: 17px;
+}

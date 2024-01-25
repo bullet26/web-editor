@@ -1,40 +1,29 @@
 import { FC, useEffect, useState, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
 import { Divider } from 'antd'
-import { DataTypeItem, DataTypeItemTask, RightAnswerTask } from 'types'
+import { DataTypeItemTask } from 'types'
 import { useMyContext } from 'provider'
 import { Input, SubmitButtonGroup, DifficultyLevelTab, CheckboxGroup } from '../elements'
 import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from '../utils'
 import { RightAnswerPutBlock } from './RightAnswerPutBlock'
 import s from '../Form.module.scss'
 
-interface RightAnswerPutProps {
-  taskData?: DataTypeItem
-}
-
-export const RightAnswerForm: FC<RightAnswerPutProps> = (props) => {
-  const { taskData } = props
-  const { setModalStatus, addBlock } = useMyContext()
-
+export const RightAnswerForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
-  const [id, setID] = useState('')
-  const [initialFormData, setInitialFormData] = useState<RightAnswerTask>(
-    initialValuesRightAnswerPut,
-  )
+  const { setModalStatus, addBlock, chosenTaskID, data } = useMyContext()
 
-  useEffect(() => {
-    if (taskData && taskData.type === 'rightAnswerTask' && Object.hasOwn(taskData, 'taskData')) {
-      const typedObject = taskData as DataTypeItemTask
+  const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
+    null) as DataTypeItemTask | null
 
-      setID(typedObject.id)
-      setInitialFormData(typedObject.taskData)
-    } else {
-      setID('')
-      setInitialFormData(initialValuesRightAnswerPut)
-    }
-  }, [taskData])
+  const checkingRules =
+    !!currentValuesData &&
+    currentValuesData.type === 'rightAnswerTask' &&
+    Object.hasOwn(currentValuesData, 'taskData')
+
+  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesRightAnswerPut
+  const id = currentValuesData?.id
 
   const handleReset = () => {
     formikRef.current?.resetForm()
