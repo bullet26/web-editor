@@ -15,13 +15,13 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
   const { isModalOpen, setModalStatus, chosenTaskID, data } = useMyContext()
 
   const currentType = data.find((item) => item.id === chosenTaskID)?.type
-  const taskType = taskTypeProps || currentType || null
+  const taskType = currentType || taskTypeProps || null
 
   return (
     <Modal
       title={`Завдання: ${getTitle(taskType)}`}
-      destroyOnClose
       open={isModalOpen}
+      destroyOnClose
       onCancel={() => {
         setModalStatus(false)
       }}
@@ -33,3 +33,5 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
     </Modal>
   )
 }
+
+// destroyOnClose - unmount modal after close

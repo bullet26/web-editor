@@ -2,12 +2,21 @@ export const types = ['title', 'subtitle', 'custom', 'note', 'text', 'image', 'r
 
 export type Type = (typeof types)[number]
 
+export interface RightAnswerTaskAnswer {
+  id: string
+  type: 'correct' | 'incorrect'
+  skipNumber?: number
+  value: string
+  color?: string
+}
+
 export interface RightAnswerTask {
   code: string
   title: string
   difficultyLevel: 'easy' | 'middle' | 'hard'
   subtitle: string
   taskText: string | TrustedHTML
+  taskAnswers: RightAnswerTaskAnswer[]
   parameters: string[]
 }
 

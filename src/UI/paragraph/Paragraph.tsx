@@ -38,7 +38,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
         <div className={s.icons}>
           <MoveIcon onClick={() => console.log('MoveIcon')} />
           <CopyIcon onClick={() => copyBlock(id)} />
-          <DeleteIcon onClick={() => deleteBlock(id)} />
+          <DeleteIcon onClick={() => deleteBlock(id)} fill="#EC2028" />
         </div>
       </div>
       {type === 'image' && (

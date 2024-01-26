@@ -1,17 +1,23 @@
-export const coldColors = [
-  '#66c2ff',
+export const colors = [
+  '#3498db',
+  '#0a4cd1',
+  '#2ecc71',
+  '#f39c12',
+  '#1abc9c',
+  '#f20ade',
   '#3366ff',
-  '#3399ff',
-  '#66a3ff',
-  '#99ccff',
-  '#6699cc',
-  '#336699',
-  '#003366',
-  '#003d4c',
-  '#005c99',
-  '#007acc',
-  '#0088cc',
-  '#0099e6',
-  '#00bfff',
-  '#00ccff',
+  '#16a085',
+  '#f1c40f',
+  '#9b59b6',
 ]
+
+export const sortByType = (arr: { type: string }[]) =>
+  arr.sort((a, b) => {
+    if (a.type > b.type) {
+      return 1
+    }
+    if (a.type < b.type) {
+      return -1
+    }
+    return 0
+  })

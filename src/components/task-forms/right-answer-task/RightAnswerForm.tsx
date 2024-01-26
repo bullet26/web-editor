@@ -1,12 +1,12 @@
-import { FC, useEffect, useState, useRef } from 'react'
+import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
 import { Divider } from 'antd'
 import { DataTypeItemTask } from 'types'
 import { useMyContext } from 'provider'
 import { Input, SubmitButtonGroup, DifficultyLevelTab, CheckboxGroup } from '../elements'
 import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from '../utils'
-import { RightAnswerPutBlock } from './RightAnswerPutBlock'
-import s from '../Form.module.scss'
+import { RightAnswerPutBlock } from './add-skip'
+import s from './RAElements.module.scss'
 
 export const RightAnswerForm: FC = () => {
   type FormValues = object

@@ -7,6 +7,7 @@ export const initialValuesRightAnswerPut: RightAnswerTask = {
   difficultyLevel: 'easy',
   subtitle: '',
   taskText: '',
+  taskAnswers: [],
   parameters: [],
 }
 

@@ -38,6 +38,16 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
       </div>
       <div className={s.subtitle}>{data?.subtitle}</div>
       <div className={s.title} dangerouslySetInnerHTML={{ __html: data?.taskText || '' }} />
+      <div className={s.answerBlockWrapper}>
+        {data?.taskAnswers.map(
+          (item) =>
+            item.value && (
+              <Button type="default" shape="round" key={item.id}>
+                {item.value}
+              </Button>
+            ),
+        )}
+      </div>
       <Button
         type="primary"
         shape="round"

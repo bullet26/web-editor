@@ -45,3 +45,11 @@
   font-size: 20px;
   font-weight: 600;
 }
+
+.answerBlockWrapper {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+  column-gap: 16px;
+  row-gap: 16px;
+}
