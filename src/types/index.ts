@@ -5,7 +5,6 @@ export type Type = (typeof types)[number]
 export interface RightAnswerTaskAnswer {
   id: string
   type: 'correct' | 'incorrect'
-  skipNumber?: number
   value: string
   color?: string
 }

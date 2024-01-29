@@ -1,3 +1,5 @@
+export const generateRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`
+
 export const generateId = () => Math.random().toString(36).slice(2, 9)
 
 export const getLabel = (type: string): { label: string; placeholder: string } => {

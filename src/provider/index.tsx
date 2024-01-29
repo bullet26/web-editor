@@ -1,8 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, ReactNode, useContext, useState, useEffect } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
 import { ConfigProvider } from 'antd'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { ThemeConfig } from 'theme/createTheme'
+import update from 'immutability-helper'
 import { DataType, DataTypeItem } from 'types'
 import { generateId } from 'utils'
 
@@ -31,21 +35,21 @@ const dataAPI: DataType = [
 ]
 
 const Context = createContext<{
-  dataAPI: DataType
   data: DataType
   deleteBlock: (id: string) => void
   addBlock: (block: DataTypeItem) => void
   copyBlock: (id: string) => void
+  moveBlock: (dragIndex: number, dropIndex: number) => void
   isModalOpen: boolean
   setModalStatus: (status: boolean) => void
   chosenTaskID: string
   setChosenTaskID: (taskID: string) => void
 }>({
-  dataAPI: [],
   data: [],
   deleteBlock: () => {},
   addBlock: () => {},
   copyBlock: () => {},
+  moveBlock: () => {},
   isModalOpen: false,
   setModalStatus: () => {},
   chosenTaskID: '',
@@ -53,14 +57,11 @@ const Context = createContext<{
 })
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const [data, EditData] = useState<DataType>([{ type: 'title', id: '01' }])
+  const [data, EditData] = useState<DataType>(dataAPI || [{ type: 'title', id: '01' }])
   const [isModalOpen, setModalStatus] = useState(false)
   const [chosenTaskID, setChosenTaskID] = useState('')
 
-  // TODO get from API
-  useEffect(() => {
-    EditData(dataAPI)
-  }, [])
+  // TODO get dataAPI from API
 
   const deleteBlock = (id: string) =>
     EditData((prevState) => prevState.filter((item) => item.id !== id))
@@ -91,12 +92,18 @@ export default function Providers({ children }: { children: ReactNode }) {
     EditData((prevState) => prevState.toSpliced(index, 0, { ...block, id: generateId() }))
   }
 
+  const moveBlock = (dragIndex: number, dropIndex: number) => {
+    const draggedBlock = data[dragIndex]
+
+    EditData(data.toSpliced(dragIndex, 1).toSpliced(dropIndex, 0, draggedBlock))
+  }
+
   const value = {
-    dataAPI,
     data,
     deleteBlock,
     addBlock,
     copyBlock,
+    moveBlock,
     isModalOpen,
     setModalStatus,
     chosenTaskID,
@@ -104,7 +111,9 @@ export default function Providers({ children }: { children: ReactNode }) {
   }
   return (
     <ConfigProvider theme={ThemeConfig}>
-      <Context.Provider value={value}>{children}</Context.Provider>
+      <DndProvider backend={HTML5Backend}>
+        <Context.Provider value={value}>{children}</Context.Provider>
+      </DndProvider>
     </ConfigProvider>
   )
 }

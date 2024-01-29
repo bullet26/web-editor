@@ -27,10 +27,6 @@
 }
 
 .inputDiv {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  flex-wrap: wrap;
   padding: 12px;
   height: 180px;
   width: 100%;
@@ -69,25 +65,5 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
-  }
-}
-
-.redBtn {
-  background-color: $third;
-  color: #fff;
-
-  &:hover {
-    background-color: $third;
-    color: #fff;
-  }
-}
-
-.blueBtn {
-  background-color: $accent;
-  color: #fff;
-
-  &:hover {
-    background-color: $accent;
-    color: #fff;
   }
 }

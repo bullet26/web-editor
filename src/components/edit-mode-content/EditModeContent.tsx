@@ -15,7 +15,7 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
   return (
     <>
       <div className={s.buttonGroup}>
-        <Button type="default" className={s.viewBtn} shape="round" onClick={onViewClick}>
+        <Button type="default" className="blueBtn" shape="round" onClick={onViewClick}>
           Попередній перегляд
         </Button>
         <Button type="primary" shape="round">
@@ -24,7 +24,7 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
       </div>
       <div className={s.wrapper}>
         <div className={s.paragraphWrapper}>
-          {data.map(({ type, text, url, id, theme, taskData }) => (
+          {data.map(({ type, text, url, id, theme, taskData }, index) => (
             <Paragraph
               key={id}
               id={id}
@@ -33,6 +33,7 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
               url={url}
               theme={theme}
               taskData={taskData}
+              index={index}
             />
           ))}
         </div>

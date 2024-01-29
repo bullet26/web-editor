@@ -11,15 +11,10 @@ export const SubmitButtonGroup: FC<SubmitButtonGroupPrps> = (props) => {
 
   return (
     <div className={s.buttonGroup}>
-      <Button
-        className={s.cancelBtn}
-        shape="round"
-        type="default"
-        htmlType="reset"
-        onClick={onReset}>
+      <Button className="blueBtn" shape="round" type="default" htmlType="reset" onClick={onReset}>
         Скасувати
       </Button>
-      <Button className={s.submitBtn} shape="round" type="primary" htmlType="submit">
+      <Button shape="round" type="primary" htmlType="submit">
         Зберегти
       </Button>
     </div>

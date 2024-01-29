@@ -48,8 +48,10 @@
 
 .answerBlockWrapper {
   margin: 24px 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
   column-gap: 16px;
   row-gap: 16px;
 }

@@ -5,7 +5,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
 }
 
 .label {
@@ -23,6 +22,10 @@
   svg {
     width: 24px;
     height: 24px;
+
+    &:first-child {
+      cursor: move;
+    }
   }
 }
 

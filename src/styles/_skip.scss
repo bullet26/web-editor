@@ -1,0 +1,12 @@
+.skip {
+  display: inline-block;
+  width: 38px;
+  height: 25px;
+  border-bottom: 2px solid purple;
+}
+
+.view {
+  .skip {
+    border-bottom-color: black !important;
+  }
+}

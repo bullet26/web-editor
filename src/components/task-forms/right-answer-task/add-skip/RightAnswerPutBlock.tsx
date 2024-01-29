@@ -2,11 +2,11 @@ import { FC, MouseEvent, useRef, useState } from 'react'
 import { Button } from 'antd'
 import { useField } from 'formik'
 import { RightAnswerTaskAnswer } from 'types'
-import { generateId } from 'utils'
+import { generateId, generateRandomColor } from 'utils'
 import { Input } from '../../elements'
 import { InputFromEditableDiv } from './InputFromEditableDiv'
 import { AnswerInput } from './AnswerInput'
-import { colors, sortByType } from './utils'
+import { sortByType } from './utils'
 import s from '../RAElements.module.scss'
 
 export const RightAnswerPutBlock: FC = () => {
@@ -17,31 +17,24 @@ export const RightAnswerPutBlock: FC = () => {
   const [field, meta, helpers] = useField(answerBlockName)
   const [fieldTaskText, , helpersTaskText] = useField(inputName)
 
-  const createdSkips: number = field.value.filter(
-    (item: RightAnswerTaskAnswer) => item.type === 'correct',
-  ).length
-
-  const [counterSkip, setCounterSkip] = useState(createdSkips + 1)
-
   const addSkip = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault() // fix for move cursor in the end
 
     inputRef.current?.focus()
-
     const id = generateId()
+    const color = generateRandomColor()
 
-    const skipItem = `&nbsp;<span contentEditable=false class="skip border-color-${counterSkip}" data-skip="${id}"/>`
+    const skipItem = `&nbsp;<span contentEditable=false class="skip" style="border-bottom-color: ${color}" data-skip="${id}"></span>&nbsp;`
+
     if (inputRef.current) {
       document.execCommand('insertHTML', false, skipItem)
-      setCounterSkip((prevState) => prevState + 1)
 
       const prevStateFieldValue = field.value
       const currentValue: RightAnswerTaskAnswer = {
         type: 'correct',
         id,
-        skipNumber: counterSkip,
         value: '',
-        color: colors[counterSkip - 1],
+        color,
       }
 
       const fieldValues = sortByType([...prevStateFieldValue, currentValue])
@@ -76,7 +69,6 @@ export const RightAnswerPutBlock: FC = () => {
     if (type === 'correct' && inputRef.current) {
       const regex = new RegExp(`<span[^>]*data-skip="${id}"[^>]*><\/span>`, 'g')
       const prevStateFieldValue = fieldTaskText.value
-      setCounterSkip((prevState) => prevState - 1)
 
       helpersTaskText.setValue(prevStateFieldValue.replace(regex, ''), true)
     }
@@ -91,7 +83,7 @@ export const RightAnswerPutBlock: FC = () => {
         <div className={s.inputWrapper}>
           <Input placeholder="Введіть підзаголовок" name="subtitle" />
         </div>
-        <Button shape="round" type="default" className={s.blueBtn} onClick={addSkip}>
+        <Button shape="round" type="default" className="blueBtn" onClick={addSkip}>
           Додати пропуск
         </Button>
       </div>
@@ -103,7 +95,7 @@ export const RightAnswerPutBlock: FC = () => {
       />
       <div className={s.inputTabWrapper}>
         <div className={s.blockTitle}>Варіанти відповідей</div>
-        <Button shape="round" type="default" className={s.redBtn} onClick={addWrongAnswer}>
+        <Button shape="round" type="default" className="redBtn" onClick={addWrongAnswer}>
           + Слово
         </Button>
       </div>
