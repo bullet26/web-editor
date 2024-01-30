@@ -1,12 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useState, useEffect } from 'react'
 import { ConfigProvider } from 'antd'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { ThemeConfig } from 'theme/createTheme'
-import update from 'immutability-helper'
 import { DataType, DataTypeItem } from 'types'
 import { generateId } from 'utils'
 
@@ -39,7 +38,7 @@ const Context = createContext<{
   deleteBlock: (id: string) => void
   addBlock: (block: DataTypeItem) => void
   copyBlock: (id: string) => void
-  moveBlock: (dragIndex: number, dropIndex: number) => void
+  moveBlock: (dragIndex: number, hoverIndex: number) => void
   isModalOpen: boolean
   setModalStatus: (status: boolean) => void
   chosenTaskID: string
@@ -57,11 +56,14 @@ const Context = createContext<{
 })
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const [data, EditData] = useState<DataType>(dataAPI || [{ type: 'title', id: '01' }])
+  const [data, EditData] = useState<DataType>([{ type: 'title', id: '01' }])
   const [isModalOpen, setModalStatus] = useState(false)
   const [chosenTaskID, setChosenTaskID] = useState('')
 
   // TODO get dataAPI from API
+  useEffect(() => {
+    EditData(dataAPI)
+  }, [])
 
   const deleteBlock = (id: string) =>
     EditData((prevState) => prevState.filter((item) => item.id !== id))
@@ -92,10 +94,12 @@ export default function Providers({ children }: { children: ReactNode }) {
     EditData((prevState) => prevState.toSpliced(index, 0, { ...block, id: generateId() }))
   }
 
-  const moveBlock = (dragIndex: number, dropIndex: number) => {
-    const draggedBlock = data[dragIndex]
+  const moveBlock = (dragIndex: number, hoverIndex: number) => {
+    EditData((prevState) => {
+      const draggedBlock = prevState[dragIndex]
 
-    EditData(data.toSpliced(dragIndex, 1).toSpliced(dropIndex, 0, draggedBlock))
+      return prevState.toSpliced(dragIndex, 1).toSpliced(hoverIndex, 0, draggedBlock)
+    })
   }
 
   const value = {

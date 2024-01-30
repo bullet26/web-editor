@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, useRef } from 'react'
+import { FC } from 'react'
 import { Input } from 'antd'
-import { useDrag, useDrop } from 'react-dnd'
 import { RightAnswerTask, Type } from 'types'
 import { RightAnswerView } from 'components'
 import { DraftEditor, DropZone } from 'UI'
@@ -17,15 +16,12 @@ interface ParagraphProps {
   theme?: string
   taskData?: RightAnswerTask
   id: string
-  index: number
 }
 
 export const Paragraph: FC<ParagraphProps> = (props) => {
-  const { deleteBlock, addBlock, copyBlock, moveBlock } = useMyContext()
-  const ref = useRef(null)
-  const dragType = 'PARAGRAPH'
+  const { deleteBlock, addBlock, copyBlock } = useMyContext()
 
-  const { text, type, id, url, theme, taskData, index } = props
+  const { text, type, id, url, theme, taskData } = props
   const { label, placeholder } = getLabel(type)
 
   const onChangeDraft = (inputText: string) => {
@@ -36,49 +32,8 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
     addBlock({ type: 'image', id, url: inputUrl })
   }
 
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: dragType,
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-    drop: (item: { id: string; index: number }) => {
-      if (!ref.current) {
-        return
-      }
-
-      const dragIndex = item.index
-      const dropIndex = index
-
-      if (dragIndex === dropIndex) {
-        return
-      }
-
-      moveBlock(dragIndex, dropIndex)
-    },
-  }))
-
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: dragType,
-    item: { id, index },
-    collect: (monitor) => {
-      return {
-        isDragging: monitor.isDragging(),
-      }
-    },
-  }))
-
-  drag(drop(ref)) //  Initialize drag and drop into the element
-
-  const isActiveDrop = canDrop && isOver
-
   return (
-    <div
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        border: isActiveDrop ? '5px solid green' : '5px solid transparent',
-      }}
-      ref={ref}>
+    <>
       <div className={s.wrapper}>
         <div className={s.label}>{label}</div>
         <div className={s.icons}>
@@ -125,6 +80,6 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
         />
       )}
       {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="edit" />}
-    </div>
+    </>
   )
 }
