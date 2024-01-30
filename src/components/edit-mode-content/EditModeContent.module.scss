@@ -1,0 +1,47 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 24px;
+}
+
+.paragraphWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 8px;
+  flex: 1;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 31px;
+}
+
+.theme {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 21px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 40px;
+  margin-bottom: 29px;
+}

@@ -1,0 +1,34 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  height: 427px;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid $light-border;
+
+  img {
+    width: 100%;
+    height: 95%;
+    object-fit: contain;
+  }
+}
+
+.uploadWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonWrapper {
+  padding: 5px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  column-gap: 18px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}

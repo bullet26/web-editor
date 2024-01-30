@@ -1,0 +1,7 @@
+export { ReactComponent as DeleteIcon } from './delete-icon.svg'
+export { ReactComponent as CopyIcon } from './copy-icon.svg'
+export { ReactComponent as MoveIcon } from './move-icon.svg'
+export { ReactComponent as MenuItemTask } from './menu-item-task.svg'
+export { ReactComponent as MenuItemInfo } from './menu-item-info.svg'
+export { ReactComponent as ImageIcon } from './image-icon.svg'
+export { ReactComponent as UploadIcon } from './upload-icon.svg'

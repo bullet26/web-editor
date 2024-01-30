@@ -1,0 +1,56 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.icons {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  column-gap: 24px;
+  justify-content: flex-end;
+
+  svg {
+    width: 24px;
+    height: 24px;
+
+    &:first-child {
+      cursor: move;
+    }
+  }
+}
+
+.paragraph {
+  border-radius: 6px;
+  border: 1px solid $light-border;
+  padding: 5px 12px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.theme {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+}

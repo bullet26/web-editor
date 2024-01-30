@@ -1,0 +1,21 @@
+@import '../theme/variables.scss';
+
+.redBtn {
+  background-color: $third;
+  color: #fff;
+
+  &:hover {
+    background-color: $third;
+    color: #fff;
+  }
+}
+
+.blueBtn {
+  background-color: $accent;
+  color: #fff;
+
+  &:hover {
+    background-color: $accent;
+    color: #fff;
+  }
+}
