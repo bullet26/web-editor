@@ -1,7 +1,8 @@
 import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
 import { Divider } from 'antd'
-import { DataTypeItemTask } from 'types'
+import DOMPurify from 'dompurify'
+import { DataTypeItemTask, RightAnswerTask } from 'types'
 import { useMyContext } from 'provider'
 import { Input, SubmitButtonGroup, DifficultyLevelTab, CheckboxGroup } from '../elements'
 import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from '../utils'
@@ -38,7 +39,17 @@ export const RightAnswerForm: FC = () => {
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const block = { id, type: 'rightAnswerTask', taskData: values } as DataTypeItemTask
+        const taskText = (values as RightAnswerTask).taskText || ''
+        // XSS sanitizer for HTML,
+        const cleanHTML = DOMPurify.sanitize(taskText, {
+          ALLOWED_ATTR: ['style', 'class', 'contentEditable', 'data-skip'],
+        })
+
+        const block = {
+          id,
+          type: 'rightAnswerTask',
+          taskData: { ...values, taskText: cleanHTML },
+        } as DataTypeItemTask
         addBlock(block)
         setModalStatus(false)
         resetForm()

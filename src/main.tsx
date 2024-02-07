@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom/client'
-import Providers from 'provider'
+import { Providers } from 'provider/Provider'
 import { App } from './App'
 
 import './index.scss'
 
 // declare global {
 //   interface Window {
-//     initPlugin: (id: string) => void
+//     initPlugin: (id: string) => BubbleStateManager
 //   }
 // }
 

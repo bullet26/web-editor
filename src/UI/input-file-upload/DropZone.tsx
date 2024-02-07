@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import { ImageIcon, UploadIcon, DeleteIcon } from 'assets'
-import { message, Upload } from 'antd'
+import { Input, message, Upload } from 'antd'
 import type { GetProp, UploadProps } from 'antd'
 import s from './DropZone.module.scss'
 
@@ -9,7 +9,9 @@ interface DropZoneProps {
   label: string
   url?: string
   placeholder: string
-  onChange: (inputUrl: string) => void
+  imageCaption: string
+  id?: string
+  onChange: (inputUrl: string, inputImageCaption?: string, id?: string) => void
 }
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0]
@@ -33,38 +35,31 @@ const beforeUpload = (file: FileType) => {
 }
 
 export const DropZone: FC<DropZoneProps> = (props) => {
-  const { label, url = '', placeholder, onChange } = props
-  const [imageUrl, setImageURL] = useState(url)
+  const { label, url = '', imageCaption = '', placeholder, onChange, id } = props
   const [file, setFile] = useState<Blob | null>(null)
 
   const handleChange: UploadProps['onChange'] = (info) => {
-    if (info.file.status === 'done') {
-      console.log(info.file)
+    console.log(info.file)
 
-      getBase64(info.file.originFileObj as FileType, (inputUrl) => {
-        setImageURL(inputUrl)
-      })
-    }
+    getBase64(info.file.originFileObj as FileType, (inputUrl) => {
+      onChange(inputUrl, imageCaption, id)
+    })
   }
-
-  useEffect(() => {
-    onChange(imageUrl)
-  }, [imageUrl])
 
   const handleCancel = () => {
     setFile(null)
-    setImageURL('')
+    onChange('', '', id)
   }
 
   const handleUpload = async () => {
     const formData = new FormData()
-    !!file && formData.append(label, file)
+    if (file) {
+      formData.append(label, file)
+    }
 
     try {
       // TODO make request
-      // action	Uploading URL
-      // либо заюзать customRequest	/ см доку
-      // body: formData
+      fetch('https://dummyjson.com/products/1').then((res) => res.json())
     } catch (e) {
       message.error('Нажаль зображення не вдалось завантажити')
     }
@@ -72,35 +67,46 @@ export const DropZone: FC<DropZoneProps> = (props) => {
 
   return (
     <div className={s.wrapper}>
-      <Upload
-        name="avatar"
-        listType="picture"
-        showUploadList={false}
-        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-        beforeUpload={beforeUpload}
-        onChange={handleChange}>
-        {imageUrl ? (
-          <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-        ) : (
-          <div className={s.uploadWrapper}>
-            <ImageIcon />
-            <div>{placeholder}</div>
+      <div className={s.dropZoneWrapper}>
+        <Upload
+          name="avatar"
+          listType="picture"
+          showUploadList={false}
+          customRequest={handleUpload}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}>
+          {url ? (
+            <img src={url} alt="avatar" style={{ width: '100%' }} />
+          ) : (
+            <div className={s.uploadWrapper}>
+              <ImageIcon />
+              <div>{placeholder}</div>
+            </div>
+          )}
+        </Upload>
+        {url && (
+          <div className={s.buttonWrapper}>
+            <UploadIcon
+              onClick={() => {
+                handleUpload()
+              }}
+            />
+            <DeleteIcon
+              fill="#ffdb29"
+              onClick={() => {
+                handleCancel()
+              }}
+            />
           </div>
         )}
-      </Upload>
-      {imageUrl && (
-        <div className={s.buttonWrapper}>
-          <UploadIcon
-            onClick={() => {
-              handleUpload()
-            }}
-          />
-          <DeleteIcon
-            onClick={() => {
-              handleCancel()
-            }}
-          />
-        </div>
+      </div>
+      {url && (
+        <Input
+          placeholder="Введіть текст (не обо`язково)"
+          className={s.input}
+          value={imageCaption}
+          onChange={(event) => onChange(url, event.target.value, id)}
+        />
       )}
     </div>
   )

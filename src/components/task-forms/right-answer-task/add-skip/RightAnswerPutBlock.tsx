@@ -6,7 +6,7 @@ import { generateId, generateRandomColor } from 'utils'
 import { Input } from '../../elements'
 import { InputFromEditableDiv } from './InputFromEditableDiv'
 import { AnswerInput } from './AnswerInput'
-import { sortByType } from './utils'
+import { moveCursorToEnd, getCursorPosition, sortAnswers } from './utils'
 import s from '../RAElements.module.scss'
 
 export const RightAnswerPutBlock: FC = () => {
@@ -20,27 +20,33 @@ export const RightAnswerPutBlock: FC = () => {
   const addSkip = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault() // fix for move cursor in the end
 
-    inputRef.current?.focus()
     const id = generateId()
     const color = generateRandomColor()
 
-    const skipItem = `&nbsp;<span contentEditable=false class="skip" style="border-bottom-color: ${color}" data-skip="${id}"></span>&nbsp;`
+    const skipItem = `<span contentEditable=false class="skip" style="border-bottom-color: ${color}" data-skip="${id}"></span>&nbsp;`
 
-    if (inputRef.current) {
-      document.execCommand('insertHTML', false, skipItem)
-
-      const prevStateFieldValue = field.value
-      const currentValue: RightAnswerTaskAnswer = {
-        type: 'correct',
-        id,
-        value: '',
-        color,
-      }
-
-      const fieldValues = sortByType([...prevStateFieldValue, currentValue])
-
-      helpers.setValue(fieldValues, true)
+    if (!inputRef.current) {
+      return
     }
+
+    inputRef.current.focus()
+    if (!getCursorPosition(inputRef)) {
+      moveCursorToEnd(inputRef)
+    }
+
+    document.execCommand('insertHTML', false, skipItem)
+
+    const prevStateFieldValue = field.value
+    const currentValue: RightAnswerTaskAnswer = {
+      type: 'correct',
+      id,
+      value: '',
+      color,
+    }
+
+    const fieldValues = sortAnswers(inputRef, [...prevStateFieldValue, currentValue])
+
+    helpers.setValue(fieldValues, true)
   }
 
   const addWrongAnswer = () => {

@@ -6,10 +6,12 @@ export const initialValuesRightAnswerPut: RightAnswerTask = {
   title: '',
   difficultyLevel: 'easy',
   subtitle: '',
-  taskText: '',
+  taskText: '&nbsp;&nbsp;',
   taskAnswers: [],
   parameters: [],
 }
+// taskText: '&nbsp;', - fix чтобы можно было принудительно поставить прочерк в начале строки
+// потому что при 0 положении курсора, если ставить прочерк, то он поставится в конце строка (для несфокусированого инпута)
 
 export const validationSchemaRightAnswerPut = Yup.object({
   code: Yup.string(),

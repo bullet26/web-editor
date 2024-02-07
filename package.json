@@ -13,6 +13,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@draft-js-plugins/editor": "^4.1.4",
+    "@tanstack/react-query": "^5.18.0",
     "antd": "^5.8.3",
     "dnd-core": "^16.0.1",
     "dompurify": "^3.0.8",
@@ -20,7 +21,7 @@
     "draftjs-to-html": "^0.9.1",
     "formik": "^2.4.5",
     "html-to-draftjs": "^1.5.0",
-    "ky": "^1.0.1",
+    "ky": "^1.2.0",
     "react": "^18.2.0",
     "react-contenteditable": "^3.3.7",
     "react-dnd": "^16.0.1",
@@ -56,6 +57,7 @@
     "sass": "^1.66.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-babel": "^1.2.0",
     "vitest": "^0.34.3"
   }
 }

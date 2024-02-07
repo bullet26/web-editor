@@ -24,14 +24,15 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
       </div>
       <div className={s.wrapper}>
         <div className={s.paragraphWrapper}>
-          {data.map(({ type, text, url, id, theme, taskData }, index) => (
+          {data.map(({ type, text, url, id, tableColumns, taskData, imageCaption }, index) => (
             <DragAndDropParagraph
               key={id}
               id={id}
               type={type}
               text={text}
               url={url}
-              theme={theme}
+              imageCaption={imageCaption}
+              tableColumns={tableColumns}
               taskData={taskData}
               index={index}
             />

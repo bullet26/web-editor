@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  column-gap: 16px;
+  row-gap: 8px;
+}
+
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+
+  svg {
+    cursor: pointer;
+  }
+}

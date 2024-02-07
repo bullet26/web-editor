@@ -2,14 +2,15 @@ import { FC, useRef } from 'react'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { useDrag, useDrop } from 'react-dnd'
 import { useMyContext } from 'provider'
-import { RightAnswerTask, Type } from 'types'
+import { RightAnswerTask, Type, DataTypeItem } from 'types'
 import { Paragraph } from './Paragraph'
 
 interface ParagraphProps {
   type: Type
   text?: string
   url?: string
-  theme?: string
+  imageCaption?: string
+  tableColumns?: DataTypeItem[]
   taskData?: RightAnswerTask
   id: string
   index: number

@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
+import babel from 'vite-plugin-babel'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [react(), svgr(), babel()],
   base: './',
   build: {
     assetsInlineLimit: 0,

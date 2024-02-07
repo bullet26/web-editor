@@ -1,4 +1,4 @@
-export const types = ['title', 'subtitle', 'custom', 'note', 'text', 'image', 'rightAnswerTask']
+export const types = ['title', 'subtitle', 'custom', 'note', 'image', 'table', 'rightAnswerTask']
 
 export type Type = (typeof types)[number]
 
@@ -14,7 +14,7 @@ export interface RightAnswerTask {
   title: string
   difficultyLevel: 'easy' | 'middle' | 'hard'
   subtitle: string
-  taskText: string | TrustedHTML
+  taskText: string
   taskAnswers: RightAnswerTaskAnswer[]
   parameters: string[]
 }
@@ -26,8 +26,9 @@ export type DataTypeItem = {
   type: Type
   id: string
   url?: string
-  theme?: string
   taskData?: TaskType
+  tableColumns?: DataTypeItem[]
+  imageCaption?: string
 }
 
 export type DataType = DataTypeItem[]

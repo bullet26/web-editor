@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Button, Menu } from 'antd'
 import type { MenuProps } from 'antd'
+import { generateId } from 'utils'
 import { MenuItemInfo, MenuItemTask } from 'assets'
 import { useMyContext } from 'provider'
 import { types, Type } from 'types'
@@ -36,7 +37,7 @@ export const Panel = () => {
   const clickMenuItem: MenuProps['onClick'] = (e) => {
     const [item, category] = e.keyPath
 
-    if (category === 'sub1' || category === 'sub2') {
+    if (category === 'sub1' || category === 'sub2' || category === 'sub3') {
       setDisabledBtnStatus(false)
       setChosenItem(item)
     } else {
@@ -50,6 +51,24 @@ export const Panel = () => {
       if (chosenItem === 'rightAnswerTask') {
         setChosenTaskID('')
         setModalStatus(true)
+      } else if (chosenItem === 'table') {
+        const type = chosenItem as Type
+        addBlock({
+          type,
+          id: '',
+          tableColumns: [
+            {
+              type: 'custom',
+              id: generateId(),
+              text: '',
+            },
+            {
+              type: 'image',
+              id: generateId(),
+              url: '',
+            },
+          ],
+        })
       } else {
         const type = chosenItem as Type
         addBlock({ type, id: '' })
@@ -61,15 +80,16 @@ export const Panel = () => {
     getItem('Інформаційнi блоки', 'sub1', null, [
       getItem('Заголовок розділу', 'title', <MenuItemInfo />),
       getItem('Підзаголовок', 'subtitle', <MenuItemInfo />),
-      getItem('Розділ+Текст', 'text', <MenuItemInfo />),
-      getItem('Примітки для викладача', 'note', <MenuItemInfo />),
-      getItem('Картинка', 'image', <MenuItemInfo />),
-      getItem('Власний блок', 'custom', <MenuItemInfo />),
+      getItem('Зображення', 'image', <MenuItemInfo />),
+      getItem('Загальний блок', 'custom', <MenuItemInfo />),
+      getItem('Два блоки', 'table', <MenuItemInfo />),
     ]),
     getItem('Завдання та тести', 'sub2', null, [
       getItem('Правильна відповідь', 'rightAnswerTask', <MenuItemTask />),
     ]),
-    getItem('Службові', 'sub3'),
+    getItem('Службові', 'sub3', null, [
+      getItem('Примітки для викладача', 'note', <MenuItemInfo />),
+    ]),
   ]
 
   return (

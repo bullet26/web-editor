@@ -8,8 +8,6 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
       return { label: 'Заголовок розділу', placeholder: 'Введіть назву розділу' }
     case 'subtitle':
       return { label: 'Підзаголовок', placeholder: 'Введіть підзаголовок' }
-    case 'text':
-      return { label: 'Розділ+Текст', placeholder: 'Введіть розділ | Введіть текст' }
     case 'note':
       return { label: 'Примітки для викладача', placeholder: 'Введіть примітки для викладача' }
     case 'image':
@@ -19,6 +17,8 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
       }
     case 'custom':
       return { label: 'Власний блок', placeholder: 'Введіть текст та додайте елементи' }
+    case 'table':
+      return { label: 'Два блоки', placeholder: 'Введіть текст та додайте елементи' }
     case 'rightAnswerTask':
       return {
         label: 'Завдання: Правильна відповідь',
