@@ -4,13 +4,7 @@ import legacy from '@vitejs/plugin-legacy'
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    svgr(),
-    legacy({
-      targets: ['defaults', 'chrome >= 109'],
-    }),
-  ],
+  plugins: [react(), svgr(), legacy()],
   base: './',
   build: {
     assetsInlineLimit: 0,
