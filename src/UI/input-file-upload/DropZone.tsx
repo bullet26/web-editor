@@ -41,6 +41,8 @@ export const DropZone: FC<DropZoneProps> = (props) => {
   const handleChange: UploadProps['onChange'] = (info) => {
     console.log(info.file)
 
+    if (!info.file || !info.file.originFileObj) return
+
     getBase64(info.file.originFileObj as FileType, (inputUrl) => {
       onChange(inputUrl, imageCaption, id)
     })

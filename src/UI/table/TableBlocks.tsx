@@ -51,7 +51,6 @@ export const TableBlocks: FC<TableBlocksProps> = (props) => {
       }
       return item
     })
-    console.log(tableColumns)
 
     addBlock({ type: 'table', id, tableColumns })
   }
