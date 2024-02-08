@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     svgr(),
     legacy({
-      targets: ['defaults', 'not IE 11'],
+      targets: ['defaults', 'chrome >= 109'],
     }),
   ],
   base: './',
