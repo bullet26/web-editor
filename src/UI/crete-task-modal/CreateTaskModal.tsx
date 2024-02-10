@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Modal, Divider } from 'antd'
+import { useBlocks, useChosenTask, useModal } from 'store'
 import { RightAnswerForm } from 'components'
-import { useMyContext } from 'provider'
 import { Type } from 'types'
 import { getTitle } from './utils'
 
@@ -12,7 +12,10 @@ interface CreateTaskModalProps {
 export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
   const { taskType: taskTypeProps } = props
 
-  const { isModalOpen, setModalStatus, chosenTaskID, data } = useMyContext()
+  const data = useBlocks((state) => state.data)
+  const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
+  const isModalOpen = useModal((state) => state.isModalOpen)
+  const closeModal = useModal((state) => state.closeModal)
 
   const currentType = data.find((item) => item.id === chosenTaskID)?.type
   const taskType = currentType || taskTypeProps || null
@@ -23,7 +26,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
       open={isModalOpen}
       destroyOnClose
       onCancel={() => {
-        setModalStatus(false)
+        closeModal()
       }}
       width={888}
       cancelButtonProps={{ style: { display: 'none' } }}

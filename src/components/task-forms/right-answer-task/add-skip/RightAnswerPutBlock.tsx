@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useRef, useState } from 'react'
+import { FC, MouseEvent, useRef } from 'react'
 import { Button } from 'antd'
 import { useField } from 'formik'
 import { RightAnswerTaskAnswer } from 'types'

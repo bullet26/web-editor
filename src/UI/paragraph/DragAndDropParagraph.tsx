@@ -1,7 +1,7 @@
 import { FC, useRef } from 'react'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { useDrag, useDrop } from 'react-dnd'
-import { useMyContext } from 'provider'
+import { useBlocks } from 'store'
 import { RightAnswerTask, Type, DataTypeItem } from 'types'
 import { Paragraph } from './Paragraph'
 
@@ -23,7 +23,8 @@ interface DragItem {
 }
 
 export const DragAndDropParagraph: FC<ParagraphProps> = (props) => {
-  const { moveBlock } = useMyContext()
+  const moveBlock = useBlocks((state) => state.moveBlock)
+
   const { id, index } = props
 
   const ref = useRef<HTMLDivElement>(null)

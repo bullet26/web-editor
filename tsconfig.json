@@ -18,6 +18,7 @@
 
     "baseUrl": "src",
     "paths": {
+      "store/*": ["store/*"],
       "assets/*": ["assets/*"],
       "components/*": ["components/*"],
       "hooks/*": ["hooks/*"],

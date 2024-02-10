@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC } from 'react'
 import { Input } from 'antd'
+import { useBlocks } from 'store'
 import { RightAnswerTask, Type, DataTypeItem } from 'types'
 import { RightAnswerView } from 'components'
 import { DraftEditor, DropZone, TableBlocks } from 'UI'
 import { DeleteIcon, CopyIcon, MoveIcon } from 'assets'
-import { useMyContext } from 'provider'
 import { getLabel } from 'utils'
 import s from './Paragraph.module.scss'
 
@@ -20,7 +20,9 @@ interface ParagraphProps {
 }
 
 export const Paragraph: FC<ParagraphProps> = (props) => {
-  const { deleteBlock, addBlock, copyBlock } = useMyContext()
+  const addBlock = useBlocks((state) => state.addBlock)
+  const deleteBlock = useBlocks((state) => state.deleteBlock)
+  const copyBlock = useBlocks((state) => state.copyBlock)
 
   const { text, type, id, url, taskData, imageCaption = '', tableColumns = [] } = props
   const { label, placeholder } = getLabel(type)

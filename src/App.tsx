@@ -1,27 +1,27 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { message, Spin } from 'antd'
 import { ViewModeContent, EditModeContent } from 'components'
-import { useBlocksQuery } from 'hooks'
+import { useBlocks } from 'store'
 
 export const App: FC = () => {
+  const fetchBlocks = useBlocks((state) => state.fetchBlocks)
+  const isLoading = useBlocks((state) => state.isLoading)
+  const isError = useBlocks((state) => state.isError)
+  const error = useBlocks((state) => state.error)
+
   const [isEditMode, setEditModeStatus] = useState(true)
 
-  const state = '1' // TODO state можно передать id урока например
-  // const { data, isLoading, isSuccess, isError, error } = useBlocksQuery(state)
-
-  // const data = queryClient.getQueryData(queryKey)
-  // getQueryData is a synchronous function that can be used to get an existing query's cached data.
-
-  const isLoading = false
-  const isError = false
-  const error = { message: '' }
-  const isSuccess = true
+  // TODO get dataAPI from API
+  useEffect(() => {
+    //fetchBlocks()
+  }, [])
 
   return (
     <>
       {isLoading && <Spin size="large" fullscreen />}
-      {isError && message.error(error.message)}
-      {isSuccess &&
+      {isError && message.error(error)}
+      {!isLoading &&
+        !isError &&
         (isEditMode ? (
           <EditModeContent onViewClick={() => setEditModeStatus(false)} />
         ) : (

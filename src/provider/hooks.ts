@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from 'react'
-import { BubbleContext, Context } from './initialState'
+import { BubbleContext } from './Provider'
 import { BubbleStateManager } from './BubbleStateManager'
-
-export const useMyContext = () => useContext(Context)
 
 // for extracting the instance of the Bubble State Manager from the context.
 export const useBubbleStateManager = <T>(): BubbleStateManager<T> => useContext(BubbleContext)

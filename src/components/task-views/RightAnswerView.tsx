@@ -1,8 +1,8 @@
 /* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { Button } from 'antd'
+import { useChosenTask, useModal } from 'store'
 import { RightAnswerTask } from 'types'
-import { useMyContext } from 'provider'
 import s from './TaskView.module.scss'
 
 interface RightAnswerViewProps {
@@ -13,11 +13,13 @@ interface RightAnswerViewProps {
 
 export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
   const { data, id, mode } = props
-  const { setModalStatus, setChosenTaskID } = useMyContext()
+
+  const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
+  const openModal = useModal((state) => state.openModal)
 
   const onEdit = () => {
     setChosenTaskID(id)
-    setModalStatus(true)
+    openModal()
   }
 
   return (
