@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import { FC, Fragment } from 'react'
 import { Button } from 'antd'
-import { useMyContext } from 'provider'
+import { useBlocks } from 'store'
 import { RightAnswerView } from 'components'
 import s from './ViewModeContent.module.scss'
 
@@ -11,7 +11,7 @@ interface ViewModeContentProps {
 export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
   const { onEditClick } = props
 
-  const { data } = useMyContext()
+  const data = useBlocks((state) => state.data)
 
   return (
     <div className={s.wrapper}>

@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import { Button, Menu } from 'antd'
 import type { MenuProps } from 'antd'
+import { useBlocks, useChosenTask, useModal } from 'store'
 import { generateId } from 'utils'
 import { MenuItemInfo, MenuItemTask } from 'assets'
-import { useMyContext } from 'provider'
 import { types, Type } from 'types'
 import { CreateTaskModal } from 'UI'
 import s from './Panel.module.scss'
@@ -32,7 +32,9 @@ export const Panel = () => {
   const [disabledBtn, setDisabledBtnStatus] = useState(true)
   const [chosenItem, setChosenItem] = useState<string | null>(null)
 
-  const { addBlock, setModalStatus, setChosenTaskID } = useMyContext()
+  const addBlock = useBlocks((state) => state.addBlock)
+  const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
+  const openModal = useModal((state) => state.openModal)
 
   const clickMenuItem: MenuProps['onClick'] = (e) => {
     const [item, category] = e.keyPath
@@ -50,7 +52,7 @@ export const Panel = () => {
     if (!!chosenItem && types.includes(chosenItem)) {
       if (chosenItem === 'rightAnswerTask') {
         setChosenTaskID('')
-        setModalStatus(true)
+        openModal()
       } else if (chosenItem === 'table') {
         const type = chosenItem as Type
         addBlock({

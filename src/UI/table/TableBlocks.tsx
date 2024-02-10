@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Radio } from 'antd'
-import { useMyContext } from 'provider'
+import { useBlocks } from 'store'
 import { ChangeIcon } from 'assets'
 import { getLabel } from 'utils'
 import { DataTypeItem } from 'types'
@@ -15,7 +15,7 @@ interface TableBlocksProps {
 
 export const TableBlocks: FC<TableBlocksProps> = (props) => {
   const { tableColumnQuant, data, id } = props
-  const { addBlock } = useMyContext()
+  const addBlock = useBlocks((state) => state.addBlock)
 
   const onChangeTableItem = (itemId: string, type: 'image' | 'custom') => {
     const tableColumns = data.map((item) => {

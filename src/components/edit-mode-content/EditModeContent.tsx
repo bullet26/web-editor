@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Button } from 'antd'
-import { useMyContext } from 'provider'
+import { useBlocks } from 'store'
 import { Panel, DragAndDropParagraph } from 'UI'
 import s from './EditModeContent.module.scss'
 
@@ -10,7 +10,7 @@ interface EditModeContentProps {
 
 export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const { onViewClick } = props
-  const { data } = useMyContext()
+  const data = useBlocks((state) => state.data)
 
   return (
     <>

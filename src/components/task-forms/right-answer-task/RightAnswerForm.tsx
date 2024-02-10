@@ -3,7 +3,7 @@ import { Formik, Form, FormikProps } from 'formik'
 import { Divider } from 'antd'
 import DOMPurify from 'dompurify'
 import { DataTypeItemTask, RightAnswerTask } from 'types'
-import { useMyContext } from 'provider'
+import { useBlocks, useChosenTask, useModal } from 'store'
 import { Input, SubmitButtonGroup, DifficultyLevelTab, CheckboxGroup } from '../elements'
 import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from '../utils'
 import { RightAnswerPutBlock } from './add-skip'
@@ -13,7 +13,10 @@ export const RightAnswerForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
-  const { setModalStatus, addBlock, chosenTaskID, data } = useMyContext()
+  const addBlock = useBlocks((state) => state.addBlock)
+  const data = useBlocks((state) => state.data)
+  const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
+  const closeModal = useModal((state) => state.closeModal)
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
@@ -28,7 +31,7 @@ export const RightAnswerForm: FC = () => {
 
   const handleReset = () => {
     formikRef.current?.resetForm()
-    setModalStatus(false)
+    closeModal()
   }
 
   // enableReinitialize - Control whether Formik should reset the form if the wrapped component props change (using deep equality).
@@ -51,7 +54,7 @@ export const RightAnswerForm: FC = () => {
           taskData: { ...values, taskText: cleanHTML },
         } as DataTypeItemTask
         addBlock(block)
-        setModalStatus(false)
+        closeModal()
         resetForm()
       }}>
       <Form className={s.form}>

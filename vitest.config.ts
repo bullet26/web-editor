@@ -18,6 +18,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      store: '/src/store/',
       assets: '/src/assets/',
       components: '/src/components/',
       provider: '/src/provider/',
