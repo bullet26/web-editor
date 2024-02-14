@@ -1,122 +1,78 @@
-import { FC, MouseEvent, useRef } from 'react'
-import { Button } from 'antd'
+import { FC, useRef, MouseEvent, KeyboardEvent, CSSProperties, useEffect } from 'react'
+import { Button, Divider } from 'antd'
 import { useField } from 'formik'
-import { RightAnswerTaskAnswer } from 'types'
-import { generateId, generateRandomColor } from 'utils'
-import { Input } from '../../elements'
-import { InputFromEditableDiv } from './InputFromEditableDiv'
-import { AnswerInput } from './AnswerInput'
-import { moveCursorToEnd, getCursorPosition, sortAnswers } from './utils'
+import { useChosenTask } from 'store'
+import { RightAnswerTaskText } from 'types'
+import { AnswerInputBlock, InputFromEditableDiv } from './add-skip-elements'
+import { addSkip, emptyMidAndHardTab, deleteSkipCheck } from './utils'
 import s from '../RAElements.module.scss'
 
-export const RightAnswerPutBlock: FC = () => {
-  const inputName = 'taskText'
-  const answerBlockName = 'taskAnswers'
+interface RightAnswerPutBlockProps {
+  wrapperStyle?: CSSProperties
+  editorStyle?: CSSProperties
+}
+
+export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
+  const { wrapperStyle, editorStyle } = props
 
   const inputRef = useRef<HTMLElement>(null)
+  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
+  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
+
+  const [fieldBlock, , helpersBlock] = useField('taskText')
+
+  useEffect(() => {
+    if (!isOneDifficultyLevel && fieldBlock.value.length < 3) {
+      helpersBlock.setValue([...fieldBlock.value, ...emptyMidAndHardTab], true)
+    }
+  }, [])
+
+  const index: number =
+    fieldBlock.value.findIndex(
+      (item: RightAnswerTaskText) => item.difficultyLevel === difficultyLevel,
+    ) || 0
+
+  const inputName = `taskText[${index}].taskQuestion`
+  const answerBlockName = `taskText[${index}].taskAnswers`
   const [field, meta, helpers] = useField(answerBlockName)
-  const [fieldTaskText, , helpersTaskText] = useField(inputName)
 
-  const addSkip = (event: MouseEvent<HTMLElement>) => {
-    event.preventDefault() // fix for move cursor in the end
-
-    const id = generateId()
-    const color = generateRandomColor()
-
-    const skipItem = `<span contentEditable=false class="skip" style="border-bottom-color: ${color}" data-skip="${id}"></span>&nbsp;`
-
-    if (!inputRef.current) {
-      return
-    }
-
-    inputRef.current.focus()
-    if (!getCursorPosition(inputRef)) {
-      moveCursorToEnd(inputRef)
-    }
-
-    document.execCommand('insertHTML', false, skipItem)
-
-    const prevStateFieldValue = field.value
-    const currentValue: RightAnswerTaskAnswer = {
-      type: 'correct',
-      id,
-      value: '',
-      color,
-    }
-
-    const fieldValues = sortAnswers(inputRef, [...prevStateFieldValue, currentValue])
-
+  const onClickAddSkip = (event: MouseEvent<HTMLElement>) => {
+    const fieldValues = addSkip(event, inputRef, field.value)
     helpers.setValue(fieldValues, true)
   }
 
-  const addWrongAnswer = () => {
-    const prevStateFieldValue = field.value
-    const currentValue: RightAnswerTaskAnswer = {
-      type: 'incorrect',
-      id: generateId(),
-      value: '',
+  const onKeyPressDeleteSkip = () => {
+    const answerBlockNewValue = deleteSkipCheck(inputRef, field.value)
+
+    if (answerBlockNewValue) {
+      helpers.setValue(answerBlockNewValue, true)
     }
-
-    helpers.setValue([...prevStateFieldValue, currentValue], true)
-  }
-
-  const onChangeAnswer = (id: string, value: string) => {
-    const fieldValueS = field.value.map((item: RightAnswerTaskAnswer) => {
-      if (item.id === id) {
-        return { ...item, value }
-      }
-      return item
-    })
-
-    helpers.setValue(fieldValueS, true)
-  }
-
-  const onDeleteSkipAndAnswer = (type: 'correct' | 'incorrect', id: string) => {
-    if (type === 'correct' && inputRef.current) {
-      const regex = new RegExp(`<span[^>]*data-skip="${id}"[^>]*><\/span>`, 'g')
-      const prevStateFieldValue = fieldTaskText.value
-
-      helpersTaskText.setValue(prevStateFieldValue.replace(regex, ''), true)
-    }
-
-    const fieldValueS = field.value.filter((item: RightAnswerTaskAnswer) => item.id !== id)
-    helpers.setValue(fieldValueS, true)
   }
 
   return (
-    <>
-      <div className={s.inputTabWrapper}>
-        <div className={s.inputWrapper}>
-          <Input placeholder="Введіть підзаголовок" name="subtitle" />
-        </div>
-        <Button shape="round" type="default" className="blueBtn" onClick={addSkip}>
+    <div style={wrapperStyle}>
+      <div className={s.buttonWrapperRight}>
+        <Button shape="round" type="default" className="blueBtn" onClick={onClickAddSkip}>
           Додати пропуск
         </Button>
       </div>
-      <InputFromEditableDiv
-        placeholder="Введіть текст"
-        name={inputName}
-        innerRef={inputRef}
-        style={{ margin: '16px 0' }}
-      />
-      <div className={s.inputTabWrapper}>
+      <div style={editorStyle}>
+        <Divider style={{ margin: '16px 0' }} />
+        <InputFromEditableDiv
+          placeholder="Введіть текст"
+          additionalOnChangeFunc={onKeyPressDeleteSkip}
+          name={inputName}
+          innerRef={inputRef}
+          style={{ margin: '16px 0' }}
+        />
         <div className={s.blockTitle}>Варіанти відповідей</div>
-        <Button shape="round" type="default" className="redBtn" onClick={addWrongAnswer}>
-          + Слово
-        </Button>
-      </div>
-      <div className={s.answerBlockWrapper}>
-        {field.value.map((item: RightAnswerTaskAnswer, i: number) => (
-          <AnswerInput
-            {...item}
-            itemNumber={i}
-            onChange={onChangeAnswer}
-            key={item.id}
-            onDelete={onDeleteSkipAndAnswer}
-          />
-        ))}
+        <AnswerInputBlock
+          inputName={inputName}
+          answerBlockName={answerBlockName}
+          inputRef={inputRef}
+        />
       </div>
       {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
-    </>
+    </div>
   )
 }

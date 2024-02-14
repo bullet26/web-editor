@@ -2,20 +2,18 @@
 
 .redBtn {
   background-color: $third;
-  color: #fff;
+  color: #fff !important;
 
   &:hover {
-    background-color: $third;
-    color: #fff;
+    background-color: $third !important;
   }
 }
 
 .blueBtn {
   background-color: $accent;
-  color: #fff;
+  color: #fff !important;
 
   &:hover {
-    background-color: $accent;
-    color: #fff;
+    background-color: $accent !important;
   }
 }

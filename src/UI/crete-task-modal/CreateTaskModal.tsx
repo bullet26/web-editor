@@ -28,7 +28,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
       onCancel={() => {
         closeModal()
       }}
-      width={888}
+      width={1088}
       cancelButtonProps={{ style: { display: 'none' } }}
       okButtonProps={{ style: { display: 'none' } }}>
       <Divider style={{ margin: '16px 0' }} />

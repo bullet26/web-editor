@@ -27,3 +27,18 @@ div {
   justify-content: center;
   align-items: center;
 }
+
+//override tabs base style
+.ant-tabs-nav {
+  justify-content: flex-end;
+  &::before {
+    left: unset !important;
+    width: 25%;
+  }
+}
+.ant-tabs-nav-wrap {
+  flex: none !important;
+}
+.ant-tabs-tab {
+  padding: 3px 0 !important;
+}

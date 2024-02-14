@@ -2,21 +2,22 @@
 import { FC } from 'react'
 import { Input as AntInput } from 'antd'
 import { DeleteIcon } from 'assets'
-import s from '../RAElements.module.scss'
+import s from '../../RAElements.module.scss'
 
 interface InputProps {
-  id: string
+  groupId: string
+  itemId: string
   placeholder?: string
   type: 'correct' | 'incorrect'
   value: string
   color?: string
   itemNumber: number
-  onChange: (id: string, value: string) => void
-  onDelete: (type: 'correct' | 'incorrect', id: string) => void
+  onChange: (groupId: string, itemId: string, value: string) => void
+  onDelete: (groupId: string, itemId: string) => void
 }
 
 export const AnswerInput: FC<InputProps> = (props) => {
-  const { id, value, placeholder, type, color, itemNumber, onChange, onDelete } = props
+  const { groupId, itemId, value, placeholder, type, color, itemNumber, onChange, onDelete } = props
   const { TextArea } = AntInput
 
   let colorText
@@ -33,14 +34,16 @@ export const AnswerInput: FC<InputProps> = (props) => {
     <div>
       <div style={{ color: colorText }} className={s.answerTitle}>
         <span>{text}</span>
-        <DeleteIcon fill={colorText} onClick={() => onDelete(type, id)} />
+        {type === 'incorrect' && (
+          <DeleteIcon fill={colorText} onClick={() => onDelete(groupId, itemId)} />
+        )}
       </div>
       <TextArea
         autoSize
         placeholder={placeholder || 'Введіть слово'}
-        id={id}
+        id={itemId}
         value={value}
-        onChange={(e) => onChange(id, e?.target.value)}
+        onChange={(e) => onChange(groupId, itemId, e?.target.value)}
       />
     </div>
   )

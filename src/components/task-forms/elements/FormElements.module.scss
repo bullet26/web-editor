@@ -9,13 +9,6 @@
   }
 }
 
-.label {
-  font-size: 14px;
-  letter-spacing: -0.28px;
-  font-weight: 400;
-  color: $lightgrey-color-text;
-}
-
 .title {
   font-size: 20px;
   font-weight: 450;
@@ -32,4 +25,12 @@
 
 .error {
   color: tomato;
+}
+
+.label {
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  font-weight: 400;
+  color: $lightgrey-color-text;
+  text-align: right;
 }
