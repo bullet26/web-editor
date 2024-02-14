@@ -10,10 +10,11 @@ interface InputProps {
   type?: 'input' | 'textarea'
   style?: object
   refProp?: Ref<InputRef>
+  className?: string
 }
 
 export const Input: FC<InputProps> = (props) => {
-  const { name, placeholder, type = 'input', style = {}, refProp } = props
+  const { name, placeholder, type = 'input', style = {}, refProp, className } = props
   const [field, meta, helpers] = useField(name)
 
   const { TextArea } = AntInput
@@ -31,6 +32,7 @@ export const Input: FC<InputProps> = (props) => {
             onChange={(e) => helpers.setValue(e?.target.value, true)}
             style={style}
             ref={refProp}
+            className={className}
           />
 
           {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
@@ -47,6 +49,7 @@ export const Input: FC<InputProps> = (props) => {
             rows={4}
             style={{ ...style, resize: 'none' }}
             ref={refProp}
+            className={className}
           />
 
           {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}

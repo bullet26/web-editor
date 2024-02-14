@@ -16,6 +16,7 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
 
   const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
   const openModal = useModal((state) => state.openModal)
+  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
 
   const onEdit = () => {
     setChosenTaskID(id)
@@ -26,30 +27,38 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
     <div className={s.wrapper}>
       <div className={s.outerWrapper}>
         <div className={s.innerWrapper}>
-          <div className={s.subtitle}>{data?.code}</div>
           <div className={s.title}>{data?.title}</div>
         </div>
-        <div className={s.difficultyLevel}>
-          <span className={s.subtitle}>Рівень складності поточного завдання</span>
-          <div className={s.difficultyLevelItems}>
-            <span className={data?.difficultyLevel === 'easy' ? s.active : ''}>Легкий</span>
-            <span className={data?.difficultyLevel === 'middle' ? s.active : ''}>Середній</span>
-            <span className={data?.difficultyLevel === 'hard' ? s.active : ''}>Складний</span>
+        {!isOneDifficultyLevel && (
+          <div className={s.difficultyLevel}>
+            <span className={s.subtitle}>Рівень складності поточного завдання</span>
+            <div className={s.difficultyLevelItems}>
+              <span className={s.active}>Легкий</span>
+              <span>Середній</span>
+              <span>Складний</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <div className={s.subtitle}>{data?.subtitle}</div>
+      <div className={s.subtitle}>{data?.description}</div>
       <div className="view">
-        <div className={s.title} dangerouslySetInnerHTML={{ __html: data?.taskText || '' }} />
+        <div
+          className={s.title}
+          dangerouslySetInnerHTML={{ __html: data?.taskText[0].taskQuestion || '' }}
+        />
         <div className={s.answerBlockWrapper}>
-          {data?.taskAnswers.map(
-            (item) =>
-              item.value && (
-                <Button type="default" shape="round" key={item.id}>
-                  {item.value}
-                </Button>
-              ),
-          )}
+          {data?.taskText[0].taskAnswers.map((item) => (
+            <div className={s.answerGroupWrapper} key={item.id}>
+              {item.answers.map(
+                (subitem) =>
+                  subitem.value && (
+                    <Button type="default" shape="round" key={subitem.id}>
+                      {subitem.value}
+                    </Button>
+                  ),
+              )}
+            </div>
+          ))}
         </div>
       </div>
       <Button

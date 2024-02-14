@@ -1,39 +1,54 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { Tabs } from 'antd'
-import { useField } from 'formik'
 import type { TabsProps } from 'antd'
+import { useChosenTask } from 'store'
 import s from './FormElements.module.scss'
 
-export const DifficultyLevelTab: FC = () => {
-  const fieldName = 'difficultyLevel'
-  const [field, meta, helpers] = useField(fieldName)
+interface DifficultyLevelTabProps {
+  childrenOption: ReactNode
+}
+
+export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
+  const { childrenOption } = props
+  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
+  const setDifficultyLevel = useChosenTask((state) => state.setDifficultyLevel)
 
   const items: TabsProps['items'] = [
     {
       key: 'easy',
       label: 'Легкий',
+      children: childrenOption,
     },
     {
       key: 'middle',
       label: 'Середній',
+      children: childrenOption,
     },
     {
       key: 'hard',
       label: 'Складний',
+      children: childrenOption,
     },
   ]
 
+  const onChange = (key: string) => {
+    if (key === 'easy' || key === 'middle' || key === 'hard') {
+      setDifficultyLevel(key)
+    } else {
+      console.log(key, 'difficultyLevel')
+    }
+  }
+
   return (
-    <div>
-      <span className={s.label}>Рівень складності поточного завдання</span>
+    <>
+      <div className={s.label}>Рівень складності поточного завдання</div>
       <Tabs
         defaultActiveKey="1"
-        activeKey={field.value}
+        activeKey={difficultyLevel}
         items={items}
         tabBarStyle={{ color: 'black' }}
-        onChange={(key: string) => helpers.setValue(key, true)}
+        onChange={(key: string) => onChange(key)}
       />
-      {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
-    </div>
+    </>
   )
 }

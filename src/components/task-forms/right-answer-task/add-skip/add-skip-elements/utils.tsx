@@ -1,19 +1,14 @@
 /* eslint-disable consistent-return */
 import { RefObject } from 'react'
+import { RightAnswerTaskAnswer } from 'types'
 
-export const sortAnswers = (
-  inputRef: RefObject<HTMLElement>,
-  arr: { id: string; type: 'correct' | 'incorrect' }[],
-) => {
+export const sortAnswers = (inputRef: RefObject<HTMLElement>, arr: RightAnswerTaskAnswer[]) => {
   const spanOrder: string[] = []
   inputRef.current
     ?.querySelectorAll('span')
     .forEach((item) => !!item.dataset.skip && spanOrder.push(item.dataset.skip))
 
-  const incorrectAnswers = arr.filter((item) => item.type === 'incorrect')
-  const correctAnswers = spanOrder.map((item) => arr.find((subitem) => subitem.id === item))
-
-  return [...correctAnswers, ...incorrectAnswers]
+  return spanOrder.map((item) => arr.find((subitem) => subitem.id === item))
 }
 
 export const moveCursorToEnd = (ContentEditableRef: RefObject<HTMLElement>) => {
