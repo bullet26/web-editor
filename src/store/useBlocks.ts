@@ -32,7 +32,8 @@ export const useBlocks = create<IBlocks>()(
           set({ error: null })
         } catch (error) {
           set({ isError: true })
-          set({ error: error?.message || 'На жаль щось пішло не так' })
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          set({ error: (error as any)?.message || 'На жаль щось пішло не так' })
         } finally {
           set({ isLoading: false })
         }
