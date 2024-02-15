@@ -15,11 +15,14 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
   const { data, id, mode } = props
 
   const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
+  const setChosenTaskType = useChosenTask((state) => state.setChosenTaskType)
+
   const openModal = useModal((state) => state.openModal)
   const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
 
   const onEdit = () => {
     setChosenTaskID(id)
+    setChosenTaskType('rightAnswerTask')
     openModal()
   }
 

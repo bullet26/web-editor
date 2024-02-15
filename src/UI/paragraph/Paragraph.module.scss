@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .label {
@@ -34,17 +35,14 @@
   font-weight: 500;
 }
 
-.subtitle {
-  font-size: 16px;
-  font-weight: 400;
+.popoverItem {
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  &:hover {
+    background-color: #eeeeee;
+  }
 }
-
-.theme {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.text {
-  font-size: 14px;
-  font-weight: 400;
-}
+//  padding: 4px 8px;

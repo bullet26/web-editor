@@ -40,7 +40,7 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
   }
 
   return (
-    <>
+    <div className="difficultyLevel">
       <div className={s.label}>Рівень складності поточного завдання</div>
       <Tabs
         defaultActiveKey="1"
@@ -49,6 +49,6 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
         tabBarStyle={{ color: 'black' }}
         onChange={(key: string) => onChange(key)}
       />
-    </>
+    </div>
   )
 }

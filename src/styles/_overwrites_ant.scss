@@ -1,0 +1,46 @@
+//override dropZone base style
+.ant-upload {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  height: 92%;
+  justify-content: center;
+  align-items: center;
+}
+
+//override tabs base style
+.difficultyLevel {
+  .ant-tabs-nav {
+    justify-content: flex-end;
+    &::before {
+      left: unset !important;
+      width: 25%;
+    }
+  }
+  .ant-tabs-nav-wrap {
+    flex: none !important;
+  }
+  .ant-tabs-tab {
+    padding: 3px 0 !important;
+  }
+}
+
+.mainTab {
+  .ant-tabs-tab {
+    padding: 7px 0 !important;
+  }
+  .ant-tabs-nav-wrap {
+    justify-content: center !important;
+  }
+}
+
+.templatesTab {
+  .ant-tabs-nav-list {
+    justify-content: space-between !important;
+    width: 100%;
+  }
+  .ant-tabs-tab {
+    width: 33%;
+    justify-content: center !important;
+  }
+}

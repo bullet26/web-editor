@@ -1,24 +1,13 @@
 import { FC } from 'react'
 import { Modal, Divider } from 'antd'
-import { useBlocks, useChosenTask, useModal } from 'store'
+import { useChosenTask, useModal } from 'store'
 import { RightAnswerForm } from 'components'
-import { Type } from 'types'
 import { getTitle } from './utils'
 
-interface CreateTaskModalProps {
-  taskType: Type | null
-}
-
-export const CreateTaskModal: FC<CreateTaskModalProps> = (props) => {
-  const { taskType: taskTypeProps } = props
-
-  const data = useBlocks((state) => state.data)
-  const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
+export const CreateTaskModal: FC = () => {
+  const taskType = useChosenTask((state) => state.taskType)
   const isModalOpen = useModal((state) => state.isModalOpen)
   const closeModal = useModal((state) => state.closeModal)
-
-  const currentType = data.find((item) => item.id === chosenTaskID)?.type
-  const taskType = currentType || taskTypeProps || null
 
   return (
     <Modal
