@@ -1,19 +1,27 @@
 import DeleteIcon from './delete-icon.svg?react'
 import CopyIcon from './copy-icon.svg?react'
 import MoveIcon from './move-icon.svg?react'
-import MenuItemTask from './menu-item-task.svg?react'
-import MenuItemInfo from './menu-item-info.svg?react'
 import ImageIcon from './image-icon.svg?react'
 import UploadIcon from './upload-icon.svg?react'
 import ChangeIcon from './change-icon.svg?react'
+import CloudIcon from './cloud.svg?react'
+import CloudLockIcon from './cloud-lock.svg?react'
+import MoreOptionsIcon from './more-options.svg?react'
+import editorBlockIcon from './editor.png'
+import imageBlockIcon from './image.png'
+import rightAnswerBlockIcon from './right-answer.png'
 
 export {
   DeleteIcon,
   CopyIcon,
   MoveIcon,
-  MenuItemTask,
-  MenuItemInfo,
   ImageIcon,
   UploadIcon,
   ChangeIcon,
+  editorBlockIcon,
+  imageBlockIcon,
+  rightAnswerBlockIcon,
+  CloudIcon,
+  CloudLockIcon,
+  MoreOptionsIcon,
 }

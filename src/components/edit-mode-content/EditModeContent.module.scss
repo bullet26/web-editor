@@ -2,9 +2,9 @@
 
 .wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  column-gap: 24px;
+  row-gap: 20px;
 }
 
 .paragraphWrapper {
@@ -44,4 +44,9 @@
   justify-content: flex-end;
   column-gap: 40px;
   margin-bottom: 29px;
+}
+
+.addBlockBtn {
+  width: 100%;
+  color: #3885e3;
 }

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Button } from 'antd'
-import { useBlocks } from 'store'
-import { Panel, DragAndDropParagraph } from 'UI'
+import { useBlocks, useModal } from 'store'
+import { Panel, DragAndDropParagraph, CreateTaskModal } from 'UI'
 import s from './EditModeContent.module.scss'
 
 interface EditModeContentProps {
@@ -11,6 +11,7 @@ interface EditModeContentProps {
 export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const { onViewClick } = props
   const data = useBlocks((state) => state.data)
+  const openPanel = useModal((state) => state.openPanel)
 
   return (
     <>
@@ -38,8 +39,15 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
             />
           ))}
         </div>
-        <Panel />
+        <Button
+          className={s.addBlockBtn}
+          style={{ height: data.length ? 'auto' : '80vh' }}
+          onClick={openPanel}>
+          + Додати блок
+        </Button>
       </div>
+      <Panel />
+      <CreateTaskModal />
     </>
   )
 }

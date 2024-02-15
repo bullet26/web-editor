@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC } from 'react'
-import { Input } from 'antd'
+import { Input, Popover } from 'antd'
 import { useBlocks } from 'store'
 import { RightAnswerTask, Type, DataTypeItem } from 'types'
 import { RightAnswerView } from 'components'
 import { DraftEditor, DropZone, TableBlocks } from 'UI'
-import { DeleteIcon, CopyIcon, MoveIcon } from 'assets'
+import { DeleteIcon, CopyIcon, MoveIcon, MoreOptionsIcon } from 'assets'
 import { getLabel } from 'utils'
 import s from './Paragraph.module.scss'
 
@@ -41,8 +41,21 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
         <div className={s.label}>{label}</div>
         <div className={s.icons}>
           <MoveIcon />
-          <CopyIcon onClick={() => copyBlock(id)} />
-          <DeleteIcon onClick={() => deleteBlock(id)} fill="#EC2028" />
+          <Popover
+            placement="bottomRight"
+            title={false}
+            content={
+              <>
+                <div className={s.popoverItem} onClick={() => copyBlock(id)}>
+                  <CopyIcon /> Копіювати
+                </div>
+                <div className={s.popoverItem} onClick={() => deleteBlock(id)}>
+                  <DeleteIcon fill="#000" /> Видалити
+                </div>
+              </>
+            }>
+            <MoreOptionsIcon />
+          </Popover>
         </div>
       </div>
       {type === 'image' && (
@@ -57,7 +70,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
       {type === 'custom' && (
         <DraftEditor defaultValue={text} placeholder={placeholder} onChange={onChangeDraft} />
       )}
-      {(type === 'title' || type === 'subtitle' || type === 'note') && (
+      {(type === 'title' || type === 'note') && (
         <Input
           placeholder={placeholder}
           value={text}

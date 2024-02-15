@@ -1,0 +1,41 @@
+.tabItemWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 24px;
+}
+
+.card {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 0px #37373740;
+  width: 424px;
+}
+
+.cardBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardBodyTwoElem {
+  display: flex;
+  justify-content: space-between;
+  img {
+    object-fit: contain;
+    &:first-child {
+      width: 60%;
+    }
+    &:last-child {
+      width: 35%;
+    }
+  }
+}
+
+.input {
+  width: 380px;
+  height: 48px;
+  padding: 12px;
+  color: lightgrey;
+  border-radius: 6px;
+  border: solid lightgrey 1px;
+}
