@@ -2,7 +2,7 @@
 import { FC } from 'react'
 import { Input, Popover, Button } from 'antd'
 import { useBlocks } from 'store'
-import { RightAnswerTask, Type, DataTypeItem } from 'types'
+import { DataTypeItem } from 'types'
 import { RightAnswerView } from 'components'
 import { DraftEditor, DropZone, TableBlocks } from 'UI'
 import {
@@ -17,16 +17,7 @@ import {
 import { getLabel } from 'utils'
 import s from './Paragraph.module.scss'
 
-interface ParagraphProps {
-  type: Type
-  savedInLibrary: boolean
-  text?: string
-  url?: string
-  imageCaption?: string
-  taskData?: RightAnswerTask
-  tableColumns?: DataTypeItem[]
-  id: string
-}
+interface ParagraphProps extends DataTypeItem {}
 
 export const Paragraph: FC<ParagraphProps> = (props) => {
   const addBlock = useBlocks((state) => state.addBlock)

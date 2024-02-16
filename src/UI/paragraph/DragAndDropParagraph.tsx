@@ -2,18 +2,10 @@ import { FC, useRef } from 'react'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { useDrag, useDrop } from 'react-dnd'
 import { useBlocks } from 'store'
-import { RightAnswerTask, Type, DataTypeItem } from 'types'
+import { DataTypeItem } from 'types'
 import { Paragraph } from './Paragraph'
 
-interface ParagraphProps {
-  type: Type
-  savedInLibrary: boolean
-  text?: string
-  url?: string
-  imageCaption?: string
-  tableColumns?: DataTypeItem[]
-  taskData?: RightAnswerTask
-  id: string
+interface ParagraphProps extends DataTypeItem {
   index: number
 }
 
