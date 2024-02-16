@@ -7,6 +7,7 @@ import { Paragraph } from './Paragraph'
 
 interface ParagraphProps {
   type: Type
+  savedInLibrary: boolean
   text?: string
   url?: string
   imageCaption?: string
