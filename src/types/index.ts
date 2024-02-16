@@ -38,7 +38,7 @@ export type DataTypeItem = {
   id: string
   url?: string
   taskData?: TaskType
-  tableColumns?: DataTypeItem[]
+  tableColumns?: Omit<DataTypeItem, 'savedInLibrary'>[]
   imageCaption?: string
 }
 
