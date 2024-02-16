@@ -76,26 +76,39 @@ export const preparedAndSanitizeTaskText = (
   return sanitizeTaskText
 }
 
+const convertDifficultyLevel = (difficultyLevel: string) => {
+  switch (difficultyLevel) {
+    case 'easy':
+      return 'Легкий'
+    case 'middle':
+      return 'Середній'
+    case 'hard':
+      return 'Складний'
+    default:
+      return difficultyLevel
+  }
+}
 export const validateFillTabs = (taskText: RightAnswerTaskText[]) => {
   const tabNotFilled: string[] = []
   taskText.forEach((item) => {
     if (!item.taskQuestion || item.taskQuestion.length < 10) {
-      switch (item.difficultyLevel) {
-        case 'easy':
-          tabNotFilled.push('Легкий')
-          break
-        case 'middle':
-          tabNotFilled.push('Середній')
-          break
-        case 'hard':
-          tabNotFilled.push('Складний')
-          break
-        default:
-          tabNotFilled.push(item.difficultyLevel)
-          break
-      }
+      tabNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
     }
   })
 
   return tabNotFilled
+}
+
+export const validateCorrectAnswer = (taskText: RightAnswerTaskText[]) => {
+  const res: string[] = []
+  taskText.forEach(({ taskAnswers, difficultyLevel }) =>
+    taskAnswers.forEach(({ answers }) =>
+      answers.forEach(({ type, value }) => {
+        if (type === 'correct' && !value) {
+          res.push(convertDifficultyLevel(difficultyLevel))
+        }
+      }),
+    ),
+  )
+  return Array.from(new Set(res))
 }

@@ -9,6 +9,7 @@ import {
   preparedAndSanitizeTaskText,
   validateFillTabs,
   validationSchemaRightAnswerPut,
+  validateCorrectAnswer,
 } from '../utils'
 import { RightAnswerPutBlock } from './add-skip'
 import s from './RAElements.module.scss'
@@ -61,6 +62,16 @@ export const RightAnswerForm: FC = () => {
         const tabNotFilled = validateFillTabs(sanitizeTaskText)
         if (tabNotFilled.length) {
           message.error(`Не всі рівні складності заповнені: ${tabNotFilled.join(', ')}`)
+          return
+        }
+
+        const tabNotFilledCorrectAnswer = validateCorrectAnswer(sanitizeTaskText)
+        if (tabNotFilledCorrectAnswer.length) {
+          message.error(
+            isOneDifficultyLevel
+              ? 'Не заповнена правильна відповідь'
+              : `Не заповнена правильна відповідь на: ${tabNotFilledCorrectAnswer.join(', ')} рівень`,
+          )
           return
         }
 

@@ -52,7 +52,12 @@ export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
   return (
     <div style={wrapperStyle}>
       <div className={s.buttonWrapperRight}>
-        <Button shape="round" type="default" className="blueBtn" onClick={onClickAddSkip}>
+        <Button
+          shape="round"
+          type="default"
+          style={{ width: '206px' }}
+          className="blueBtn"
+          onClick={onClickAddSkip}>
           Додати пропуск
         </Button>
       </div>

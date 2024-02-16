@@ -34,10 +34,11 @@ type TaskType = RightAnswerTask
 export type DataTypeItem = {
   text?: string
   type: Type
+  savedInLibrary: boolean
   id: string
   url?: string
   taskData?: TaskType
-  tableColumns?: DataTypeItem[]
+  tableColumns?: Omit<DataTypeItem, 'savedInLibrary'>[]
   imageCaption?: string
 }
 

@@ -24,7 +24,7 @@
     width: 24px;
     height: 24px;
 
-    &:first-child {
+    &:nth-child(2) {
       cursor: move;
     }
   }
@@ -36,13 +36,34 @@
 }
 
 .popoverItem {
-  width: 120px;
+  cursor: pointer;
+  width: 130px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  padding: 4px 9px;
   &:hover {
     background-color: #eeeeee;
   }
 }
-//  padding: 4px 8px;
+
+.popoverGreyBG {
+  background: #fafafa;
+}
+
+.popoverBtnWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.popoverTitleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.popoverTitle {
+  margin-bottom: 12px;
+  font-size: 14px;
+}

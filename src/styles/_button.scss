@@ -17,3 +17,12 @@
     background-color: $accent !important;
   }
 }
+
+.greenBtn {
+  background-color: $fourth;
+  color: #fff !important;
+
+  &:hover {
+    background-color: $fourth !important;
+  }
+}

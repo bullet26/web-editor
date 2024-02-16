@@ -9,7 +9,7 @@ import s from './TableBock.module.scss'
 
 interface TableBlocksProps {
   tableColumnQuant: number
-  data: DataTypeItem[]
+  data: Omit<DataTypeItem, 'savedInLibrary'>[]
   id: string
 }
 
