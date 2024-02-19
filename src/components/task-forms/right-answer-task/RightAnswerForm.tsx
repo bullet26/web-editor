@@ -61,7 +61,11 @@ export const RightAnswerForm: FC = () => {
 
         const tabNotFilled = validateFillTabs(sanitizeTaskText)
         if (tabNotFilled.length) {
-          message.error(`Не всі рівні складності заповнені: ${tabNotFilled.join(', ')}`)
+          message.error(
+            isOneDifficultyLevel
+              ? 'Не заповнений текст задання'
+              : `Не заповнений текст задання на: ${tabNotFilled.join(', ')} рівень`,
+          )
           return
         }
 
@@ -103,7 +107,12 @@ export const RightAnswerForm: FC = () => {
           {isOneDifficultyLevel ? (
             <RightAnswerPutBlock editorStyle={{ marginTop: '60px' }} />
           ) : (
-            <DifficultyLevelTab childrenOption={<RightAnswerPutBlock />} />
+            <DifficultyLevelTab
+              childrenOption={<RightAnswerPutBlock />}
+              easyLevelValueSelector="taskText[0].taskQuestion"
+              middleLevelValueSelector="taskText[1].taskQuestion"
+              hardLevelValueSelector="taskText[2].taskQuestion"
+            />
           )}
         </div>
 

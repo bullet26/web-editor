@@ -8,6 +8,7 @@ import CloudIcon from './cloud.svg?react'
 import CloudLockIcon from './cloud-lock.svg?react'
 import CloudSyncIcon from './cloud-sync.svg?react'
 import MoreOptionsIcon from './more-options.svg?react'
+import WarningIcon from './warning.svg?react'
 import editorBlockIcon from './editor.png'
 import imageBlockIcon from './image.png'
 import rightAnswerBlockIcon from './right-answer.png'
@@ -26,4 +27,5 @@ export {
   CloudLockIcon,
   CloudSyncIcon,
   MoreOptionsIcon,
+  WarningIcon,
 }
