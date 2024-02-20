@@ -1,3 +1,10 @@
+.wrapper {
+  img {
+    height: 380px;
+    object-fit: contain;
+  }
+}
+
 .title {
   font-size: 24px;
   font-weight: 500;
@@ -23,13 +30,6 @@
   align-items: center;
 }
 
-.wrapper {
-  img {
-    height: 380px;
-    object-fit: contain;
-  }
-}
-
 .buttonGroup {
   display: flex;
   justify-content: flex-end;
@@ -38,6 +38,29 @@
 
 .custom {
   margin-bottom: 21px;
+
+  p:empty::before {
+    // for Draft instead br
+    content: '\00a0'; /* добавляем неразрывный пробел */
+    display: block; /* Сделать пустой элемент видимым блочным элементом */
+  }
+
+  p {
+    margin: 16px 0;
+  }
+
+  ol,
+  ul {
+    margin-left: 24px;
+    li {
+      margin: 16px 0;
+    }
+  }
+
+  ol ol {
+    list-style-type: lower-alpha; /* Буквенные маркеры для вложенного ol */
+    margin-left: 25px;
+  }
 }
 
 .grid {
