@@ -40,6 +40,7 @@ export const DraftEditor: FC<DraftEditorProps> = (props) => {
     const cleanHTML = DOMPurify.sanitize(html, {
       ALLOWED_URI_REGEXP: /^(blob:)?https?:/i,
     })
+
     onChange(cleanHTML, id)
   }, [editorState])
 
