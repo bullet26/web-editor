@@ -58,7 +58,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           {(type === 'title' || type === 'subtitle' || type === 'note') && (
             <div className={s[type]}>{text}</div>
           )}
-          {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="view" />}
+          {type === 'rightAnswerTask' && <RightAnswerView data={taskData} mode="view" />}
         </Fragment>
       ))}
     </div>

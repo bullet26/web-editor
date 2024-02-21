@@ -1,30 +1,19 @@
 /* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { Button } from 'antd'
-import { useChosenTask, useModal } from 'store'
+import { useChosenTask } from 'store'
 import { RightAnswerTask } from 'types'
 import s from './TaskView.module.scss'
 
 interface RightAnswerViewProps {
-  id: string
   data?: RightAnswerTask
-  mode: 'view' | 'edit'
+  mode: 'edit' | 'view'
 }
 
 export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
-  const { data, id, mode } = props
+  const { data, mode } = props
 
-  const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
-  const setChosenTaskType = useChosenTask((state) => state.setChosenTaskType)
-
-  const openModal = useModal((state) => state.openModal)
   const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
-
-  const onEdit = () => {
-    setChosenTaskID(id)
-    setChosenTaskType('rightAnswerTask')
-    openModal()
-  }
 
   return (
     <div className={s.wrapper}>
@@ -64,13 +53,8 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
           ))}
         </div>
       </div>
-      <Button
-        type="primary"
-        shape="round"
-        disabled={mode === 'view'}
-        style={{ width: '100%' }}
-        onClick={onEdit}>
-        Редагувати
+      <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
+        Перевірити
       </Button>
     </div>
   )

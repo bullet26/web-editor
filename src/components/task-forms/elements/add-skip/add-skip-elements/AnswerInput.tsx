@@ -2,7 +2,7 @@
 import { FC } from 'react'
 import { Input as AntInput } from 'antd'
 import { DeleteIcon } from 'assets'
-import s from '../../RAElements.module.scss'
+import s from '../AddSkip.module.scss'
 
 interface InputProps {
   groupId: string
@@ -10,20 +10,19 @@ interface InputProps {
   placeholder?: string
   type: 'correct' | 'incorrect'
   value: string
-  color?: string
   itemNumber: number
   onChange: (groupId: string, itemId: string, value: string) => void
   onDelete: (groupId: string, itemId: string) => void
 }
 
 export const AnswerInput: FC<InputProps> = (props) => {
-  const { groupId, itemId, value, placeholder, type, color, itemNumber, onChange, onDelete } = props
+  const { groupId, itemId, value, placeholder, type, itemNumber, onChange, onDelete } = props
   const { TextArea } = AntInput
 
   let colorText
   let text
   if (type === 'correct') {
-    colorText = color || 'purple'
+    colorText = '#2D8CFF'
     text = `Відповідь ${itemNumber + 1}`
   } else if (type === 'incorrect') {
     colorText = '#EC2028'

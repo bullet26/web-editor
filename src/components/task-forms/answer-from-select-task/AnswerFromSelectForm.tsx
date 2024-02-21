@@ -10,14 +10,14 @@ import {
   AddSkipPutBlock,
 } from '../elements'
 import {
-  initialValuesRightAnswerPut,
+  initialValuesAnswerFromSelect,
   preparedAndSanitizeTaskText,
   validateTabAndCorrectAnswer,
-  validationSchemaRightAnswerPut,
+  validationSchemaAnswerFromSelect,
 } from '../utils'
 import s from '../style/RightAnswerForm.module.scss'
 
-export const RightAnswerForm: FC = () => {
+export const AnswerFromSelectForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
@@ -37,7 +37,7 @@ export const RightAnswerForm: FC = () => {
     currentValuesData.type === 'rightAnswerTask' &&
     Object.hasOwn(currentValuesData, 'taskData')
 
-  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesRightAnswerPut
+  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesAnswerFromSelect
   const id = currentValuesData?.id
 
   const handleReset = () => {
@@ -50,7 +50,7 @@ export const RightAnswerForm: FC = () => {
   return (
     <Formik
       initialValues={initialFormData}
-      validationSchema={validationSchemaRightAnswerPut}
+      validationSchema={validationSchemaAnswerFromSelect}
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
@@ -81,10 +81,10 @@ export const RightAnswerForm: FC = () => {
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
           {isOneDifficultyLevel ? (
-            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="line" />
+            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="rectangle" />
           ) : (
             <DifficultyLevelTab
-              childrenOption={<AddSkipPutBlock skipType="line" />}
+              childrenOption={<AddSkipPutBlock skipType="rectangle" />}
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"

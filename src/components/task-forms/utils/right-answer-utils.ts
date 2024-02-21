@@ -1,6 +1,7 @@
-import DOMPurify from 'dompurify'
 import { DifficultyLevel, RightAnswerTask, RightAnswerTaskText } from 'types'
+import { message } from 'antd'
 import * as Yup from 'yup'
+import { convertDifficultyLevel, sanitizeTaskText } from './utils'
 
 export const initialValuesRightAnswerPut: RightAnswerTask = {
   title: '',
@@ -23,19 +24,6 @@ export const validationSchemaRightAnswerPut = Yup.object({
   taskText: Yup.array().of(
     Yup.object({
       taskQuestion: Yup.string(),
-      // .test({
-      //   name: 'taskQuestion',
-      //   skipAbsent: true,
-      //   test: (value, ctx) => {
-      //     if (!value) {
-      //       return ctx.createError({ message: 'Не всі рівні складності заповнені' })
-      //     }
-      //     if (!!value && value?.length < 10) {
-      //       return ctx.createError({ message: 'Недостатньо символів' })
-      //     }
-      //     return true
-      //   },
-      // }),
       taskAnswers: Yup.array(),
     }),
   ),
@@ -65,30 +53,10 @@ export const preparedAndSanitizeTaskText = (
     ]
   }
 
-  // XSS sanitizer for HTML,
-  const sanitizeTaskText = taskText.map((item) => ({
-    ...item,
-    taskQuestion: DOMPurify.sanitize(item?.taskQuestion || '', {
-      ALLOWED_ATTR: ['style', 'class', 'contentEditable', 'data-skip'],
-    }),
-  }))
-
-  return sanitizeTaskText
+  return sanitizeTaskText(taskText)
 }
 
-const convertDifficultyLevel = (difficultyLevel: string) => {
-  switch (difficultyLevel) {
-    case 'easy':
-      return 'Легкий'
-    case 'middle':
-      return 'Середній'
-    case 'hard':
-      return 'Складний'
-    default:
-      return difficultyLevel
-  }
-}
-export const validateFillTabs = (taskText: RightAnswerTaskText[]) => {
+const validateFillTabs = (taskText: RightAnswerTaskText[]) => {
   const tabNotFilled: string[] = []
   taskText.forEach((item) => {
     if (!item.taskQuestion || item.taskQuestion.length < 10) {
@@ -99,7 +67,7 @@ export const validateFillTabs = (taskText: RightAnswerTaskText[]) => {
   return tabNotFilled
 }
 
-export const validateCorrectAnswer = (taskText: RightAnswerTaskText[]) => {
+const validateCorrectAnswer = (taskText: RightAnswerTaskText[]) => {
   const res: string[] = []
   taskText.forEach(({ taskAnswers, difficultyLevel }) =>
     taskAnswers.forEach(({ answers }) =>
@@ -111,4 +79,31 @@ export const validateCorrectAnswer = (taskText: RightAnswerTaskText[]) => {
     ),
   )
   return Array.from(new Set(res))
+}
+
+export const validateTabAndCorrectAnswer = (
+  taskText: RightAnswerTaskText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const tabNotFilled = validateFillTabs(taskText)
+  if (tabNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнений текст задання'
+        : `Не заповнений текст задання на: ${tabNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
+
+  const tabNotFilledCorrectAnswer = validateCorrectAnswer(taskText)
+  if (tabNotFilledCorrectAnswer.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнена правильна відповідь'
+        : `Не заповнена правильна відповідь на: ${tabNotFilledCorrectAnswer.join(', ')} рівень`,
+    )
+    return false
+  }
+
+  return true
 }

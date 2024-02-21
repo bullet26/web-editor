@@ -5,7 +5,7 @@ import { DeleteIcon } from 'assets'
 import { RightAnswerTaskAnswer, RightAnswerTaskItem } from 'types'
 import { generateId } from 'utils'
 import { AnswerInput } from './AnswerInput'
-import s from '../../RAElements.module.scss'
+import s from '../AddSkip.module.scss'
 
 interface AnswerInputBlockProps {
   inputName: string
@@ -55,7 +55,7 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
 
   const onDeleteSkipGroup = (id: string) => {
     if (inputRef.current) {
-      const regex = new RegExp(`<span[^>]*data-skip="${id}"[^>]*><\/span>`, 'g')
+      const regex = new RegExp(`<div[^>]*data-skip="${id}"[^>]*><\/div>`, 'g')
       const prevStateFieldValue = fieldTaskText.value
 
       helpersTaskText.setValue(prevStateFieldValue.replace(regex, ''), true)
@@ -99,7 +99,7 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
             <Button
               shape="circle"
               type="default"
-              className="redBtn"
+              className="blueBtn"
               style={{ width: '32px' }}
               onClick={() => addWrongAnswer(item.id)}>
               +

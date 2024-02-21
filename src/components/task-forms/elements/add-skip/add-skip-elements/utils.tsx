@@ -5,7 +5,7 @@ import { RightAnswerTaskAnswer } from 'types'
 export const sortAnswers = (inputRef: RefObject<HTMLElement>, arr: RightAnswerTaskAnswer[]) => {
   const spanOrder: string[] = []
   inputRef.current
-    ?.querySelectorAll('span')
+    ?.querySelectorAll('div')
     .forEach((item) => !!item.dataset.skip && spanOrder.push(item.dataset.skip))
 
   return spanOrder.map((item) => arr.find((subitem) => subitem.id === item))

@@ -45,3 +45,17 @@
     right: 0;
   }
 }
+
+.inputWrapperOneTab,
+.inputWrapperThreeTab {
+  z-index: 3;
+  position: absolute;
+  width: 63%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputWrapperThreeTab {
+  row-gap: 20px;
+}

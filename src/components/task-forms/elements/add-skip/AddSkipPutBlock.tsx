@@ -5,15 +5,16 @@ import { useChosenTask } from 'store'
 import { RightAnswerTaskText } from 'types'
 import { AnswerInputBlock, InputFromEditableDiv } from './add-skip-elements'
 import { addSkip, emptyMidAndHardTab, deleteSkipCheck } from './utils'
-import s from '../RAElements.module.scss'
+import s from './AddSkip.module.scss'
 
-interface RightAnswerPutBlockProps {
+interface AddSkipPutBlockProps {
   wrapperStyle?: CSSProperties
   editorStyle?: CSSProperties
+  skipType: 'rectangle' | 'line'
 }
 
-export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle } = props
+export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
+  const { wrapperStyle, editorStyle, skipType } = props
 
   const inputRef = useRef<HTMLElement>(null)
   const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
@@ -37,7 +38,7 @@ export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
   const [field, meta, helpers] = useField(answerBlockName)
 
   const onClickAddSkip = (event: MouseEvent<HTMLElement>) => {
-    const fieldValues = addSkip(event, inputRef, field.value)
+    const fieldValues = addSkip(event, inputRef, field.value, skipType)
     helpers.setValue(fieldValues, true)
   }
 

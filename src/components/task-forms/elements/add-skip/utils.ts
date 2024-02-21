@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 import { MouseEvent, RefObject } from 'react'
 import { RightAnswerTaskAnswer } from 'types'
-import { generateId, generateRandomColor } from 'utils'
+import { generateId } from 'utils'
 import { moveCursorToEnd, getCursorPosition, sortAnswers } from './add-skip-elements/utils'
 
 export const emptyMidAndHardTab = [
@@ -22,13 +22,21 @@ export const addSkip = (
   event: MouseEvent<HTMLElement>,
   inputRef: RefObject<HTMLElement>,
   prevStateFieldValue: RightAnswerTaskAnswer[],
+  skipType: 'rectangle' | 'line',
 ) => {
   event.preventDefault() // fix for move cursor in the end
 
   const id = generateId()
-  const color = generateRandomColor()
 
-  const skipItem = `<span contentEditable=false class="skip" style="border-bottom-color: ${color}" data-skip="${id}"></span>&nbsp;`
+  let skipItem
+  const skipItemLine = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">1</span><span class="line"></span></div>&nbsp;`
+  const skipItemRectangle = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">1</span><span class="rectangle"></span></div>&nbsp;`
+
+  if (skipType === 'rectangle') {
+    skipItem = skipItemRectangle
+  } else if (skipType === 'line') {
+    skipItem = skipItemLine
+  }
 
   if (!inputRef.current) {
     return
@@ -48,7 +56,6 @@ export const addSkip = (
         id: generateId(),
         type: 'correct',
         value: '',
-        color,
       },
     ],
   }
@@ -62,7 +69,7 @@ export const deleteSkipCheck = (
 ) => {
   const skipOrder: string[] = []
   inputRef.current
-    ?.querySelectorAll('span')
+    ?.querySelectorAll('div')
     .forEach((item) => !!item.dataset.skip && skipOrder.push(item.dataset.skip))
 
   if (skipOrder.length === answerBlockValue.length) {

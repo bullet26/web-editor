@@ -1,4 +1,12 @@
-export const types = ['title', 'custom', 'note', 'image', 'table', 'rightAnswerTask']
+export const types = [
+  'title',
+  'custom',
+  'note',
+  'image',
+  'table',
+  'rightAnswerTask',
+  'answerFromSelect',
+]
 
 export type Type = (typeof types)[number]
 
@@ -6,7 +14,6 @@ export interface RightAnswerTaskItem {
   id: string
   type: 'correct' | 'incorrect'
   value: string
-  color?: string
 }
 
 export interface RightAnswerTaskAnswer {
