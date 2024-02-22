@@ -3,12 +3,12 @@ import { RefObject } from 'react'
 import { RightAnswerTaskAnswer } from 'types'
 
 export const sortAnswers = (inputRef: RefObject<HTMLElement>, arr: RightAnswerTaskAnswer[]) => {
-  const spanOrder: string[] = []
-  inputRef.current
-    ?.querySelectorAll('div')
-    .forEach((item) => !!item.dataset.skip && spanOrder.push(item.dataset.skip))
+  const idMatches = inputRef.current?.innerHTML?.match(/data-skip="([^"]+)"/g)
+  const skipOrder = idMatches
+    ? idMatches.map((item) => item.match(/data-skip="([^"]+)"/)?.at(1))
+    : []
 
-  return spanOrder.map((item) => arr.find((subitem) => subitem.id === item))
+  return skipOrder.map((item) => arr.find((subitem) => subitem.id === item))
 }
 
 export const moveCursorToEnd = (ContentEditableRef: RefObject<HTMLElement>) => {

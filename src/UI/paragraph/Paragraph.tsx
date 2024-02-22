@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Input, Popover, Button } from 'antd'
 import { useBlocks, useChosenTask, useModal } from 'store'
 import { DataTypeItem } from 'types'
-import { RightAnswerView } from 'components'
+import { TaskView } from 'components'
 import { DraftEditor, DropZone, TableBlocks } from 'UI'
 import {
   DeleteIcon,
@@ -52,7 +52,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
 
   const onEditTask = () => {
     setChosenTaskID(id)
-    setChosenTaskType('rightAnswerTask')
+    setChosenTaskType(type)
     openModal()
   }
 
@@ -161,7 +161,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
         />
       )}
       {type === 'table' && <TableBlocks tableColumnQuant={2} data={tableColumns} id={id} />}
-      {type === 'rightAnswerTask' && <RightAnswerView data={taskData} mode="edit" />}
+      {TASK_TYPES && <TaskView data={taskData} mode="edit" type={type} />}
     </>
   )
 }

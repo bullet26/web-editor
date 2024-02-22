@@ -1,1 +1,1 @@
-export { RightAnswerView } from './RightAnswerView'
+export { TaskView } from './TaskView'

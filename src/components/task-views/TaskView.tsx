@@ -2,16 +2,19 @@
 import { FC } from 'react'
 import { Button } from 'antd'
 import { useChosenTask } from 'store'
-import { RightAnswerTask } from 'types'
+import { TaskType, Type } from 'types'
+import { RightAnswerTaskView } from './right-answer-task-view'
+import { AnswerFromSelectView } from './answer-from-select-task-view'
 import s from './TaskView.module.scss'
 
-interface RightAnswerViewProps {
-  data?: RightAnswerTask
+interface TaskViewProps {
+  data?: TaskType
+  type: Type
   mode: 'edit' | 'view'
 }
 
-export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
-  const { data, mode } = props
+export const TaskView: FC<TaskViewProps> = (props) => {
+  const { data, mode, type } = props
 
   const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
 
@@ -19,7 +22,11 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
     <div className={s.wrapper}>
       <div className={s.outerWrapper}>
         <div className={s.innerWrapper}>
-          <div className={s.title}>{data?.title}</div>
+          <div className={s.title}>
+            <span className={s.titleBlue}>Завдання:</span>
+            <span> {data?.title}</span>
+          </div>
+          <div className={s.subtitle}>{data?.description}</div>
         </div>
         {!isOneDifficultyLevel && (
           <div className={s.difficultyLevel}>
@@ -32,27 +39,8 @@ export const RightAnswerView: FC<RightAnswerViewProps> = (props) => {
           </div>
         )}
       </div>
-      <div className={s.subtitle}>{data?.description}</div>
-      <div className="view">
-        <div
-          className={s.title}
-          dangerouslySetInnerHTML={{ __html: data?.taskText[0].taskQuestion || '' }}
-        />
-        <div className={s.answerBlockWrapper}>
-          {data?.taskText[0].taskAnswers.map((item) => (
-            <div className={s.answerGroupWrapper} key={item.id}>
-              {item.answers.map(
-                (subitem) =>
-                  subitem.value && (
-                    <Button type="default" shape="round" key={subitem.id}>
-                      {subitem.value}
-                    </Button>
-                  ),
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      {type === 'rightAnswerTask' && <RightAnswerTaskView data={data} />}
+      {type === 'answerFromSelect' && <AnswerFromSelectView data={data} />}
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити
       </Button>

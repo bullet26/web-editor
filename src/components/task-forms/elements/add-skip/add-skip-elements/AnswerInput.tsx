@@ -10,20 +10,19 @@ interface InputProps {
   placeholder?: string
   type: 'correct' | 'incorrect'
   value: string
-  itemNumber: number
   onChange: (groupId: string, itemId: string, value: string) => void
   onDelete: (groupId: string, itemId: string) => void
 }
 
 export const AnswerInput: FC<InputProps> = (props) => {
-  const { groupId, itemId, value, placeholder, type, itemNumber, onChange, onDelete } = props
+  const { groupId, itemId, value, placeholder, type, onChange, onDelete } = props
   const { TextArea } = AntInput
 
   let colorText
   let text
   if (type === 'correct') {
     colorText = '#2D8CFF'
-    text = `Відповідь ${itemNumber + 1}`
+    text = 'Відповідь'
   } else if (type === 'incorrect') {
     colorText = '#EC2028'
     text = 'Неправильна'

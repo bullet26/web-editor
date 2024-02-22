@@ -36,7 +36,7 @@ export interface RightAnswerTask {
   parameters: string[]
 }
 
-type TaskType = RightAnswerTask
+export type TaskType = RightAnswerTask
 
 export type DataTypeItem = {
   text?: string

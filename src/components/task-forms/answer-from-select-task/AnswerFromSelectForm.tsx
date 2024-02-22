@@ -34,7 +34,7 @@ export const AnswerFromSelectForm: FC = () => {
 
   const checkingRules =
     !!currentValuesData &&
-    currentValuesData.type === 'rightAnswerTask' &&
+    currentValuesData.type === 'answerFromSelect' &&
     Object.hasOwn(currentValuesData, 'taskData')
 
   const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesAnswerFromSelect
@@ -68,7 +68,7 @@ export const AnswerFromSelectForm: FC = () => {
 
         const block = {
           id,
-          type: 'rightAnswerTask',
+          type: 'answerFromSelect',
           taskData: { ...values, taskText: sanitizeTaskText },
         } as DataTypeItemTask
 

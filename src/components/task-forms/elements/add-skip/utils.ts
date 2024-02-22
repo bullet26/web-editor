@@ -18,6 +18,17 @@ export const emptyMidAndHardTab = [
   },
 ]
 
+export const updateCircleNumber = (fieldValue: string) => {
+  let i = 1
+
+  const questionValue = fieldValue.replace(
+    /<span class="circle">.*?<\/span>/g,
+    () => `<span class="circle">${i++}</span>`,
+  )
+
+  return questionValue
+}
+
 export const addSkip = (
   event: MouseEvent<HTMLElement>,
   inputRef: RefObject<HTMLElement>,
@@ -27,10 +38,11 @@ export const addSkip = (
   event.preventDefault() // fix for move cursor in the end
 
   const id = generateId()
+  const number = (inputRef.current?.querySelectorAll('div').length || 0) + 1
 
   let skipItem
-  const skipItemLine = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">1</span><span class="line"></span></div>&nbsp;`
-  const skipItemRectangle = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">1</span><span class="rectangle"></span></div>&nbsp;`
+  const skipItemLine = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">${number}</span><span class="line"></span></div>&nbsp;`
+  const skipItemRectangle = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">${number}</span><span class="rectangle"></span></div>&nbsp;`
 
   if (skipType === 'rectangle') {
     skipItem = skipItemRectangle
@@ -39,7 +51,7 @@ export const addSkip = (
   }
 
   if (!inputRef.current) {
-    return
+    return { answerValue: prevStateFieldValue, questionValue: '' }
   }
 
   inputRef.current.focus()
@@ -60,23 +72,28 @@ export const addSkip = (
     ],
   }
 
-  return sortAnswers(inputRef, [...prevStateFieldValue, currentValue])
+  const answerValue = sortAnswers(inputRef, [...prevStateFieldValue, currentValue])
+  const questionValue = updateCircleNumber(inputRef.current?.innerHTML)
+  return { answerValue, questionValue }
 }
 
 export const deleteSkipCheck = (
   inputRef: RefObject<HTMLElement>,
   answerBlockValue: RightAnswerTaskAnswer[],
 ) => {
-  const skipOrder: string[] = []
-  inputRef.current
-    ?.querySelectorAll('div')
-    .forEach((item) => !!item.dataset.skip && skipOrder.push(item.dataset.skip))
+  const idMatches = inputRef.current?.innerHTML?.match(/data-skip="([^"]+)"/g)
+  const skipOrder = idMatches
+    ? idMatches.map((item) => item.match(/data-skip="([^"]+)"/)?.at(1))
+    : []
 
-  if (skipOrder.length === answerBlockValue.length) {
-    return
+  if (skipOrder.length === answerBlockValue.length || !inputRef.current) {
+    return { answerValue: answerBlockValue, questionValue: inputRef.current?.innerHTML }
   }
   if (skipOrder.length < answerBlockValue.length) {
-    return answerBlockValue.filter((item) => skipOrder.includes(item.id))
+    const answerValue = answerBlockValue.filter((item) => skipOrder.includes(item.id))
+    const questionValue = updateCircleNumber(inputRef.current.innerHTML)
+    return { answerValue, questionValue }
   }
   console.log('deleteSkipCheck', skipOrder, answerBlockValue)
+  return { answerValue: answerBlockValue, questionValue: inputRef.current?.innerHTML }
 }

@@ -27,17 +27,28 @@
     height: 32px;
   }
 
+  select {
+    border: 1px solid lightgrey;
+    border-radius: 6px;
+    width: 104px;
+    height: 32px;
+  }
+
   .line {
     display: inline-block;
     width: 38px;
-    border-bottom: 1px solid #2d8cff;
+    border-bottom: 3px solid #2d8cff;
   }
 }
 
-.view {
-  .skip {
-    .line {
-      border-bottom-color: black !important;
-    }
-  }
+.circleSmall {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  background-color: #d5e8ff;
+  color: #2d8cff;
 }
