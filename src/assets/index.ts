@@ -9,9 +9,11 @@ import CloudLockIcon from './cloud-lock.svg?react'
 import CloudSyncIcon from './cloud-sync.svg?react'
 import MoreOptionsIcon from './more-options.svg?react'
 import WarningIcon from './warning.svg?react'
+import EditIcon from './edit-icon.svg?react'
 import editorBlockIcon from './editor.png'
 import imageBlockIcon from './image.png'
 import rightAnswerBlockIcon from './right-answer.png'
+import answerFromSelectBlockIcon from './answer-from-select.png'
 
 export {
   DeleteIcon,
@@ -23,9 +25,11 @@ export {
   editorBlockIcon,
   imageBlockIcon,
   rightAnswerBlockIcon,
+  answerFromSelectBlockIcon,
   CloudIcon,
   CloudLockIcon,
   CloudSyncIcon,
   MoreOptionsIcon,
   WarningIcon,
+  EditIcon,
 }

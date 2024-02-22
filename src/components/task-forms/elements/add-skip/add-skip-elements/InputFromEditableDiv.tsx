@@ -2,7 +2,7 @@
 import { FC, RefObject } from 'react'
 import { useField } from 'formik'
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
-import s from '../../RAElements.module.scss'
+import s from '../AddSkip.module.scss'
 
 interface InputProps {
   name: string

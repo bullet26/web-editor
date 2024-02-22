@@ -1,33 +1,12 @@
-@import '../../../theme/variables.scss';
+@import '../../../../theme/variables.scss';
 
 .inputTabWrapper {
   position: relative;
 }
 
-.inputWrapperOneTab,
-.inputWrapperThreeTab {
-  z-index: 3;
-  position: absolute;
-  width: 63%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.inputWrapperThreeTab {
-  row-gap: 20px;
-}
-
 .blockTitle {
   font-size: 20px;
   font-weight: 600;
-}
-
-.checkboxButtonWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
 }
 
 .inputDiv {
@@ -59,7 +38,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: nowrap;
   column-gap: 32px;
   margin-bottom: 8px;
@@ -67,6 +46,16 @@
   svg {
     cursor: pointer;
   }
+}
+
+.answerGroupIconWrapper {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
 }
 
 .answerTitle {

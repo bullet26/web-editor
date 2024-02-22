@@ -1,1 +1,0 @@
-export { RightAnswerPutBlock } from './RightAnswerPutBlock'

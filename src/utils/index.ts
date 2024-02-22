@@ -22,6 +22,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Правильна відповідь',
         placeholder: '',
       }
+    case 'answerFromSelect':
+      return {
+        label: 'Завдання: Варіант зі списку в тексті',
+        placeholder: '',
+      }
 
     default:
       return { label: type, placeholder: 'Введіть текст' }
