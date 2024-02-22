@@ -2,7 +2,7 @@
 import { FC, Fragment } from 'react'
 import { Button } from 'antd'
 import { useBlocks } from 'store'
-import { RightAnswerView } from 'components'
+import { TaskView } from 'components'
 import s from './ViewModeContent.module.scss'
 
 interface ViewModeContentProps {
@@ -58,7 +58,9 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           {(type === 'title' || type === 'subtitle' || type === 'note') && (
             <div className={s[type]}>{text}</div>
           )}
-          {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="view" />}
+          {(type === 'rightAnswerTask' || type === 'answerFromSelect') && (
+            <TaskView data={taskData} mode="view" type={type} />
+          )}
         </Fragment>
       ))}
     </div>

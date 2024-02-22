@@ -1,0 +1,16 @@
+@import '../../../theme/variables.scss';
+
+.inputTabWrapper {
+  position: relative;
+}
+
+.checkboxButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.error {
+  color: tomato;
+}

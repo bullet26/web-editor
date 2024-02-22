@@ -1,0 +1,1 @@
+export { RightAnswerTaskView } from './RightAnswerView'

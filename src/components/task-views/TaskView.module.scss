@@ -1,7 +1,6 @@
 @import '../../theme/variables.scss';
 
 .wrapper {
-  background: $task-bgc;
   padding: 16px 24px;
 }
 
@@ -10,12 +9,16 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 16px;
 }
 
 .innerWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   align-self: flex-end;
-  height: fit-content;
+  gap: 8px;
 }
 
 .difficultyLevel {
@@ -38,12 +41,26 @@
 .subtitle {
   font-size: 14px;
   font-weight: 400;
-  margin-bottom: 16px;
+}
+
+.titleBlue {
+  color: $accent;
 }
 
 .title {
   font-size: 20px;
   font-weight: 600;
+}
+
+.taskText,
+.taskTextAloneBlock {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.taskTextAloneBlock {
+  margin-bottom: 24px;
 }
 
 .answerBlockWrapper {
