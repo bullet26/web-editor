@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Modal, Divider } from 'antd'
 import { useChosenTask, useModal } from 'store'
-import { RightAnswerForm } from 'components'
+import { RightAnswerForm, AnswerFromSelectForm } from 'components'
 import { getTitle } from './utils'
 
 export const CreateTaskModal: FC = () => {
@@ -22,6 +22,7 @@ export const CreateTaskModal: FC = () => {
       okButtonProps={{ style: { display: 'none' } }}>
       <Divider style={{ margin: '16px 0' }} />
       {taskType === 'rightAnswerTask' && <RightAnswerForm />}
+      {taskType === 'answerFromSelect' && <AnswerFromSelectForm />}
     </Modal>
   )
 }

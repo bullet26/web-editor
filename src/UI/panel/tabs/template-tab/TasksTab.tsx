@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Card } from 'antd'
 import { useChosenTask, useModal } from 'store'
 import { types, Type } from 'types'
-import { rightAnswerBlockIcon } from 'assets'
+import { rightAnswerBlockIcon, answerFromSelectBlockIcon } from 'assets'
 import s from './TemplatesTab.module.scss'
 
 export const TasksTab: FC = () => {
@@ -30,6 +30,16 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={rightAnswerBlockIcon} alt="rightAnswerBlockIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Варіант зі списку в тексті"
+        className={s.card}
+        onClick={() => {
+          clickCard('answerFromSelect')
+        }}>
+        <div className={s.cardBody}>
+          <img src={answerFromSelectBlockIcon} alt="answerFromSelectBlockIcon" />
         </div>
       </Card>
     </div>

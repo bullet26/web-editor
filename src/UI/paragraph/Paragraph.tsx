@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC } from 'react'
 import { Input, Popover, Button } from 'antd'
-import { useBlocks } from 'store'
+import { useBlocks, useChosenTask, useModal } from 'store'
 import { DataTypeItem } from 'types'
-import { RightAnswerView } from 'components'
+import { TaskView } from 'components'
 import { DraftEditor, DropZone, TableBlocks } from 'UI'
 import {
   DeleteIcon,
@@ -13,6 +13,7 @@ import {
   CloudSyncIcon,
   CloudLockIcon,
   CloudIcon,
+  EditIcon,
 } from 'assets'
 import { getLabel } from 'utils'
 import s from './Paragraph.module.scss'
@@ -25,6 +26,9 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
   const copyBlock = useBlocks((state) => state.copyBlock)
   const saveInLibraryBlock = useBlocks((state) => state.saveInLibraryBlock)
   const unlinkFromLibraryBlock = useBlocks((state) => state.unlinkFromLibraryBlock)
+  const setChosenTaskID = useChosenTask((state) => state.setChosenTaskID)
+  const setChosenTaskType = useChosenTask((state) => state.setChosenTaskType)
+  const openModal = useModal((state) => state.openModal)
 
   const {
     text,
@@ -45,6 +49,14 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
   const onChangeImage = (inputUrl: string, inputImageCaption?: string) => {
     addBlock({ type: 'image', id, url: inputUrl, imageCaption: inputImageCaption })
   }
+
+  const onEditTask = () => {
+    setChosenTaskID(id)
+    setChosenTaskType(type)
+    openModal()
+  }
+
+  const TASK_TYPES = type === 'rightAnswerTask' || type === 'answerFromSelect'
 
   return (
     <>
@@ -109,7 +121,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
             </Popover>
           )}
           <MoveIcon />
-
+          {TASK_TYPES && <EditIcon onClick={onEditTask} />}
           <Popover
             placement="bottomRight"
             title={false}
@@ -149,7 +161,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
         />
       )}
       {type === 'table' && <TableBlocks tableColumnQuant={2} data={tableColumns} id={id} />}
-      {type === 'rightAnswerTask' && <RightAnswerView data={taskData} id={id} mode="edit" />}
+      {TASK_TYPES && <TaskView data={taskData} mode="edit" type={type} />}
     </>
   )
 }

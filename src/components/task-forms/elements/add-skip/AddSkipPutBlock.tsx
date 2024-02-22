@@ -5,15 +5,16 @@ import { useChosenTask } from 'store'
 import { RightAnswerTaskText } from 'types'
 import { AnswerInputBlock, InputFromEditableDiv } from './add-skip-elements'
 import { addSkip, emptyMidAndHardTab, deleteSkipCheck } from './utils'
-import s from '../RAElements.module.scss'
+import s from './AddSkip.module.scss'
 
-interface RightAnswerPutBlockProps {
+interface AddSkipPutBlockProps {
   wrapperStyle?: CSSProperties
   editorStyle?: CSSProperties
+  skipType: 'rectangle' | 'line'
 }
 
-export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle } = props
+export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
+  const { wrapperStyle, editorStyle, skipType } = props
 
   const inputRef = useRef<HTMLElement>(null)
   const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
@@ -34,19 +35,19 @@ export const RightAnswerPutBlock: FC<RightAnswerPutBlockProps> = (props) => {
 
   const inputName = `taskText[${index}].taskQuestion`
   const answerBlockName = `taskText[${index}].taskAnswers`
-  const [field, meta, helpers] = useField(answerBlockName)
+  const [, , helpersQuestion] = useField(inputName)
+  const [fieldAnswer, meta, helpersAnswer] = useField(answerBlockName)
 
   const onClickAddSkip = (event: MouseEvent<HTMLElement>) => {
-    const fieldValues = addSkip(event, inputRef, field.value)
-    helpers.setValue(fieldValues, true)
+    const { answerValue, questionValue } = addSkip(event, inputRef, fieldAnswer.value, skipType)
+    helpersAnswer.setValue(answerValue, true)
+    helpersQuestion.setValue(questionValue, true)
   }
 
   const onKeyPressDeleteSkip = () => {
-    const answerBlockNewValue = deleteSkipCheck(inputRef, field.value)
-
-    if (answerBlockNewValue) {
-      helpers.setValue(answerBlockNewValue, true)
-    }
+    const { answerValue, questionValue } = deleteSkipCheck(inputRef, fieldAnswer.value)
+    helpersAnswer.setValue(answerValue, true)
+    helpersQuestion.setValue(questionValue, true)
   }
 
   return (
