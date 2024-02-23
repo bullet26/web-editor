@@ -8,13 +8,14 @@ import {
   DifficultyLevelTab,
   InputsTitleAndDescription,
   AddSkipPutBlock,
-} from '../elements'
+} from '../../elements'
 import {
-  initialValuesRightAnswerPut,
+  useFormContext,
   preparedAndSanitizeTaskText,
-  validateTabAndCorrectAnswer,
-  validationSchemaRightAnswerPut,
-} from '../utils'
+  validateFillTabs,
+  validateCorrectAnswer,
+} from '../../utils'
+import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from './utils'
 import s from '../style/RightAnswerForm.module.scss'
 
 export const RightAnswerForm: FC = () => {
@@ -24,10 +25,9 @@ export const RightAnswerForm: FC = () => {
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
-  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
-  const setDifficultyLevel = useChosenTask((state) => state.setDifficultyLevel)
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
   const closeModal = useModal((state) => state.closeModal)
+
+  const { isOneDifficultyLevel, difficultyLevel, setDifficultyLevel } = useFormContext()
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
@@ -62,7 +62,10 @@ export const RightAnswerForm: FC = () => {
           difficultyLevel,
         )
 
-        if (!validateTabAndCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
+        if (!validateFillTabs(sanitizeTaskText, isOneDifficultyLevel)) {
+          return
+        }
+        if (!validateCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
           return
         }
 
@@ -79,12 +82,18 @@ export const RightAnswerForm: FC = () => {
       }}>
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
-          <InputsTitleAndDescription />
+          <InputsTitleAndDescription isOneDifficultyLevel={isOneDifficultyLevel} />
           {isOneDifficultyLevel ? (
-            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="line" />
+            <AddSkipPutBlock
+              editorStyle={{ marginTop: '60px' }}
+              skipType="line"
+              isOneDifficultyLevel={isOneDifficultyLevel}
+            />
           ) : (
             <DifficultyLevelTab
-              childrenOption={<AddSkipPutBlock skipType="line" />}
+              childrenOption={
+                <AddSkipPutBlock skipType="line" isOneDifficultyLevel={isOneDifficultyLevel} />
+              }
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"

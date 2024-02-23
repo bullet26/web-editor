@@ -1,5 +1,8 @@
-import { RightAnswerTaskText } from 'types'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createContext, useContext } from 'react'
+import { RightAnswerTaskText, DifficultyLevel } from 'types'
 import DOMPurify from 'dompurify'
+import { boolean } from 'yup'
 
 export const convertDifficultyLevel = (difficultyLevel: string) => {
   switch (difficultyLevel) {
@@ -23,3 +26,17 @@ export const sanitizeTaskText = (taskText: RightAnswerTaskText[]) => {
     }),
   }))
 }
+
+export const FormContext = createContext<{
+  isOneDifficultyLevel: boolean
+  difficultyLevel: DifficultyLevel
+  setDifficultyLevelShowStatus: (_status: boolean) => void
+  setDifficultyLevel: (_value: DifficultyLevel) => void
+}>({
+  isOneDifficultyLevel: false,
+  difficultyLevel: 'easy',
+  setDifficultyLevelShowStatus: (_status: boolean) => {},
+  setDifficultyLevel: (_value: DifficultyLevel) => {},
+})
+
+export const useFormContext = () => useContext(FormContext)

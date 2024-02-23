@@ -1,11 +1,6 @@
+export { FormContext, useFormContext } from './utils'
 export {
-  initialValuesRightAnswerPut,
-  validationSchemaRightAnswerPut,
-  validateTabAndCorrectAnswer,
+  validateFillTabs,
+  validateCorrectAnswer,
   preparedAndSanitizeTaskText,
-} from './right-answer-utils'
-
-export {
-  initialValuesAnswerFromSelect,
-  validationSchemaAnswerFromSelect,
-} from './answer-from-select-utils'
+} from './validation-utils'

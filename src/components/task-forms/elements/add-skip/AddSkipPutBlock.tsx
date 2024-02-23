@@ -1,8 +1,8 @@
 import { FC, useRef, MouseEvent, CSSProperties, useEffect } from 'react'
 import { Button, Divider } from 'antd'
 import { useField } from 'formik'
-import { useChosenTask } from 'store'
 import { RightAnswerTaskText } from 'types'
+import { useFormContext } from '../../utils'
 import { AnswerInputBlock, InputFromEditableDiv } from './add-skip-elements'
 import { addSkip, emptyMidAndHardTab, deleteSkipCheck } from './utils'
 import s from './AddSkip.module.scss'
@@ -11,14 +11,14 @@ interface AddSkipPutBlockProps {
   wrapperStyle?: CSSProperties
   editorStyle?: CSSProperties
   skipType: 'rectangle' | 'line'
+  isOneDifficultyLevel: boolean
 }
 
 export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle, skipType } = props
+  const { wrapperStyle, editorStyle, skipType, isOneDifficultyLevel } = props
 
   const inputRef = useRef<HTMLElement>(null)
-  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
+  const { difficultyLevel } = useFormContext()
 
   const [fieldBlock, , helpersBlock] = useField('taskText')
 

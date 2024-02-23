@@ -16,6 +16,11 @@
   justify-content: center;
   align-items: center;
   user-select: none;
+
+  img {
+    width: 315px;
+    object-fit: contain;
+  }
 }
 
 .cardBodyTwoElem {
