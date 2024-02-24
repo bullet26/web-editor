@@ -56,7 +56,8 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
     openModal()
   }
 
-  const TASK_TYPES = type === 'rightAnswerTask' || type === 'answerFromSelect'
+  const TASK_TYPES =
+    type === 'rightAnswerTask' || type === 'answerFromSelect' || type === 'orderSplitSentence'
 
   return (
     <>

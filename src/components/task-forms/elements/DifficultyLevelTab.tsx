@@ -2,8 +2,8 @@ import { FC, ReactNode } from 'react'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 import { useField } from 'formik'
-import { useChosenTask } from 'store'
 import { WarningIcon } from 'assets'
+import { useFormContext } from '../utils'
 import s from './FormElements.module.scss'
 
 interface DifficultyLevelTabProps {
@@ -20,8 +20,7 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
     middleLevelValueSelector,
     hardLevelValueSelector,
   } = props
-  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
-  const setDifficultyLevel = useChosenTask((state) => state.setDifficultyLevel)
+  const { difficultyLevel, setDifficultyLevel } = useFormContext()
 
   const [fieldEasy] = useField(easyLevelValueSelector)
   const [fieldMiddle] = useField(middleLevelValueSelector)

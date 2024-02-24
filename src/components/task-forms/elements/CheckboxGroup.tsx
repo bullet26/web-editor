@@ -1,15 +1,14 @@
 import { FC, useEffect } from 'react'
 import { useField } from 'formik'
-import { useChosenTask } from 'store'
 import { Checkbox } from 'antd'
 import type { GetProp } from 'antd'
+import { useFormContext } from '../utils'
 import s from './FormElements.module.scss'
 
 export const CheckboxGroup: FC = () => {
   const fieldName = 'parameters'
   const [field, meta, helpers] = useField(fieldName)
-
-  const setDifficultyLevelShowStatus = useChosenTask((state) => state.setDifficultyLevelShowStatus)
+  const { setDifficultyLevelShowStatus } = useFormContext()
 
   useEffect(() => {
     setDifficultyLevelShowStatus(

@@ -4,6 +4,8 @@ export const getTitle = (taskType: string | null) => {
       return 'Правильна відповідь'
     case 'answerFromSelect':
       return 'Варіант зі списку в тексті'
+    case 'orderSplitSentence':
+      return 'Розставити слова у правильному порядку'
     default:
       return ''
   }

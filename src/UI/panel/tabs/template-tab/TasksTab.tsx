@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Card } from 'antd'
 import { useChosenTask, useModal } from 'store'
 import { types, Type } from 'types'
-import { rightAnswerBlockIcon, answerFromSelectBlockIcon } from 'assets'
+import { rightAnswerBlockIcon, answerFromSelectBlockIcon, orderSplitSentenceBlocIcon } from 'assets'
 import s from './TemplatesTab.module.scss'
 
 export const TasksTab: FC = () => {
@@ -40,6 +40,16 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={answerFromSelectBlockIcon} alt="answerFromSelectBlockIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Розставити слова у правильному порядку"
+        className={s.card}
+        onClick={() => {
+          clickCard('orderSplitSentence')
+        }}>
+        <div className={s.cardBody}>
+          <img src={orderSplitSentenceBlocIcon} alt="orderSplitSentenceBlocIcon" />
         </div>
       </Card>
     </div>

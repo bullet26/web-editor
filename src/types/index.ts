@@ -6,6 +6,7 @@ export const types = [
   'table',
   'rightAnswerTask',
   'answerFromSelect',
+  'orderSplitSentence',
 ]
 
 export type Type = (typeof types)[number]
@@ -36,7 +37,12 @@ export interface RightAnswerTask {
   parameters: string[]
 }
 
-export type TaskType = RightAnswerTask
+export type TaskTextWithoutAnswer = Omit<RightAnswerTaskText, 'taskAnswers'>
+export interface TaskWithoutAnswer extends Omit<RightAnswerTask, 'taskText'> {
+  taskText: TaskTextWithoutAnswer[]
+}
+
+export type TaskType = RightAnswerTask | TaskWithoutAnswer
 
 export type DataTypeItem = {
   text?: string

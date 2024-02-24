@@ -14,6 +14,7 @@ import editorBlockIcon from './editor.png'
 import imageBlockIcon from './image.png'
 import rightAnswerBlockIcon from './right-answer.png'
 import answerFromSelectBlockIcon from './answer-from-select.png'
+import orderSplitSentenceBlocIcon from './correct-order-split-sentence.png'
 
 export {
   DeleteIcon,
@@ -32,4 +33,5 @@ export {
   MoreOptionsIcon,
   WarningIcon,
   EditIcon,
+  orderSplitSentenceBlocIcon,
 }

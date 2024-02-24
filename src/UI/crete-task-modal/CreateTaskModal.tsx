@@ -1,13 +1,18 @@
 import { FC } from 'react'
 import { Modal, Divider } from 'antd'
 import { useChosenTask, useModal } from 'store'
-import { RightAnswerForm, AnswerFromSelectForm } from 'components'
+import { TaskForm } from 'components'
 import { getTitle } from './utils'
 
 export const CreateTaskModal: FC = () => {
   const taskType = useChosenTask((state) => state.taskType)
   const isModalOpen = useModal((state) => state.isModalOpen)
   const closeModal = useModal((state) => state.closeModal)
+
+  const IS_TASK_TYPES =
+    taskType === 'rightAnswerTask' ||
+    taskType === 'answerFromSelect' ||
+    taskType === 'orderSplitSentence'
 
   return (
     <Modal
@@ -21,8 +26,7 @@ export const CreateTaskModal: FC = () => {
       cancelButtonProps={{ style: { display: 'none' } }}
       okButtonProps={{ style: { display: 'none' } }}>
       <Divider style={{ margin: '16px 0' }} />
-      {taskType === 'rightAnswerTask' && <RightAnswerForm />}
-      {taskType === 'answerFromSelect' && <AnswerFromSelectForm />}
+      {IS_TASK_TYPES && <TaskForm taskType={taskType} />}
     </Modal>
   )
 }

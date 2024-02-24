@@ -1,0 +1,1 @@
+export { RightAnswerForm } from './RightAnswerForm'
