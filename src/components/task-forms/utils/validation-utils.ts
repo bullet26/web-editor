@@ -1,29 +1,6 @@
-import { DifficultyLevel, RightAnswerTaskText, TaskTextWithoutAnswer } from 'types'
+import { RightAnswerTaskText, TaskTextWithoutAnswer } from 'types'
 import { message } from 'antd'
-import { convertDifficultyLevel, sanitizeTaskText } from './utils'
-
-export const preparedAndSanitizeTaskText = (
-  taskTextInit: RightAnswerTaskText[],
-  isOneDifficultyLevel: boolean,
-  difficultyLevel: DifficultyLevel,
-) => {
-  let taskText = taskTextInit
-  if (isOneDifficultyLevel) {
-    const { taskQuestion, taskAnswers } = taskTextInit.find(
-      (item: RightAnswerTaskText) => item.difficultyLevel === difficultyLevel,
-    ) || { taskQuestion: '', taskAnswers: [] }
-
-    taskText = [
-      {
-        taskQuestion,
-        taskAnswers,
-        difficultyLevel: 'easy' as DifficultyLevel,
-      },
-    ]
-  }
-
-  return sanitizeTaskText(taskText)
-}
+import { convertDifficultyLevel } from './utils'
 
 export const validateFillTabs = (
   taskText: RightAnswerTaskText[] | TaskTextWithoutAnswer[],

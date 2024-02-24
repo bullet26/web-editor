@@ -1,6 +1,3 @@
 export { FormContext, useFormContext } from './utils'
-export {
-  validateFillTabs,
-  validateCorrectAnswer,
-  preparedAndSanitizeTaskText,
-} from './validation-utils'
+export { validateFillTabs, validateCorrectAnswer } from './validation-utils'
+export { preparedAndSanitizeTaskText, preparedTaskQuestionText } from './transform-data-on-submit'

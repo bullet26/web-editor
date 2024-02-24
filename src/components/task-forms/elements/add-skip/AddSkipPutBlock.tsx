@@ -11,14 +11,13 @@ interface AddSkipPutBlockProps {
   wrapperStyle?: CSSProperties
   editorStyle?: CSSProperties
   skipType: 'rectangle' | 'line'
-  isOneDifficultyLevel: boolean
 }
 
 export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle, skipType, isOneDifficultyLevel } = props
+  const { wrapperStyle, editorStyle, skipType } = props
 
   const inputRef = useRef<HTMLElement>(null)
-  const { difficultyLevel } = useFormContext()
+  const { difficultyLevel, isOneDifficultyLevel } = useFormContext()
 
   const [fieldBlock, , helpersBlock] = useField('taskText')
 

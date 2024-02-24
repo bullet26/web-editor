@@ -2,7 +2,6 @@
 import { createContext, useContext } from 'react'
 import { RightAnswerTaskText, DifficultyLevel } from 'types'
 import DOMPurify from 'dompurify'
-import { boolean } from 'yup'
 
 export const convertDifficultyLevel = (difficultyLevel: string) => {
   switch (difficultyLevel) {

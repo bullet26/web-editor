@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, Ref } from 'react'
+import { CSSProperties, FC, Ref } from 'react'
 import { Input as AntInput, InputRef } from 'antd'
 import { useField } from 'formik'
 import s from './FormElements.module.scss'
@@ -8,7 +8,7 @@ interface InputProps {
   name: string
   placeholder?: string
   type?: 'input' | 'textarea'
-  style?: object
+  style?: CSSProperties
   refProp?: Ref<InputRef>
   className?: string
 }

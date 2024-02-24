@@ -82,18 +82,12 @@ export const RightAnswerForm: FC = () => {
       }}>
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
-          <InputsTitleAndDescription isOneDifficultyLevel={isOneDifficultyLevel} />
+          <InputsTitleAndDescription />
           {isOneDifficultyLevel ? (
-            <AddSkipPutBlock
-              editorStyle={{ marginTop: '60px' }}
-              skipType="line"
-              isOneDifficultyLevel={isOneDifficultyLevel}
-            />
+            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="line" />
           ) : (
             <DifficultyLevelTab
-              childrenOption={
-                <AddSkipPutBlock skipType="line" isOneDifficultyLevel={isOneDifficultyLevel} />
-              }
+              childrenOption={<AddSkipPutBlock skipType="line" />}
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"

@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
-import { Divider } from 'antd'
 import { DataTypeItemTask, TaskWithoutAnswer } from 'types'
 import { useBlocks, useChosenTask, useModal } from 'store'
 import {
@@ -8,9 +7,9 @@ import {
   CheckboxGroup,
   DifficultyLevelTab,
   InputsTitleAndDescription,
-  Input,
+  InputForDifTabs,
 } from '../../elements'
-import { useFormContext, validateFillTabs } from '../../utils'
+import { preparedTaskQuestionText, useFormContext, validateFillTabs } from '../../utils'
 import { initialValuesSplitSentenceOrder, validationSchemaSplitSentenceOrder } from './utils'
 import s from '../style/RightAnswerForm.module.scss'
 
@@ -23,7 +22,7 @@ export const CorrectOrderSplitSentence: FC = () => {
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
   const closeModal = useModal((state) => state.closeModal)
 
-  const { isOneDifficultyLevel, setDifficultyLevel } = useFormContext()
+  const { isOneDifficultyLevel, difficultyLevel, setDifficultyLevel } = useFormContext()
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
@@ -43,12 +42,6 @@ export const CorrectOrderSplitSentence: FC = () => {
     setDifficultyLevel('easy')
     closeModal()
   }
-  // TODO Input index
-  // const index: number =
-  //   fieldBlock.value.findIndex(
-  //     (item: RightAnswerTaskText) => item.difficultyLevel === difficultyLevel,
-  //   ) || 0
-  // const inputName = `taskText[${index}].taskQuestion`
 
   // enableReinitialize - Control whether Formik should reset the form if the wrapped component props change (using deep equality).
   return (
@@ -58,17 +51,23 @@ export const CorrectOrderSplitSentence: FC = () => {
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const { taskText } = values as TaskWithoutAnswer
+        const { taskText: taskTextInit } = values as TaskWithoutAnswer
 
-        const block = {
-          id,
-          type: 'orderSplitSentence',
-          taskData: values,
-        } as DataTypeItemTask
+        const taskText = preparedTaskQuestionText(
+          taskTextInit,
+          isOneDifficultyLevel,
+          difficultyLevel,
+        )
 
         if (!validateFillTabs(taskText, isOneDifficultyLevel)) {
           return
         }
+
+        const block = {
+          id,
+          type: 'orderSplitSentence',
+          taskData: { ...values, taskText },
+        } as DataTypeItemTask
 
         addBlock(block)
         setDifficultyLevel('easy')
@@ -77,22 +76,12 @@ export const CorrectOrderSplitSentence: FC = () => {
       }}>
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
-          <InputsTitleAndDescription isOneDifficultyLevel={isOneDifficultyLevel} />
+          <InputsTitleAndDescription />
           {isOneDifficultyLevel ? (
-            <div style={{ paddingTop: '80px' }}>
-              <Divider />
-              <Input name="taskText[0].taskQuestion" placeholder="Введіть речення" />
-              <Divider />
-            </div>
+            <InputForDifTabs style={{ paddingTop: '80px' }} />
           ) : (
             <DifficultyLevelTab
-              childrenOption={
-                <div style={{ marginTop: '45px' }}>
-                  <Divider />
-                  <Input name="taskText[1].taskQuestion" placeholder="Введіть речення" />
-                  <Divider />
-                </div>
-              }
+              childrenOption={<InputForDifTabs style={{ marginTop: '45px' }} />}
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"
