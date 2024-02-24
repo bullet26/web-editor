@@ -8,36 +8,36 @@ import {
   DifficultyLevelTab,
   InputsTitleAndDescription,
   AddSkipPutBlock,
-} from '../elements'
+} from '../../elements'
 import {
-  initialValuesAnswerFromSelect,
+  useFormContext,
   preparedAndSanitizeTaskText,
-  validateTabAndCorrectAnswer,
-  validationSchemaAnswerFromSelect,
-} from '../utils'
+  validateFillTabs,
+  validateCorrectAnswer,
+} from '../../utils'
+import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from './utils'
 import s from '../style/RightAnswerForm.module.scss'
 
-export const AnswerFromSelectForm: FC = () => {
+export const RightAnswerForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
-  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
-  const setDifficultyLevel = useChosenTask((state) => state.setDifficultyLevel)
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
   const closeModal = useModal((state) => state.closeModal)
+
+  const { isOneDifficultyLevel, difficultyLevel, setDifficultyLevel } = useFormContext()
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
 
   const checkingRules =
     !!currentValuesData &&
-    currentValuesData.type === 'answerFromSelect' &&
+    currentValuesData.type === 'rightAnswerTask' &&
     Object.hasOwn(currentValuesData, 'taskData')
 
-  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesAnswerFromSelect
+  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesRightAnswerPut
   const id = currentValuesData?.id
 
   const handleReset = () => {
@@ -50,7 +50,7 @@ export const AnswerFromSelectForm: FC = () => {
   return (
     <Formik
       initialValues={initialFormData}
-      validationSchema={validationSchemaAnswerFromSelect}
+      validationSchema={validationSchemaRightAnswerPut}
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
@@ -62,13 +62,16 @@ export const AnswerFromSelectForm: FC = () => {
           difficultyLevel,
         )
 
-        if (!validateTabAndCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
+        if (!validateFillTabs(sanitizeTaskText, isOneDifficultyLevel)) {
+          return
+        }
+        if (!validateCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
           return
         }
 
         const block = {
           id,
-          type: 'answerFromSelect',
+          type: 'rightAnswerTask',
           taskData: { ...values, taskText: sanitizeTaskText },
         } as DataTypeItemTask
 
@@ -81,10 +84,10 @@ export const AnswerFromSelectForm: FC = () => {
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
           {isOneDifficultyLevel ? (
-            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="rectangle" />
+            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="line" />
           ) : (
             <DifficultyLevelTab
-              childrenOption={<AddSkipPutBlock skipType="rectangle" />}
+              childrenOption={<AddSkipPutBlock skipType="line" />}
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"

@@ -1,11 +1,3 @@
-export {
-  initialValuesRightAnswerPut,
-  validationSchemaRightAnswerPut,
-  validateTabAndCorrectAnswer,
-  preparedAndSanitizeTaskText,
-} from './right-answer-utils'
-
-export {
-  initialValuesAnswerFromSelect,
-  validationSchemaAnswerFromSelect,
-} from './answer-from-select-utils'
+export { FormContext, useFormContext } from './utils'
+export { validateFillTabs, validateCorrectAnswer } from './validation-utils'
+export { preparedAndSanitizeTaskText, preparedTaskQuestionText } from './transform-data-on-submit'

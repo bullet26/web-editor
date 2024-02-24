@@ -1,4 +1,4 @@
 export { EditModeContent } from './edit-mode-content/EditModeContent'
 export { ViewModeContent } from './view-mode-content/ViewModeContent'
-export { RightAnswerForm, AnswerFromSelectForm } from './task-forms'
+export { TaskForm } from './task-forms'
 export { TaskView } from './task-views'

@@ -1,43 +1,40 @@
 import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
-import { DataTypeItemTask, RightAnswerTask } from 'types'
+import { DataTypeItemTask, TaskWithoutAnswer } from 'types'
 import { useBlocks, useChosenTask, useModal } from 'store'
 import {
   SubmitButtonGroup,
   CheckboxGroup,
   DifficultyLevelTab,
   InputsTitleAndDescription,
-  AddSkipPutBlock,
-} from '../elements'
-import {
-  initialValuesRightAnswerPut,
-  preparedAndSanitizeTaskText,
-  validateTabAndCorrectAnswer,
-  validationSchemaRightAnswerPut,
-} from '../utils'
+  InputForDifTabs,
+} from '../../elements'
+import { preparedTaskQuestionText, useFormContext, validateFillTabs } from '../../utils'
+import { initialValuesSplitSentenceOrder, validationSchemaSplitSentenceOrder } from './utils'
 import s from '../style/RightAnswerForm.module.scss'
 
-export const RightAnswerForm: FC = () => {
+export const CorrectOrderSplitSentence: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
-  const difficultyLevel = useChosenTask((state) => state.difficultyLevel)
-  const setDifficultyLevel = useChosenTask((state) => state.setDifficultyLevel)
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
   const closeModal = useModal((state) => state.closeModal)
+
+  const { isOneDifficultyLevel, difficultyLevel, setDifficultyLevel } = useFormContext()
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
 
   const checkingRules =
     !!currentValuesData &&
-    currentValuesData.type === 'rightAnswerTask' &&
+    currentValuesData.type === 'orderSplitSentence' &&
     Object.hasOwn(currentValuesData, 'taskData')
 
-  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesRightAnswerPut
+  const initialFormData = checkingRules
+    ? currentValuesData.taskData
+    : initialValuesSplitSentenceOrder
   const id = currentValuesData?.id
 
   const handleReset = () => {
@@ -50,26 +47,26 @@ export const RightAnswerForm: FC = () => {
   return (
     <Formik
       initialValues={initialFormData}
-      validationSchema={validationSchemaRightAnswerPut}
+      validationSchema={validationSchemaSplitSentenceOrder}
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const { taskText: taskTextInit } = values as RightAnswerTask
+        const { taskText: taskTextInit } = values as TaskWithoutAnswer
 
-        const sanitizeTaskText = preparedAndSanitizeTaskText(
+        const taskText = preparedTaskQuestionText(
           taskTextInit,
           isOneDifficultyLevel,
           difficultyLevel,
         )
 
-        if (!validateTabAndCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
+        if (!validateFillTabs(taskText, isOneDifficultyLevel)) {
           return
         }
 
         const block = {
           id,
-          type: 'rightAnswerTask',
-          taskData: { ...values, taskText: sanitizeTaskText },
+          type: 'orderSplitSentence',
+          taskData: { ...values, taskText },
         } as DataTypeItemTask
 
         addBlock(block)
@@ -81,10 +78,10 @@ export const RightAnswerForm: FC = () => {
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
           {isOneDifficultyLevel ? (
-            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="line" />
+            <InputForDifTabs style={{ paddingTop: '80px' }} />
           ) : (
             <DifficultyLevelTab
-              childrenOption={<AddSkipPutBlock skipType="line" />}
+              childrenOption={<InputForDifTabs style={{ marginTop: '45px' }} />}
               easyLevelValueSelector="taskText[0].taskQuestion"
               middleLevelValueSelector="taskText[1].taskQuestion"
               hardLevelValueSelector="taskText[2].taskQuestion"

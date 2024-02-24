@@ -1,10 +1,10 @@
 /* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { Button } from 'antd'
-import { useChosenTask } from 'store'
-import { TaskType, Type } from 'types'
+import { TaskType, Type, RightAnswerTask } from 'types'
 import { RightAnswerTaskView } from './right-answer-task-view'
 import { AnswerFromSelectView } from './answer-from-select-task-view'
+import { CorrectOrderSplitSentenceView } from './correct-order-split-sentence-view'
 import s from './TaskView.module.scss'
 
 interface TaskViewProps {
@@ -13,10 +13,15 @@ interface TaskViewProps {
   mode: 'edit' | 'view'
 }
 
+const isRightAnswerTask = (task?: TaskType): task is RightAnswerTask => {
+  if (!task) return false
+  return Object.hasOwn(task.taskText[0], 'taskAnswers')
+}
+
 export const TaskView: FC<TaskViewProps> = (props) => {
   const { data, mode, type } = props
 
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
+  const isOneDifficultyLevel = data?.parameters.includes('oneDifficultyLevel')
 
   return (
     <div className={s.wrapper}>
@@ -39,8 +44,13 @@ export const TaskView: FC<TaskViewProps> = (props) => {
           </div>
         )}
       </div>
-      {type === 'rightAnswerTask' && <RightAnswerTaskView data={data} />}
-      {type === 'answerFromSelect' && <AnswerFromSelectView data={data} />}
+      {type === 'rightAnswerTask' && (
+        <RightAnswerTaskView data={isRightAnswerTask(data) ? data : undefined} />
+      )}
+      {type === 'answerFromSelect' && (
+        <AnswerFromSelectView data={isRightAnswerTask(data) ? data : undefined} />
+      )}
+      {type === 'orderSplitSentence' && <CorrectOrderSplitSentenceView data={data} />}
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити
       </Button>

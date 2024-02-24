@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useChosenTask } from 'store'
 import { Input } from './Input'
+import { useFormContext } from '../utils'
 import s from './FormElements.module.scss'
 
 export const InputsTitleAndDescription: FC = () => {
-  const isOneDifficultyLevel = useChosenTask((state) => state.isOneDifficultyLevel)
+  const { isOneDifficultyLevel } = useFormContext()
 
   return (
     <div className={isOneDifficultyLevel ? s.inputWrapperOneTab : s.inputWrapperThreeTab}>

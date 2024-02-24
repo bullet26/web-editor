@@ -27,6 +27,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Варіант зі списку в тексті',
         placeholder: '',
       }
+    case 'orderSplitSentence':
+      return {
+        label: 'Завдання: Розставити слова у правильному порядку',
+        placeholder: '',
+      }
 
     default:
       return { label: type, placeholder: 'Введіть текст' }
