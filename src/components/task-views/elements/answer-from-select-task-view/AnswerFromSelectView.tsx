@@ -1,10 +1,10 @@
 /* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { RightAnswerTask } from 'types'
-import s from '../TaskView.module.scss'
+import s from '../../TaskView.module.scss'
 
 interface AnswerFromSelectViewProps {
-  data?: RightAnswerTask
+  data: RightAnswerTask | null
 }
 
 export const AnswerFromSelectView: FC<AnswerFromSelectViewProps> = (props) => {

@@ -57,7 +57,10 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
   }
 
   const TASK_TYPES =
-    type === 'rightAnswerTask' || type === 'answerFromSelect' || type === 'orderSplitSentence'
+    type === 'rightAnswerTask' ||
+    type === 'answerFromSelect' ||
+    type === 'orderSplitSentence' ||
+    type === 'compareTask'
 
   return (
     <>

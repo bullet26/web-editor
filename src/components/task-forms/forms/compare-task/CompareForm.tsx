@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
-import { DataTypeItemTask, RightAnswerTask } from 'types'
+import { DataTypeItemTask, CompareTask } from 'types'
 import { useBlocks, useChosenTask, useModal } from 'store'
 import {
   SubmitButtonGroup,
@@ -9,26 +9,25 @@ import {
 } from 'components/task-forms/elements'
 import {
   useFormContext,
-  preparedAndSanitizeTaskText,
-  validateFillTabs,
-  validateCorrectAnswer,
+  validateComparePairs,
+  preparedWordPairsTaskText,
 } from 'components/task-forms/utils'
-import { initialValuesRightAnswerPut, validationSchemaRightAnswerPut } from './utils'
-import { RightAnswerTaskBlock } from './RightAnswerTaskBlock'
+import { initialValuesCompare, validationSchemaCompare } from './utils'
+import { CompareTaskBlock } from './CompareTaskBlock'
 import s from '../style/RightAnswerForm.module.scss'
 
-export const RightAnswerForm: FC = () => {
+export const CompareForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
-  const CURRENT_TASK_TYPE = 'rightAnswerTask'
+  const CURRENT_TASK_TYPE = 'compareTask'
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
   const closeModal = useModal((state) => state.closeModal)
 
-  const { isOneDifficultyLevel, difficultyLevel, setDifficultyLevel } = useFormContext()
+  const { isOneDifficultyLevel, setDifficultyLevel, difficultyLevel } = useFormContext()
 
   const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
@@ -38,7 +37,7 @@ export const RightAnswerForm: FC = () => {
     currentValuesData.type === CURRENT_TASK_TYPE &&
     Object.hasOwn(currentValuesData, 'taskData')
 
-  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesRightAnswerPut
+  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesCompare
   const id = currentValuesData?.id
 
   const handleReset = () => {
@@ -51,29 +50,26 @@ export const RightAnswerForm: FC = () => {
   return (
     <Formik
       initialValues={initialFormData}
-      validationSchema={validationSchemaRightAnswerPut}
+      validationSchema={validationSchemaCompare}
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const { taskText: taskTextInit } = values as RightAnswerTask
+        const { taskText: taskTextInit } = values as CompareTask
 
-        const sanitizeTaskText = preparedAndSanitizeTaskText(
+        const taskText = preparedWordPairsTaskText(
           taskTextInit,
           isOneDifficultyLevel,
           difficultyLevel,
         )
 
-        if (!validateFillTabs(sanitizeTaskText, isOneDifficultyLevel)) {
-          return
-        }
-        if (!validateCorrectAnswer(sanitizeTaskText, isOneDifficultyLevel)) {
+        if (!validateComparePairs(taskText, isOneDifficultyLevel)) {
           return
         }
 
         const block = {
           id,
           type: CURRENT_TASK_TYPE,
-          taskData: { ...values, taskText: sanitizeTaskText },
+          taskData: { ...values, taskText },
         } as DataTypeItemTask
 
         addBlock(block)
@@ -84,9 +80,8 @@ export const RightAnswerForm: FC = () => {
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
-          <RightAnswerTaskBlock />
+          <CompareTaskBlock />
         </div>
-
         <div className={s.checkboxButtonWrapper}>
           <CheckboxGroup />
           <SubmitButtonGroup onReset={handleReset} />

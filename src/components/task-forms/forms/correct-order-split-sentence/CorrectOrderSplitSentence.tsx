@@ -5,17 +5,22 @@ import { useBlocks, useChosenTask, useModal } from 'store'
 import {
   SubmitButtonGroup,
   CheckboxGroup,
-  DifficultyLevelTab,
   InputsTitleAndDescription,
-  InputForDifTabs,
-} from '../../elements'
-import { preparedTaskQuestionText, useFormContext, validateFillTabs } from '../../utils'
+} from 'components/task-forms/elements'
+import {
+  preparedTaskQuestionText,
+  useFormContext,
+  validateFillTabs,
+} from 'components/task-forms/utils'
 import { initialValuesSplitSentenceOrder, validationSchemaSplitSentenceOrder } from './utils'
+import { SplitSentenceTaskBlock } from './SplitSentenceTaskBlock'
 import s from '../style/RightAnswerForm.module.scss'
 
 export const CorrectOrderSplitSentence: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
+
+  const CURRENT_TASK_TYPE = 'orderSplitSentence'
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
@@ -29,7 +34,7 @@ export const CorrectOrderSplitSentence: FC = () => {
 
   const checkingRules =
     !!currentValuesData &&
-    currentValuesData.type === 'orderSplitSentence' &&
+    currentValuesData.type === CURRENT_TASK_TYPE &&
     Object.hasOwn(currentValuesData, 'taskData')
 
   const initialFormData = checkingRules
@@ -65,7 +70,7 @@ export const CorrectOrderSplitSentence: FC = () => {
 
         const block = {
           id,
-          type: 'orderSplitSentence',
+          type: CURRENT_TASK_TYPE,
           taskData: { ...values, taskText },
         } as DataTypeItemTask
 
@@ -77,16 +82,7 @@ export const CorrectOrderSplitSentence: FC = () => {
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
-          {isOneDifficultyLevel ? (
-            <InputForDifTabs style={{ paddingTop: '80px' }} />
-          ) : (
-            <DifficultyLevelTab
-              childrenOption={<InputForDifTabs style={{ marginTop: '45px' }} />}
-              easyLevelValueSelector="taskText[0].taskQuestion"
-              middleLevelValueSelector="taskText[1].taskQuestion"
-              hardLevelValueSelector="taskText[2].taskQuestion"
-            />
-          )}
+          <SplitSentenceTaskBlock />
         </div>
 
         <div className={s.checkboxButtonWrapper}>

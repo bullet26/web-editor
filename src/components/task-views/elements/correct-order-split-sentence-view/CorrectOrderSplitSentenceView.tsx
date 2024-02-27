@@ -2,10 +2,10 @@
 import { FC } from 'react'
 import { Button, Divider } from 'antd'
 import { TaskWithoutAnswer } from 'types'
-import s from '../TaskView.module.scss'
+import s from '../../TaskView.module.scss'
 
 interface CorrectOrderSplitSentenceViewProps {
-  data?: TaskWithoutAnswer
+  data: TaskWithoutAnswer | null
 }
 
 export const CorrectOrderSplitSentenceView: FC<CorrectOrderSplitSentenceViewProps> = (props) => {

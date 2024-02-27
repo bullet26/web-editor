@@ -1,30 +1,25 @@
 import { FC, ReactNode } from 'react'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
-import { useField } from 'formik'
 import { WarningIcon } from 'assets'
 import { useFormContext } from '../utils'
 import s from './FormElements.module.scss'
 
 interface DifficultyLevelTabProps {
   childrenOption: ReactNode
-  easyLevelValueSelector: string
-  middleLevelValueSelector: string
-  hardLevelValueSelector: string
+  easyLevelWarningCondition: boolean
+  middleLevelWarningCondition: boolean
+  hardLevelWarningCondition: boolean
 }
 
 export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
   const {
     childrenOption,
-    easyLevelValueSelector,
-    middleLevelValueSelector,
-    hardLevelValueSelector,
+    easyLevelWarningCondition,
+    middleLevelWarningCondition,
+    hardLevelWarningCondition,
   } = props
   const { difficultyLevel, setDifficultyLevel } = useFormContext()
-
-  const [fieldEasy] = useField(easyLevelValueSelector)
-  const [fieldMiddle] = useField(middleLevelValueSelector)
-  const [fieldHard] = useField(hardLevelValueSelector)
 
   const items: TabsProps['items'] = [
     {
@@ -32,7 +27,7 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
       label: (
         <div className={s.tabWrapper}>
           <span>Легкий</span>
-          {(!fieldEasy.value || fieldEasy.value.length < 10) && <WarningIcon />}
+          {easyLevelWarningCondition && <WarningIcon />}
         </div>
       ),
       children: childrenOption,
@@ -42,7 +37,7 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
       label: (
         <div className={s.tabWrapper}>
           <span>Середній</span>
-          {(!fieldMiddle.value || fieldMiddle.value.length < 10) && <WarningIcon />}
+          {middleLevelWarningCondition && <WarningIcon />}
         </div>
       ),
       children: childrenOption,
@@ -52,7 +47,7 @@ export const DifficultyLevelTab: FC<DifficultyLevelTabProps> = (props) => {
       label: (
         <div className={s.tabWrapper}>
           <span>Складний</span>
-          {(!fieldHard.value || fieldHard.value.length < 10) && <WarningIcon />}
+          {hardLevelWarningCondition && <WarningIcon />}
         </div>
       ),
       children: childrenOption,
