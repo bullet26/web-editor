@@ -39,6 +39,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Співвідносити',
         placeholder: '',
       }
+    case 'categorizeTask':
+      return {
+        label: 'Завдання: Категорувати',
+        placeholder: '',
+      }
 
     default:
       return { label: type, placeholder: 'Введіть текст' }

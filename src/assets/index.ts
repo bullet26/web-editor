@@ -17,6 +17,7 @@ import rightAnswerBlockIcon from './right-answer.png'
 import answerFromSelectBlockIcon from './answer-from-select.png'
 import orderSplitSentenceBlocIcon from './correct-order-split-sentence.png'
 import compareBlocIcon from './compare.png'
+import categorizeBlocIcon from './categorize-icon-task.png'
 
 export {
   DeleteIcon,
@@ -38,4 +39,5 @@ export {
   orderSplitSentenceBlocIcon,
   compareBlocIcon,
   ArrowIcon,
+  categorizeBlocIcon,
 }
