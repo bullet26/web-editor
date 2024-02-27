@@ -13,6 +13,12 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
 
   const data = useBlocks((state) => state.data)
 
+  const IS_TASK_TYPES = (type: string) =>
+    type === 'rightAnswerTask' ||
+    type === 'answerFromSelect' ||
+    type === 'orderSplitSentence' ||
+    type === 'compareTask'
+
   return (
     <div className={s.wrapper}>
       <div className={s.buttonGroup}>
@@ -58,9 +64,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
           {(type === 'title' || type === 'subtitle' || type === 'note') && (
             <div className={s[type]}>{text}</div>
           )}
-          {(type === 'rightAnswerTask' ||
-            type === 'answerFromSelect' ||
-            type === 'orderSplitSentence') && <TaskView data={taskData} mode="view" type={type} />}
+          {IS_TASK_TYPES(type) && <TaskView data={taskData} mode="view" type={type} />}
         </Fragment>
       ))}
     </div>
