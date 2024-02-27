@@ -1,78 +1,26 @@
-export const types = [
-  'title',
-  'custom',
-  'note',
-  'image',
-  'table',
-  'rightAnswerTask',
-  'answerFromSelect',
-  'orderSplitSentence',
-  'compareTask',
-]
+export {
+  types,
+  type Type,
+  type DifficultyLevel,
+  type TaskType,
+  type DataTypeItem,
+  type DataType,
+  type DataTypeItemTask,
+} from './block-data-type'
 
-export type Type = (typeof types)[number]
+export {
+  type RightAnswerTaskItem,
+  type RightAnswerTaskAnswer,
+  type RightAnswerTaskText,
+  type RightAnswerTask,
+} from './right-answer-task'
 
-export interface RightAnswerTaskItem {
-  id: string
-  type: 'correct' | 'incorrect'
-  value: string
-}
+export { type TaskTextWithoutAnswer, type TaskWithoutAnswer } from './answer-from-select-task'
 
-export interface RightAnswerTaskAnswer {
-  id: string
-  answers: RightAnswerTaskItem[]
-}
+export { type CompareTaskWordPair, type CompareTaskText, type CompareTask } from './compare-task'
 
-export type DifficultyLevel = 'easy' | 'middle' | 'hard'
-
-export interface RightAnswerTaskText {
-  difficultyLevel: DifficultyLevel
-  taskQuestion: string
-  taskAnswers: RightAnswerTaskAnswer[]
-}
-
-export interface RightAnswerTask {
-  title: string
-  description: string
-  taskText: RightAnswerTaskText[]
-  parameters: string[]
-}
-
-export type TaskTextWithoutAnswer = Omit<RightAnswerTaskText, 'taskAnswers'>
-export interface TaskWithoutAnswer extends Omit<RightAnswerTask, 'taskText'> {
-  taskText: TaskTextWithoutAnswer[]
-}
-
-export interface CompareTaskWordPair {
-  id: string
-  left: string
-  right: string
-}
-
-export interface CompareTaskText {
-  difficultyLevel: DifficultyLevel
-  wordPairs: CompareTaskWordPair[]
-}
-
-export interface CompareTask extends Omit<RightAnswerTask, 'taskText'> {
-  taskText: CompareTaskText[]
-}
-
-export type TaskType = RightAnswerTask | TaskWithoutAnswer | CompareTask
-
-export type DataTypeItem = {
-  text?: string
-  type: Type
-  savedInLibrary: boolean
-  id: string
-  url?: string
-  taskData?: TaskType
-  tableColumns?: Omit<DataTypeItem, 'savedInLibrary'>[]
-  imageCaption?: string
-}
-
-export type DataType = DataTypeItem[]
-
-export type DataTypeItemTask = Pick<DataTypeItem, 'type' | 'id'> & {
-  taskData: TaskType
-}
+export {
+  type CategorizeTaskGroup,
+  type CategorizeTaskText,
+  type CategorizeTask,
+} from './categorize-task'

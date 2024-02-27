@@ -67,16 +67,6 @@ export const InfoTab: FC = () => {
         </div>
       </Card>
       <Card
-        title="Зображення"
-        className={s.card}
-        onClick={() => {
-          clickCard('image')
-        }}>
-        <div className={s.cardBody}>
-          <img src={imageBlockIcon} alt="imageBlockIcon" />
-        </div>
-      </Card>
-      <Card
         title="Два блоки"
         className={s.card}
         onClick={() => {
@@ -84,6 +74,16 @@ export const InfoTab: FC = () => {
         }}>
         <div className={s.cardBodyTwoElem}>
           <img src={editorBlockIcon} alt="editorBlockIcon" />
+          <img src={imageBlockIcon} alt="imageBlockIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Зображення"
+        className={s.card}
+        onClick={() => {
+          clickCard('image')
+        }}>
+        <div className={s.cardBody}>
           <img src={imageBlockIcon} alt="imageBlockIcon" />
         </div>
       </Card>
