@@ -60,7 +60,8 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
     type === 'rightAnswerTask' ||
     type === 'answerFromSelect' ||
     type === 'orderSplitSentence' ||
-    type === 'compareTask'
+    type === 'compareTask' ||
+    type === 'categorizeTask'
 
   return (
     <>

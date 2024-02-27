@@ -7,6 +7,7 @@ import {
   AnswerFromSelectForm,
   CorrectOrderSplitSentence,
   CompareForm,
+  CategorizeForm,
 } from './forms'
 
 interface TaskFormProps {
@@ -31,6 +32,7 @@ export const TaskForm: FC<TaskFormProps> = (props) => {
       {taskType === 'answerFromSelect' && <AnswerFromSelectForm />}
       {taskType === 'orderSplitSentence' && <CorrectOrderSplitSentence />}
       {taskType === 'compareTask' && <CompareForm />}
+      {taskType === 'categorizeTask' && <CategorizeForm />}
     </FormContext.Provider>
   )
 }

@@ -8,6 +8,8 @@ export const getTitle = (taskType: string | null) => {
       return 'Розставити слова у правильному порядку'
     case 'compareTask':
       return 'Співвідносити'
+    case 'categorizeTask':
+      return 'Категорувати'
     default:
       return ''
   }

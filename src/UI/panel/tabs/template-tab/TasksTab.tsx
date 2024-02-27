@@ -7,6 +7,7 @@ import {
   answerFromSelectBlockIcon,
   orderSplitSentenceBlocIcon,
   compareBlocIcon,
+  categorizeBlocIcon,
 } from 'assets'
 import s from './TemplatesTab.module.scss'
 
@@ -48,6 +49,16 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
+        title="Співвідносити"
+        className={s.card}
+        onClick={() => {
+          clickCard('compareTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={compareBlocIcon} alt="compareBlocIcon" />
+        </div>
+      </Card>
+      <Card
         title="Розставити слова у правильному порядку"
         className={s.card}
         onClick={() => {
@@ -58,13 +69,13 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
-        title="Співвідносити"
+        title="Категорувати"
         className={s.card}
         onClick={() => {
-          clickCard('compareTask')
+          clickCard('categorizeTask')
         }}>
         <div className={s.cardBody}>
-          <img src={compareBlocIcon} alt="compareBlocIcon" />
+          <img src={categorizeBlocIcon} alt="categorizeBlocIcon" />
         </div>
       </Card>
     </div>
