@@ -1,21 +1,20 @@
 /* eslint-disable react/no-danger */
 import { FC } from 'react'
 import { Button } from 'antd'
-import { TaskType, Type, RightAnswerTask } from 'types'
-import { RightAnswerTaskView } from './right-answer-task-view'
-import { AnswerFromSelectView } from './answer-from-select-task-view'
-import { CorrectOrderSplitSentenceView } from './correct-order-split-sentence-view'
+import { TaskType, Type } from 'types'
+import {
+  AnswerFromSelectView,
+  CompareTaskView,
+  CorrectOrderSplitSentenceView,
+  RightAnswerTaskView,
+} from './elements'
+import { isRightAnswerTask, isCompareTask, isSplitSentenceTask } from './utils'
 import s from './TaskView.module.scss'
 
 interface TaskViewProps {
   data?: TaskType
   type: Type
   mode: 'edit' | 'view'
-}
-
-const isRightAnswerTask = (task?: TaskType): task is RightAnswerTask => {
-  if (!task) return false
-  return Object.hasOwn(task.taskText[0], 'taskAnswers')
 }
 
 export const TaskView: FC<TaskViewProps> = (props) => {
@@ -45,12 +44,16 @@ export const TaskView: FC<TaskViewProps> = (props) => {
         )}
       </div>
       {type === 'rightAnswerTask' && (
-        <RightAnswerTaskView data={isRightAnswerTask(data) ? data : undefined} />
+        <RightAnswerTaskView data={isRightAnswerTask(data) ? data : null} />
       )}
       {type === 'answerFromSelect' && (
-        <AnswerFromSelectView data={isRightAnswerTask(data) ? data : undefined} />
+        <AnswerFromSelectView data={isRightAnswerTask(data) ? data : null} />
       )}
-      {type === 'orderSplitSentence' && <CorrectOrderSplitSentenceView data={data} />}
+      {type === 'orderSplitSentence' && (
+        <CorrectOrderSplitSentenceView data={isSplitSentenceTask(data) ? data : null} />
+      )}
+      {type === 'compareTask' && <CompareTaskView data={isCompareTask(data) ? data : null} />}
+
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити
       </Button>

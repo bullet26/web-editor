@@ -1,4 +1,4 @@
-import { RightAnswerTaskText, TaskTextWithoutAnswer } from 'types'
+import { RightAnswerTaskText, TaskTextWithoutAnswer, CompareTaskText } from 'types'
 import { message } from 'antd'
 import { convertDifficultyLevel } from './utils'
 
@@ -49,5 +49,31 @@ export const validateCorrectAnswer = (
     return false
   }
 
+  return true
+}
+
+export const validateComparePairs = (
+  taskText: CompareTaskText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const tabNotFilled: string[] = []
+
+  taskText.forEach((itemLevel) => {
+    if (
+      !itemLevel.wordPairs.length ||
+      !itemLevel.wordPairs.every((item) => !!item?.left && !!item?.right)
+    ) {
+      tabNotFilled.push(convertDifficultyLevel(itemLevel.difficultyLevel))
+    }
+  })
+
+  if (tabNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнені пари значень'
+        : `Не заповнені  пари значень на: ${tabNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
   return true
 }

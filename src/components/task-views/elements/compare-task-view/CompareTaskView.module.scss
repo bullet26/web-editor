@@ -1,0 +1,30 @@
+.compareTaskGroupItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.leftPart {
+  width: 45%;
+  font-size: 24px;
+}
+
+.rightPart {
+  width: 45%;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid #c2d3ea;
+  background-color: #f1f5fa;
+}
+
+.rightPartWordsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 16px;
+  margin-bottom: 24px;
+}

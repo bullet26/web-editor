@@ -5,22 +5,23 @@ import { useBlocks, useChosenTask, useModal } from 'store'
 import {
   SubmitButtonGroup,
   CheckboxGroup,
-  DifficultyLevelTab,
   InputsTitleAndDescription,
-  AddSkipPutBlock,
-} from '../../elements'
+} from 'components/task-forms/elements'
 import {
   useFormContext,
   preparedAndSanitizeTaskText,
   validateFillTabs,
   validateCorrectAnswer,
-} from '../../utils'
+} from 'components/task-forms/utils'
 import { initialValuesAnswerFromSelect, validationSchemaAnswerFromSelect } from './utils'
+import { AnswerFromSelectTaskBlock } from './AnswerFromSelectTaskBlock'
 import s from '../style/RightAnswerForm.module.scss'
 
 export const AnswerFromSelectForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
+
+  const CURRENT_TASK_TYPE = 'answerFromSelect'
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
@@ -34,7 +35,7 @@ export const AnswerFromSelectForm: FC = () => {
 
   const checkingRules =
     !!currentValuesData &&
-    currentValuesData.type === 'answerFromSelect' &&
+    currentValuesData.type === CURRENT_TASK_TYPE &&
     Object.hasOwn(currentValuesData, 'taskData')
 
   const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesAnswerFromSelect
@@ -71,7 +72,7 @@ export const AnswerFromSelectForm: FC = () => {
 
         const block = {
           id,
-          type: 'answerFromSelect',
+          type: CURRENT_TASK_TYPE,
           taskData: { ...values, taskText: sanitizeTaskText },
         } as DataTypeItemTask
 
@@ -83,18 +84,8 @@ export const AnswerFromSelectForm: FC = () => {
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
-          {isOneDifficultyLevel ? (
-            <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="rectangle" />
-          ) : (
-            <DifficultyLevelTab
-              childrenOption={<AddSkipPutBlock skipType="rectangle" />}
-              easyLevelValueSelector="taskText[0].taskQuestion"
-              middleLevelValueSelector="taskText[1].taskQuestion"
-              hardLevelValueSelector="taskText[2].taskQuestion"
-            />
-          )}
+          <AnswerFromSelectTaskBlock />
         </div>
-
         <div className={s.checkboxButtonWrapper}>
           <CheckboxGroup />
           <SubmitButtonGroup onReset={handleReset} />

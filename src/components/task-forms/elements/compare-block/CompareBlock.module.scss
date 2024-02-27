@@ -1,0 +1,23 @@
+@import '../../../../theme/variables.scss';
+
+.buttonWrapperRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.compareItemWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 24px;
+  margin-bottom: 16px;
+
+  div:has(input) {
+    flex: 1;
+  }
+
+  svg:first-child {
+    cursor: pointer;
+  }
+}

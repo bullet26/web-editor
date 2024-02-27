@@ -7,6 +7,7 @@ export const types = [
   'rightAnswerTask',
   'answerFromSelect',
   'orderSplitSentence',
+  'compareTask',
 ]
 
 export type Type = (typeof types)[number]
@@ -42,7 +43,22 @@ export interface TaskWithoutAnswer extends Omit<RightAnswerTask, 'taskText'> {
   taskText: TaskTextWithoutAnswer[]
 }
 
-export type TaskType = RightAnswerTask | TaskWithoutAnswer
+export interface CompareTaskWordPair {
+  id: string
+  left: string
+  right: string
+}
+
+export interface CompareTaskText {
+  difficultyLevel: DifficultyLevel
+  wordPairs: CompareTaskWordPair[]
+}
+
+export interface CompareTask extends Omit<RightAnswerTask, 'taskText'> {
+  taskText: CompareTaskText[]
+}
+
+export type TaskType = RightAnswerTask | TaskWithoutAnswer | CompareTask
 
 export type DataTypeItem = {
   text?: string

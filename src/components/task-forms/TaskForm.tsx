@@ -2,9 +2,12 @@
 import { FC, useState } from 'react'
 import { Type, DifficultyLevel } from 'types'
 import { FormContext } from './utils'
-import { RightAnswerForm } from './forms'
-import { AnswerFromSelectForm } from './forms/answer-from-select-task'
-import { CorrectOrderSplitSentence } from './forms/correct-order-split-sentence'
+import {
+  RightAnswerForm,
+  AnswerFromSelectForm,
+  CorrectOrderSplitSentence,
+  CompareForm,
+} from './forms'
 
 interface TaskFormProps {
   taskType: Type
@@ -27,6 +30,7 @@ export const TaskForm: FC<TaskFormProps> = (props) => {
       {taskType === 'rightAnswerTask' && <RightAnswerForm />}
       {taskType === 'answerFromSelect' && <AnswerFromSelectForm />}
       {taskType === 'orderSplitSentence' && <CorrectOrderSplitSentence />}
+      {taskType === 'compareTask' && <CompareForm />}
     </FormContext.Provider>
   )
 }

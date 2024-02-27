@@ -1,0 +1,1 @@
+export { CompareBlock } from './CompareBlock'

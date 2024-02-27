@@ -1,0 +1,1 @@
+export { CompareItem } from './CompareItem'

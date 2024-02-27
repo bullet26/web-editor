@@ -6,6 +6,8 @@ export const getTitle = (taskType: string | null) => {
       return 'Варіант зі списку в тексті'
     case 'orderSplitSentence':
       return 'Розставити слова у правильному порядку'
+    case 'compareTask':
+      return 'Співвідносити'
     default:
       return ''
   }

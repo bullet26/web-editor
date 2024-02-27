@@ -2,7 +2,12 @@ import { FC } from 'react'
 import { Card } from 'antd'
 import { useChosenTask, useModal } from 'store'
 import { types, Type } from 'types'
-import { rightAnswerBlockIcon, answerFromSelectBlockIcon, orderSplitSentenceBlocIcon } from 'assets'
+import {
+  rightAnswerBlockIcon,
+  answerFromSelectBlockIcon,
+  orderSplitSentenceBlocIcon,
+  compareBlocIcon,
+} from 'assets'
 import s from './TemplatesTab.module.scss'
 
 export const TasksTab: FC = () => {
@@ -50,6 +55,16 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={orderSplitSentenceBlocIcon} alt="orderSplitSentenceBlocIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Співвідносити"
+        className={s.card}
+        onClick={() => {
+          clickCard('compareTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={compareBlocIcon} alt="compareBlocIcon" />
         </div>
       </Card>
     </div>

@@ -1,4 +1,4 @@
-import { DifficultyLevel, RightAnswerTaskText, TaskTextWithoutAnswer } from 'types'
+import { DifficultyLevel, RightAnswerTaskText, TaskTextWithoutAnswer, CompareTaskText } from 'types'
 import { sanitizeTaskText } from './utils'
 
 export const preparedAndSanitizeTaskText = (
@@ -38,6 +38,28 @@ export const preparedTaskQuestionText = (
     taskText = [
       {
         taskQuestion,
+        difficultyLevel: 'easy' as DifficultyLevel,
+      },
+    ]
+  }
+
+  return taskText
+}
+
+export const preparedWordPairsTaskText = (
+  taskTextInit: CompareTaskText[],
+  isOneDifficultyLevel: boolean,
+  difficultyLevel: DifficultyLevel,
+) => {
+  let taskText = taskTextInit
+  if (isOneDifficultyLevel) {
+    const { wordPairs } = taskTextInit.find(
+      (item: CompareTaskText) => item.difficultyLevel === difficultyLevel,
+    ) || { wordPairs: [] }
+
+    taskText = [
+      {
+        wordPairs,
         difficultyLevel: 'easy' as DifficultyLevel,
       },
     ]

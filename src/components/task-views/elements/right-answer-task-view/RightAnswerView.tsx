@@ -2,10 +2,10 @@
 import { FC } from 'react'
 import { Button } from 'antd'
 import { RightAnswerTask } from 'types'
-import s from '../TaskView.module.scss'
+import s from '../../TaskView.module.scss'
 
 interface RightAnswerViewProps {
-  data?: RightAnswerTask
+  data: RightAnswerTask | null
 }
 
 export const RightAnswerTaskView: FC<RightAnswerViewProps> = (props) => {
