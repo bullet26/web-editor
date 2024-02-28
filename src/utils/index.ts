@@ -1,8 +1,6 @@
 import { nanoid } from 'nanoid'
 
-export const generateRandomColor = () => nanoid()
-
-export const generateId = () => Math.random().toString(36).slice(2, 9)
+export const generateId = () => nanoid()
 
 export const getLabel = (type: string): { label: string; placeholder: string } => {
   switch (type) {

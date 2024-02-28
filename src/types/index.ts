@@ -23,4 +23,5 @@ export {
   type CategorizeTaskGroup,
   type CategorizeTaskText,
   type CategorizeTask,
+  type OtherWordItem,
 } from './categorize-task'

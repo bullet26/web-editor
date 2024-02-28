@@ -1,4 +1,11 @@
-import { RightAnswerTaskText, TaskTextWithoutAnswer, CompareTaskText } from 'types'
+/* eslint-disable no-restricted-syntax */
+
+import {
+  RightAnswerTaskText,
+  TaskTextWithoutAnswer,
+  CompareTaskText,
+  CategorizeTaskText,
+} from 'types'
 import { message } from 'antd'
 import { convertDifficultyLevel } from './utils'
 
@@ -75,5 +82,48 @@ export const validateComparePairs = (
     )
     return false
   }
+  return true
+}
+
+export const validateCategorizeGroup = (
+  taskText: CategorizeTaskText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const mainWordNotFilled: string[] = []
+  const otherWordNotFilled: string[] = []
+
+  taskText.forEach((item) => {
+    if (!item.groups.length || !item.groups.every((subitem) => !!subitem?.mainWord)) {
+      mainWordNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
+    }
+  })
+
+  if (mainWordNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнені заголовки груп(и)'
+        : `Не заповнені  заголовки груп(и) на: ${mainWordNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
+
+  for (const item of taskText) {
+    for (const { otherWords } of item.groups) {
+      if (!otherWords.every((subitem) => !!subitem?.word)) {
+        otherWordNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
+        break
+      }
+    }
+  }
+
+  if (otherWordNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнені значення в групі'
+        : `Не заповнені значення в групі на: ${otherWordNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
+
   return true
 }
