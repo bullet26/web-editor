@@ -17,22 +17,14 @@ export const CategorizeFormBlock: FC = () => {
     <DifficultyLevelTab
       childrenOption={<CategorizeBlock wrapperStyle={{ paddingTop: '35px' }} />}
       easyLevelWarningCondition={
-        !fieldEasy.value ||
-        !fieldEasy.value.every(
-          (item: CategorizeTaskGroup) => !!item?.mainWord && !!item?.otherWords.length,
-        )
+        !fieldEasy.value || !fieldEasy.value.every((item: CategorizeTaskGroup) => !!item?.mainWord)
       }
       middleLevelWarningCondition={
         !fieldMiddle.value ||
-        !fieldMiddle.value.every(
-          (item: CategorizeTaskGroup) => !!item?.mainWord && !!item?.otherWords.length,
-        )
+        !fieldMiddle.value.every((item: CategorizeTaskGroup) => !!item?.mainWord)
       }
       hardLevelWarningCondition={
-        !fieldHard.value ||
-        !fieldHard.value.every(
-          (item: CategorizeTaskGroup) => !!item?.mainWord && !!item?.otherWords.length,
-        )
+        !fieldHard.value || !fieldHard.value.every((item: CategorizeTaskGroup) => !!item?.mainWord)
       }
     />
   )

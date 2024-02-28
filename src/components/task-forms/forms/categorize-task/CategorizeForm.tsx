@@ -7,7 +7,11 @@ import {
   CheckboxGroup,
   InputsTitleAndDescription,
 } from 'components/task-forms/elements'
-import { useFormContext } from 'components/task-forms/utils'
+import {
+  useFormContext,
+  preparedCategorizeTaskText,
+  validateCategorizeGroup,
+} from 'components/task-forms/utils'
 import { initialValuesCategorize, validationSchemaCategorize } from './utils'
 import { CategorizeFormBlock } from './CategorizeFormBlock'
 import s from '../style/RightAnswerForm.module.scss'
@@ -50,18 +54,18 @@ export const CategorizeForm: FC = () => {
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const { taskText } = values as CategorizeTask
+        const { taskText: taskTextInit } = values as CategorizeTask
 
         // TODO
-        // const taskText = preparedWordPairsTaskText(
-        //   taskTextInit,
-        //   isOneDifficultyLevel,
-        //   difficultyLevel,
-        // )
+        const taskText = preparedCategorizeTaskText(
+          taskTextInit,
+          isOneDifficultyLevel,
+          difficultyLevel,
+        )
 
-        // if (!validateComparePairs(taskText, isOneDifficultyLevel)) {
-        //   return
-        // }
+        if (!validateCategorizeGroup(taskText, isOneDifficultyLevel)) {
+          return
+        }
 
         const block = {
           id,

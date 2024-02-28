@@ -1,0 +1,44 @@
+@import '../../../../theme/variables.scss';
+
+.categoryGroupWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  column-gap: 8px;
+}
+
+.categorizeItemWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  width: 24%;
+  svg {
+    cursor: pointer;
+  }
+}
+
+.inputTitleWrapper {
+  padding-left: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputTitle {
+  font-size: 14px;
+  color: $accent;
+}
+
+.mainInput {
+  border-color: $accent;
+  margin-bottom: 8px;
+}
+
+.addItemBtn {
+  width: 100%;
+  color: $accent;
+  border-color: $accent;
+  margin-top: 22px;
+}

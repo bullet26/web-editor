@@ -7,8 +7,9 @@ import {
   CompareTaskView,
   CorrectOrderSplitSentenceView,
   RightAnswerTaskView,
+  CategorizeTaskView,
 } from './elements'
-import { isRightAnswerTask, isCompareTask, isSplitSentenceTask } from './utils'
+import { isRightAnswerTask, isCompareTask, isSplitSentenceTask, isCategorizeTask } from './utils'
 import s from './TaskView.module.scss'
 
 interface TaskViewProps {
@@ -53,6 +54,9 @@ export const TaskView: FC<TaskViewProps> = (props) => {
         <CorrectOrderSplitSentenceView data={isSplitSentenceTask(data) ? data : null} />
       )}
       {type === 'compareTask' && <CompareTaskView data={isCompareTask(data) ? data : null} />}
+      {type === 'categorizeTask' && (
+        <CategorizeTaskView data={isCategorizeTask(data) ? data : null} />
+      )}
 
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити

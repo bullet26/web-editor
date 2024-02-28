@@ -1,0 +1,42 @@
+.groupWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-rows: minmax(259px, auto);
+  column-gap: 8px;
+  margin-bottom: 24px;
+}
+
+.groupBlock {
+  border: 1px solid #c2d3ea;
+  border-radius: 12px;
+}
+
+.groupBlockTitle {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  min-height: 36px;
+  height: fit-content;
+  background: #c2d3ea;
+  font-size: 24px;
+  text-align: center;
+  white-space: wrap;
+}
+
+.wordsWrapper {
+  display: grid;
+  grid-auto-rows: minmax(44px, auto);
+  grid-auto-flow: column;
+  column-gap: 8px;
+  row-gap: 16px;
+  margin-bottom: 24px;
+}
+
+.otherWords {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c2d3ea;
+  border-radius: 12px;
+  font-size: 24px;
+  padding: 12px 16px;
+}

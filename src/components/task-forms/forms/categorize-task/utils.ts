@@ -8,7 +8,10 @@ export const initialValuesCategorize: CategorizeTask = {
   taskText: [
     {
       difficultyLevel: 'easy',
-      groups: [{ id: generateId(), mainWord: '', otherWords: [] }],
+      groups: [
+        { id: generateId(), mainWord: '', otherWords: [{ id: generateId(), word: '' }] },
+        { id: generateId(), mainWord: '', otherWords: [{ id: generateId(), word: '' }] },
+      ],
     },
   ],
   parameters: ['oneDifficultyLevel'],

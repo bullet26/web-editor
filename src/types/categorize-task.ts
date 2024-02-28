@@ -1,9 +1,14 @@
 import { DifficultyLevel, RightAnswerTask } from 'types'
 
+export interface OtherWordItem {
+  id: string
+  word: string
+}
+
 export interface CategorizeTaskGroup {
   id: string
   mainWord: string
-  otherWords: { id: string; word: string }[]
+  otherWords: OtherWordItem[]
 }
 
 export interface CategorizeTaskText {
