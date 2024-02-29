@@ -42,6 +42,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Категорувати',
         placeholder: '',
       }
+    case 'sortDialogue':
+      return {
+        label: 'Завдання: Розставити фрази у діалозі',
+        placeholder: '',
+      }
 
     default:
       return { label: type, placeholder: 'Введіть текст' }

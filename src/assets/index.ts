@@ -11,6 +11,7 @@ import MoreOptionsIcon from './more-options.svg?react'
 import WarningIcon from './warning.svg?react'
 import EditIcon from './edit-icon.svg?react'
 import ArrowIcon from './arrow.svg?react'
+import HandMoveIcon from './hand-move.svg?react'
 import editorBlockIcon from './editor.png'
 import imageBlockIcon from './image.png'
 import rightAnswerBlockIcon from './right-answer.png'
@@ -18,6 +19,7 @@ import answerFromSelectBlockIcon from './answer-from-select.png'
 import orderSplitSentenceBlocIcon from './correct-order-split-sentence.png'
 import compareBlocIcon from './compare.png'
 import categorizeBlocIcon from './categorize-icon-task.png'
+import sortDialogueBlocIcon from './sort-dialogue.png'
 
 export {
   DeleteIcon,
@@ -40,4 +42,6 @@ export {
   compareBlocIcon,
   ArrowIcon,
   categorizeBlocIcon,
+  sortDialogueBlocIcon,
+  HandMoveIcon,
 }

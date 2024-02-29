@@ -5,6 +5,7 @@ import {
   TaskTextWithoutAnswer,
   CompareTaskText,
   CategorizeTaskText,
+  SortDialogueTaskText,
 } from 'types'
 import { message } from 'antd'
 import { convertDifficultyLevel } from './utils'
@@ -125,5 +126,28 @@ export const validateCategorizeGroup = (
     return false
   }
 
+  return true
+}
+
+export const validateSortDialogue = (
+  taskText: SortDialogueTaskText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const tabNotFilled: string[] = []
+
+  taskText.forEach((itemLevel) => {
+    if (!itemLevel.sentences.length || !itemLevel.sentences.every((item) => !!item?.sentence)) {
+      tabNotFilled.push(convertDifficultyLevel(itemLevel.difficultyLevel))
+    }
+  })
+
+  if (tabNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнені репліка(и) діалога'
+        : `Не заповнені  репліка(и) діалога на: ${tabNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
   return true
 }

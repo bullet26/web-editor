@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useField } from 'formik'
 import { ArrowIcon, DeleteIcon } from 'assets'
 import { CompareTaskWordPair } from 'types'
-import { Input } from '../../Input'
+import { Input } from '../../_elements/Input'
 import s from '../CompareBlock.module.scss'
 
 interface CompareItemProps {

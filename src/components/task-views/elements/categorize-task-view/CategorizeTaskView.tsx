@@ -9,7 +9,9 @@ interface CategorizeTaskViewProps {
 export const CategorizeTaskView: FC<CategorizeTaskViewProps> = (props) => {
   const { data } = props
   const [mainWords, setMainWords] = useState<{ id: string; word: string }[]>([])
-  const [otherWords, setOtherWords] = useState<{ id: string; word: string }[]>([])
+  const [otherWords, setOtherWords] = useState<{ id: string; word: string; groupNumber: number }[]>(
+    [],
+  )
   const [rowCount, setRowCount] = useState(0)
 
   useEffect(() => {
@@ -21,9 +23,13 @@ export const CategorizeTaskView: FC<CategorizeTaskViewProps> = (props) => {
         word: item.mainWord,
       }))
 
-      const newOtherWords = data?.taskText[0].groups.flatMap((item) => {
+      const newOtherWords = data?.taskText[0].groups.flatMap((item, i) => {
         newRowCount = item.otherWords.length > newRowCount ? item.otherWords.length : newRowCount
-        return item.otherWords.map((subitem) => ({ id: subitem.id, word: subitem.word }))
+        return item.otherWords.map((subitem) => ({
+          id: subitem.id,
+          word: subitem.word,
+          groupNumber: i + 1,
+        }))
       })
 
       setMainWords(newMainWords)
@@ -48,7 +54,7 @@ export const CategorizeTaskView: FC<CategorizeTaskViewProps> = (props) => {
           gridTemplateRows: `repeat(${rowCount},  minmax(44px, auto))`,
         }}>
         {otherWords.map((item) => (
-          <div key={item.id} className={s.otherWords}>
+          <div key={item.id} className={s.otherWords} style={{ gridColumnStart: item.groupNumber }}>
             {item.word}
           </div>
         ))}

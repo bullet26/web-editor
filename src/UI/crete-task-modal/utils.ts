@@ -10,6 +10,8 @@ export const getTitle = (taskType: string | null) => {
       return 'Співвідносити'
     case 'categorizeTask':
       return 'Категорувати'
+    case 'sortDialogue':
+      return 'Розставити фрази у діалозi'
     default:
       return ''
   }

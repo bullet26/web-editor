@@ -8,6 +8,7 @@ import {
   orderSplitSentenceBlocIcon,
   compareBlocIcon,
   categorizeBlocIcon,
+  sortDialogueBlocIcon,
 } from 'assets'
 import s from './TemplatesTab.module.scss'
 
@@ -66,6 +67,16 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={orderSplitSentenceBlocIcon} alt="orderSplitSentenceBlocIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Розставити фрази у діалозі"
+        className={s.card}
+        onClick={() => {
+          clickCard('sortDialogue')
+        }}>
+        <div className={s.cardBody}>
+          <img src={sortDialogueBlocIcon} alt="sortDialogueBlocIcon" />
         </div>
       </Card>
       <Card

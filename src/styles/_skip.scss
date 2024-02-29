@@ -6,19 +6,6 @@
   column-gap: 4px;
   height: 32px;
 
-  .circle {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    background-color: #d5e8ff;
-    color: #2d8cff;
-  }
-
   .rectangle {
     display: inline-block;
     border: 1px solid lightgrey;
@@ -39,6 +26,19 @@
     width: 38px;
     border-bottom: 3px solid #2d8cff;
   }
+}
+
+.circle {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: #d5e8ff;
+  color: #2d8cff;
 }
 
 .circleSmall {

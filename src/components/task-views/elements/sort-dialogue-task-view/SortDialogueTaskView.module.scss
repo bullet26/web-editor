@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-bottom: 24px;
+}
+
+.dialogueItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5px;
+  min-height: 44px;
+  border: 1px solid #c2d3ea;
+  border-radius: 12px;
+  padding: 6px 16px;
+  font-size: 24px;
+
+  .text {
+    flex: 1;
+  }
+
+  svg {
+    cursor: move;
+  }
+}
