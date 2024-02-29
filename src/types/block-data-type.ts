@@ -1,4 +1,10 @@
-import { CategorizeTask, CompareTask, RightAnswerTask, TaskWithoutAnswer } from 'types'
+import {
+  CategorizeTask,
+  CompareTask,
+  RightAnswerTask,
+  TaskWithoutAnswer,
+  SortDialogueTask,
+} from 'types'
 
 export const types = [
   'title',
@@ -11,13 +17,19 @@ export const types = [
   'orderSplitSentence',
   'compareTask',
   'categorizeTask',
+  'sortDialogue',
 ]
 
 export type Type = (typeof types)[number]
 
 export type DifficultyLevel = 'easy' | 'middle' | 'hard'
 
-export type TaskType = RightAnswerTask | TaskWithoutAnswer | CompareTask | CategorizeTask
+export type TaskType =
+  | RightAnswerTask
+  | TaskWithoutAnswer
+  | CompareTask
+  | CategorizeTask
+  | SortDialogueTask
 
 export type DataTypeItem = {
   text?: string

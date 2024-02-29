@@ -1,0 +1,21 @@
+.buttonWrapperRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.itemWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 8px;
+  margin-bottom: 16px;
+
+  div:has(input) {
+    flex: 1;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+}

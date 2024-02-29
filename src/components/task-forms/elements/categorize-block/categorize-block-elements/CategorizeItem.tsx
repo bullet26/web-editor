@@ -4,7 +4,7 @@ import { useField } from 'formik'
 import { generateId } from 'utils/index'
 import { CategorizeTaskGroup, OtherWordItem } from 'types'
 import { DeleteIcon } from 'assets'
-import { Input } from '../../Input'
+import { Input } from '../../_elements/Input'
 import s from '../CategorizeBlock.module.scss'
 
 interface CategorizeItemProps {

@@ -2,7 +2,7 @@ import { CSSProperties, FC, useEffect } from 'react'
 import { Divider } from 'antd'
 import { useField } from 'formik'
 import { TaskTextWithoutAnswer } from 'types'
-import { useFormContext } from '../utils'
+import { useFormContext } from '../../utils'
 import { Input } from './Input'
 
 interface InputForDifTabsProps {

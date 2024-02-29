@@ -1,9 +1,12 @@
-export { SubmitButtonGroup } from './SubmitButtonGroup'
-export { Input } from './Input'
-export { CheckboxGroup } from './CheckboxGroup'
-export { DifficultyLevelTab } from './DifficultyLevelTab'
-export { InputsTitleAndDescription } from './InputsTitleAndDescription'
+export {
+  SubmitButtonGroup,
+  Input,
+  CheckboxGroup,
+  DifficultyLevelTab,
+  InputsTitleAndDescription,
+  InputForDifTabs,
+} from './_elements'
 export { AddSkipPutBlock } from './add-skip'
-export { InputForDifTabs } from './InputForDifTabs'
 export { CompareBlock } from './compare-block'
 export { CategorizeBlock } from './categorize-block'
+export { CreateDialogue } from './create-dialogue'

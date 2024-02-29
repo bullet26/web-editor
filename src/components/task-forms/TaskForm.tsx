@@ -8,6 +8,7 @@ import {
   CorrectOrderSplitSentence,
   CompareForm,
   CategorizeForm,
+  SortDialogueForm,
 } from './forms'
 
 interface TaskFormProps {
@@ -33,6 +34,7 @@ export const TaskForm: FC<TaskFormProps> = (props) => {
       {taskType === 'orderSplitSentence' && <CorrectOrderSplitSentence />}
       {taskType === 'compareTask' && <CompareForm />}
       {taskType === 'categorizeTask' && <CategorizeForm />}
+      {taskType === 'sortDialogue' && <SortDialogueForm />}
     </FormContext.Provider>
   )
 }

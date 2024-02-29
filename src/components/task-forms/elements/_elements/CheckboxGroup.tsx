@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import { useField } from 'formik'
 import { Checkbox } from 'antd'
 import type { GetProp } from 'antd'
-import { useFormContext } from '../utils'
+import { useFormContext } from '../../utils'
 import s from './FormElements.module.scss'
 
 export const CheckboxGroup: FC = () => {

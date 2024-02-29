@@ -4,6 +4,7 @@ import {
   TaskTextWithoutAnswer,
   CompareTaskText,
   CategorizeTaskText,
+  SortDialogueTaskText,
 } from 'types'
 import { sanitizeTaskText } from './utils'
 
@@ -88,6 +89,28 @@ export const preparedCategorizeTaskText = (
     taskText = [
       {
         groups,
+        difficultyLevel: 'easy' as DifficultyLevel,
+      },
+    ]
+  }
+
+  return taskText
+}
+
+export const preparedSortDialogueTaskText = (
+  taskTextInit: SortDialogueTaskText[],
+  isOneDifficultyLevel: boolean,
+  difficultyLevel: DifficultyLevel,
+) => {
+  let taskText = taskTextInit
+  if (isOneDifficultyLevel) {
+    const { sentences } = taskTextInit.find(
+      (item: SortDialogueTaskText) => item.difficultyLevel === difficultyLevel,
+    ) || { sentences: [] }
+
+    taskText = [
+      {
+        sentences,
         difficultyLevel: 'easy' as DifficultyLevel,
       },
     ]

@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 import { WarningIcon } from 'assets'
-import { useFormContext } from '../utils'
+import { useFormContext } from '../../utils'
 import s from './FormElements.module.scss'
 
 interface DifficultyLevelTabProps {

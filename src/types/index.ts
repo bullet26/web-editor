@@ -25,3 +25,9 @@ export {
   type CategorizeTask,
   type OtherWordItem,
 } from './categorize-task'
+
+export {
+  type SortDialogueSentence,
+  type SortDialogueTaskText,
+  type SortDialogueTask,
+} from './sort-dialogue-task'

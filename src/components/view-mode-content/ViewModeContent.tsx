@@ -18,7 +18,8 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
     type === 'answerFromSelect' ||
     type === 'orderSplitSentence' ||
     type === 'compareTask' ||
-    type === 'categorizeTask'
+    type === 'categorizeTask' ||
+    type === 'sortDialogue'
 
   return (
     <div className={s.wrapper}>

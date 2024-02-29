@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
-import { DataTypeItemTask, CategorizeTask } from 'types'
+import { DataTypeItemTask, SortDialogueTask } from 'types'
 import { useBlocks, useChosenTask, useModal } from 'store'
 import {
   SubmitButtonGroup,
@@ -8,19 +8,19 @@ import {
   InputsTitleAndDescription,
 } from 'components/task-forms/elements'
 import {
+  preparedSortDialogueTaskText,
   useFormContext,
-  preparedCategorizeTaskText,
-  validateCategorizeGroup,
+  validateSortDialogue,
 } from 'components/task-forms/utils'
-import { initialValuesCategorize, validationSchemaCategorize } from './utils'
-import { CategorizeFormBlock } from './CategorizeFormBlock'
+import { initialValuesSortDialogue, validationSchemaSortDialogue } from './utils'
+import { SortDialogueFormBlock } from './SortDialogueFormBlock'
 import s from '../style/RightAnswerForm.module.scss'
 
-export const CategorizeForm: FC = () => {
+export const SortDialogueForm: FC = () => {
   type FormValues = object
   const formikRef = useRef<FormikProps<FormValues>>(null)
 
-  const CURRENT_TASK_TYPE = 'categorizeTask'
+  const CURRENT_TASK_TYPE = 'sortDialogue'
 
   const addBlock = useBlocks((state) => state.addBlock)
   const data = useBlocks((state) => state.data)
@@ -37,7 +37,7 @@ export const CategorizeForm: FC = () => {
     currentValuesData.type === CURRENT_TASK_TYPE &&
     Object.hasOwn(currentValuesData, 'taskData')
 
-  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesCategorize
+  const initialFormData = checkingRules ? currentValuesData.taskData : initialValuesSortDialogue
   const id = currentValuesData?.id
 
   const handleReset = () => {
@@ -50,19 +50,19 @@ export const CategorizeForm: FC = () => {
   return (
     <Formik
       initialValues={initialFormData}
-      validationSchema={validationSchemaCategorize}
+      validationSchema={validationSchemaSortDialogue}
       enableReinitialize
       innerRef={formikRef}
       onSubmit={(values, { resetForm }) => {
-        const { taskText: taskTextInit } = values as CategorizeTask
+        const { taskText: taskTextInit } = values as SortDialogueTask
 
-        const taskText = preparedCategorizeTaskText(
+        const taskText = preparedSortDialogueTaskText(
           taskTextInit,
           isOneDifficultyLevel,
           difficultyLevel,
         )
 
-        if (!validateCategorizeGroup(taskText, isOneDifficultyLevel)) {
+        if (!validateSortDialogue(taskText, isOneDifficultyLevel)) {
           return
         }
 
@@ -80,7 +80,7 @@ export const CategorizeForm: FC = () => {
       <Form className={s.form}>
         <div className={s.inputTabWrapper}>
           <InputsTitleAndDescription />
-          <CategorizeFormBlock />
+          <SortDialogueFormBlock />
         </div>
         <div className={s.checkboxButtonWrapper}>
           <CheckboxGroup />
