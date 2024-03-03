@@ -12,6 +12,8 @@ export const getTitle = (taskType: string | null) => {
       return 'Категорувати'
     case 'sortDialogue':
       return 'Розставити фрази у діалозi'
+    case 'trueOrFalseTask':
+      return 'Правда / Неправда'
     default:
       return ''
   }

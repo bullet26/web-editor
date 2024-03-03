@@ -6,6 +6,7 @@ import {
   CompareTaskText,
   CategorizeTaskText,
   SortDialogueTaskText,
+  TrueOrFalseTaskText,
 } from 'types'
 import { message } from 'antd'
 import { convertDifficultyLevel } from './utils'
@@ -146,6 +147,29 @@ export const validateSortDialogue = (
       isOneDifficultyLevel
         ? 'Не заповнені репліка(и) діалога'
         : `Не заповнені  репліка(и) діалога на: ${tabNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
+  return true
+}
+
+export const validateTrueOrFalse = (
+  taskText: TrueOrFalseTaskText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const tabNotFilled: string[] = []
+
+  taskText.forEach((item) => {
+    if (!item.taskItemData?.question || item.taskItemData.question.length < 10) {
+      tabNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
+    }
+  })
+
+  if (tabNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповненe питання'
+        : `Не заповнене питання на: ${tabNotFilled.join(', ')} рівень`,
     )
     return false
   }

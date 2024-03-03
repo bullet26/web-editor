@@ -5,8 +5,9 @@ import {
   CompareTaskText,
   CategorizeTaskText,
   SortDialogueTaskText,
+  TrueOrFalseTaskText,
 } from 'types'
-import { sanitizeTaskText } from './utils'
+import { sanitizeText } from './utils'
 
 export const preparedAndSanitizeTaskText = (
   taskTextInit: RightAnswerTaskText[],
@@ -28,7 +29,10 @@ export const preparedAndSanitizeTaskText = (
     ]
   }
 
-  return sanitizeTaskText(taskText)
+  return taskText.map((item) => ({
+    ...item,
+    taskQuestion: sanitizeText(item?.taskQuestion),
+  }))
 }
 
 export const preparedTaskQuestionText = (
@@ -117,4 +121,29 @@ export const preparedSortDialogueTaskText = (
   }
 
   return taskText
+}
+
+export const preparedTrueOrFalseTaskText = (
+  taskTextInit: TrueOrFalseTaskText[],
+  isOneDifficultyLevel: boolean,
+  difficultyLevel: DifficultyLevel,
+) => {
+  let taskText = taskTextInit
+  if (isOneDifficultyLevel) {
+    const { taskItemData } = taskTextInit.find(
+      (item: TrueOrFalseTaskText) => item.difficultyLevel === difficultyLevel,
+    ) || { taskItemData: { id: '', format: 'trueOrFalse', question: '', answer: true } }
+
+    taskText = [
+      {
+        taskItemData,
+        difficultyLevel: 'easy' as DifficultyLevel,
+      },
+    ]
+  }
+
+  return taskText.map((item) => ({
+    ...item,
+    taskItemData: { ...item.taskItemData, question: sanitizeText(item?.taskItemData.question) },
+  }))
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useContext } from 'react'
-import { RightAnswerTaskText, DifficultyLevel } from 'types'
+import { DifficultyLevel } from 'types'
 import DOMPurify from 'dompurify'
 
 export const convertDifficultyLevel = (difficultyLevel: string) => {
@@ -17,13 +17,10 @@ export const convertDifficultyLevel = (difficultyLevel: string) => {
 }
 
 // XSS sanitizer for HTML,
-export const sanitizeTaskText = (taskText: RightAnswerTaskText[]) => {
-  return taskText.map((item) => ({
-    ...item,
-    taskQuestion: DOMPurify.sanitize(item?.taskQuestion || '', {
-      ALLOWED_ATTR: ['style', 'class', 'contentEditable', 'data-skip'],
-    }),
-  }))
+export const sanitizeText = (taskText: string) => {
+  return DOMPurify.sanitize(taskText || '', {
+    ALLOWED_ATTR: ['style', 'class', 'contentEditable', 'data-skip'],
+  })
 }
 
 export const FormContext = createContext<{

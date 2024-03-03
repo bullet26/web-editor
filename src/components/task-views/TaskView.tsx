@@ -9,6 +9,7 @@ import {
   RightAnswerTaskView,
   CategorizeTaskView,
   SortDialogueTaskView,
+  TrueOrFalseTaskView,
 } from './elements'
 import {
   isRightAnswerTask,
@@ -16,6 +17,7 @@ import {
   isSplitSentenceTask,
   isCategorizeTask,
   isSortDialogueTask,
+  isTrueOrFalseTask,
 } from './utils'
 import s from './TaskView.module.scss'
 
@@ -66,6 +68,9 @@ export const TaskView: FC<TaskViewProps> = (props) => {
       )}
       {type === 'sortDialogue' && (
         <SortDialogueTaskView data={isSortDialogueTask(data) ? data : null} />
+      )}
+      {type === 'trueOrFalseTask' && (
+        <TrueOrFalseTaskView data={isTrueOrFalseTask(data) ? data : null} />
       )}
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити

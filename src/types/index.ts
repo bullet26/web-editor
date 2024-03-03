@@ -31,3 +31,9 @@ export {
   type SortDialogueTaskText,
   type SortDialogueTask,
 } from './sort-dialogue-task'
+
+export {
+  type TrueOrFalseItem,
+  type TrueOrFalseTaskText,
+  type TrueOrFalseTask,
+} from './true-or-false-task'

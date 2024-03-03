@@ -15,7 +15,8 @@ export const CreateTaskModal: FC = () => {
     taskType === 'orderSplitSentence' ||
     taskType === 'compareTask' ||
     taskType === 'categorizeTask' ||
-    taskType === 'sortDialogue'
+    taskType === 'sortDialogue' ||
+    taskType === 'trueOrFalseTask'
 
   return (
     <Modal

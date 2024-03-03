@@ -1,0 +1,36 @@
+@import '../../../../theme/variables.scss';
+
+.radioGroupWrapper {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.radioGroupWrapper {
+  font-size: 20px;
+  margin-bottom: 16px;
+  font-weight: 450;
+}
+
+.inputDiv {
+  padding: 12px;
+  min-height: 56px;
+  width: 100%;
+  font-size: 17px;
+  border-radius: 6px;
+  border: 1px solid $light-border;
+  outline: none;
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    border-color: $main;
+  }
+}
+
+[contentEditable='true']:empty:not(:focus):before {
+  content: attr(data-placeholder);
+  color: $light-border;
+  font-size: 17px;
+}
