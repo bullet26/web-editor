@@ -9,6 +9,7 @@ import {
   compareBlocIcon,
   categorizeBlocIcon,
   sortDialogueBlocIcon,
+  trueOrFalseTaskBlocIcon,
 } from 'assets'
 import s from './TemplatesTab.module.scss'
 
@@ -87,6 +88,16 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={categorizeBlocIcon} alt="categorizeBlocIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Правда / Неправда"
+        className={s.card}
+        onClick={() => {
+          clickCard('trueOrFalseTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={trueOrFalseTaskBlocIcon} alt="trueOrFalseTaskBlocIcon" />
         </div>
       </Card>
     </div>

@@ -47,7 +47,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Розставити фрази у діалозі',
         placeholder: '',
       }
-
+    case 'trueOrFalseTask':
+      return {
+        label: 'Завдання: Правда / Неправда',
+        placeholder: '',
+      }
     default:
       return { label: type, placeholder: 'Введіть текст' }
   }

@@ -5,6 +5,7 @@ export {
   validateComparePairs,
   validateCategorizeGroup,
   validateSortDialogue,
+  validateTrueOrFalse,
 } from './validation-utils'
 export {
   preparedAndSanitizeTaskText,
@@ -12,4 +13,5 @@ export {
   preparedWordPairsTaskText,
   preparedCategorizeTaskText,
   preparedSortDialogueTaskText,
+  preparedTrueOrFalseTaskText,
 } from './transform-data-on-submit'

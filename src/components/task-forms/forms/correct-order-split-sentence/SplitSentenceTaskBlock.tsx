@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useField } from 'formik'
 import { useFormContext } from 'components/task-forms/utils'
-import { InputForDifTabs, DifficultyLevelTab } from 'components/task-forms/elements'
+import { InputSentence, DifficultyLevelTab } from 'components/task-forms/elements'
 
 export const SplitSentenceTaskBlock: FC = () => {
   const { isOneDifficultyLevel } = useFormContext()
@@ -11,10 +11,10 @@ export const SplitSentenceTaskBlock: FC = () => {
   const [fieldHard] = useField('taskText[2].taskQuestion')
 
   return isOneDifficultyLevel ? (
-    <InputForDifTabs style={{ paddingTop: '80px' }} />
+    <InputSentence style={{ paddingTop: '80px' }} />
   ) : (
     <DifficultyLevelTab
-      childrenOption={<InputForDifTabs style={{ marginTop: '45px' }} />}
+      childrenOption={<InputSentence style={{ marginTop: '45px' }} />}
       easyLevelWarningCondition={!fieldEasy.value || fieldEasy.value.length < 10}
       middleLevelWarningCondition={!fieldMiddle.value || fieldMiddle.value.length < 10}
       hardLevelWarningCondition={!fieldHard.value || fieldHard.value.length < 10}

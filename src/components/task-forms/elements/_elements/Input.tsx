@@ -11,13 +11,25 @@ interface InputProps {
   style?: CSSProperties
   refProp?: Ref<InputRef>
   className?: string
+  textareaRows?: number
+  resize?: boolean
 }
 
 export const Input: FC<InputProps> = (props) => {
-  const { name, placeholder, type = 'input', style = {}, refProp, className } = props
+  const {
+    name,
+    placeholder,
+    type = 'input',
+    style = {},
+    refProp,
+    className,
+    textareaRows = 4,
+    resize = false,
+  } = props
   const [field, meta, helpers] = useField(name)
 
   const { TextArea } = AntInput
+  const isTextAreaResize = resize ? 'vertical' : 'none'
 
   return (
     <div>
@@ -46,8 +58,8 @@ export const Input: FC<InputProps> = (props) => {
             name={name}
             value={field.value}
             onChange={(e) => helpers.setValue(e?.target.value, true)}
-            rows={4}
-            style={{ ...style, resize: 'none' }}
+            rows={textareaRows}
+            style={{ ...style, resize: isTextAreaResize }}
             ref={refProp}
             className={className}
           />

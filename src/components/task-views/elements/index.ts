@@ -4,3 +4,4 @@ export { CorrectOrderSplitSentenceView } from './correct-order-split-sentence-vi
 export { CompareTaskView } from './compare-task-view'
 export { CategorizeTaskView } from './categorize-task-view'
 export { SortDialogueTaskView } from './sort-dialogue-task-view'
+export { TrueOrFalseTaskView } from './true-or-false-task-view'

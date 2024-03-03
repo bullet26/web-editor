@@ -3,7 +3,7 @@ import { Divider } from 'antd'
 import { useField } from 'formik'
 import { TaskTextWithoutAnswer } from 'types'
 import { useFormContext } from '../../utils'
-import { Input } from './Input'
+import { Input } from '../_elements'
 
 interface InputForDifTabsProps {
   style: CSSProperties
@@ -20,7 +20,7 @@ const emptyMidAndHardTab = [
   },
 ]
 
-export const InputForDifTabs: FC<InputForDifTabsProps> = (props) => {
+export const InputSentence: FC<InputForDifTabsProps> = (props) => {
   const { style } = props
   const { difficultyLevel, isOneDifficultyLevel } = useFormContext()
 

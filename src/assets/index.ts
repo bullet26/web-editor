@@ -20,6 +20,7 @@ import orderSplitSentenceBlocIcon from './correct-order-split-sentence.png'
 import compareBlocIcon from './compare.png'
 import categorizeBlocIcon from './categorize-icon-task.png'
 import sortDialogueBlocIcon from './sort-dialogue.png'
+import trueOrFalseTaskBlocIcon from './trueOrFalseTask.png'
 
 export {
   DeleteIcon,
@@ -44,4 +45,5 @@ export {
   categorizeBlocIcon,
   sortDialogueBlocIcon,
   HandMoveIcon,
+  trueOrFalseTaskBlocIcon,
 }

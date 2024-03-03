@@ -4,6 +4,7 @@ import {
   RightAnswerTask,
   TaskWithoutAnswer,
   SortDialogueTask,
+  TrueOrFalseTask,
 } from 'types'
 
 export const types = [
@@ -18,6 +19,7 @@ export const types = [
   'compareTask',
   'categorizeTask',
   'sortDialogue',
+  'trueOrFalseTask',
 ]
 
 export type Type = (typeof types)[number]
@@ -30,6 +32,7 @@ export type TaskType =
   | CompareTask
   | CategorizeTask
   | SortDialogueTask
+  | TrueOrFalseTask
 
 export type DataTypeItem = {
   text?: string

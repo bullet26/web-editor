@@ -9,6 +9,7 @@ import {
   CompareForm,
   CategorizeForm,
   SortDialogueForm,
+  TrueOrFalseTask,
 } from './forms'
 
 interface TaskFormProps {
@@ -35,6 +36,7 @@ export const TaskForm: FC<TaskFormProps> = (props) => {
       {taskType === 'compareTask' && <CompareForm />}
       {taskType === 'categorizeTask' && <CategorizeForm />}
       {taskType === 'sortDialogue' && <SortDialogueForm />}
+      {taskType === 'trueOrFalseTask' && <TrueOrFalseTask />}
     </FormContext.Provider>
   )
 }
