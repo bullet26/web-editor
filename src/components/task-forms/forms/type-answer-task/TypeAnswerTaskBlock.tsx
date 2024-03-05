@@ -11,17 +11,10 @@ export const TypeAnswerTaskBlock: FC = () => {
   const [fieldHard] = useField('taskText[2].taskQuestion')
 
   return isOneDifficultyLevel ? (
-    <AddSkipPutBlock
-      editorStyle={{ marginTop: '60px' }}
-      skipType="rectangle"
-      abilityHideAnswerBlock
-      onlyCorrectAnswer
-    />
+    <AddSkipPutBlock editorStyle={{ marginTop: '60px' }} skipType="rectangle" onlyCorrectAnswer />
   ) : (
     <DifficultyLevelTab
-      childrenOption={
-        <AddSkipPutBlock skipType="rectangle" abilityHideAnswerBlock onlyCorrectAnswer />
-      }
+      childrenOption={<AddSkipPutBlock skipType="rectangle" onlyCorrectAnswer />}
       easyLevelWarningCondition={!fieldEasy.value || fieldEasy.value.length < 10}
       middleLevelWarningCondition={!fieldMiddle.value || fieldMiddle.value.length < 10}
       hardLevelWarningCondition={!fieldHard.value || fieldHard.value.length < 10}
