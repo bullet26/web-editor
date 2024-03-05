@@ -10,6 +10,8 @@ import {
   categorizeBlocIcon,
   sortDialogueBlocIcon,
   trueOrFalseTaskBlocIcon,
+  typeAnswerTaskBlocIcon,
+  correctMistakesTaskBlocIcon,
 } from 'assets'
 import s from './TemplatesTab.module.scss'
 
@@ -51,13 +53,13 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
-        title="Співвідносити"
+        title="Ввести текст у пропуск"
         className={s.card}
         onClick={() => {
-          clickCard('compareTask')
+          clickCard('typeAnswerTask')
         }}>
         <div className={s.cardBody}>
-          <img src={compareBlocIcon} alt="compareBlocIcon" />
+          <img src={typeAnswerTaskBlocIcon} alt="typeAnswerTaskBlocIcon" />
         </div>
       </Card>
       <Card
@@ -81,6 +83,26 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
+        title="Правда / Неправда"
+        className={s.card}
+        onClick={() => {
+          clickCard('trueOrFalseTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={trueOrFalseTaskBlocIcon} alt="trueOrFalseTaskBlocIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Співвідносити"
+        className={s.card}
+        onClick={() => {
+          clickCard('compareTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={compareBlocIcon} alt="compareBlocIcon" />
+        </div>
+      </Card>
+      <Card
         title="Категорувати"
         className={s.card}
         onClick={() => {
@@ -91,13 +113,13 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
-        title="Правда / Неправда"
+        title="Змінити  слова у реченн"
         className={s.card}
         onClick={() => {
-          clickCard('trueOrFalseTask')
+          clickCard('correctMistakesTask')
         }}>
         <div className={s.cardBody}>
-          <img src={trueOrFalseTaskBlocIcon} alt="trueOrFalseTaskBlocIcon" />
+          <img src={correctMistakesTaskBlocIcon} alt="correctMistakesTaskBlocIcon" />
         </div>
       </Card>
     </div>

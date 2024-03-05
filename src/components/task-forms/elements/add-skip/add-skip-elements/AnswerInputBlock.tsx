@@ -6,16 +6,18 @@ import { RightAnswerTaskAnswer, RightAnswerTaskItem } from 'types'
 import { generateId } from 'utils'
 import { updateCircleNumber } from '../utils'
 import { AnswerInput } from './AnswerInput'
+import { AlwaysCorrectAnswerInput } from './AlwaysCorrectAnswerInput'
 import s from '../AddSkip.module.scss'
 
 interface AnswerInputBlockProps {
   inputName: string
   answerBlockName: string
   inputRef: RefObject<HTMLElement>
+  onlyCorrectAnswer: boolean
 }
 
 export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
-  const { inputName, answerBlockName, inputRef } = props
+  const { inputName, answerBlockName, inputRef, onlyCorrectAnswer } = props
 
   const [fieldAnswer, , helpersAnswer] = useField(answerBlockName)
   const [fieldTaskQuestion, , helpersTaskQuestion] = useField(inputName)
@@ -37,9 +39,10 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
     helpersAnswer.setValue(fieldValueS, true)
   }
 
-  const addWrongAnswer = (groupId: string) => {
+  const addAnswerItem = (groupId: string) => {
+    const type = onlyCorrectAnswer ? 'correct' : 'incorrect'
     const currentValue: RightAnswerTaskItem = {
-      type: 'incorrect',
+      type,
       id: generateId(),
       value: '',
     }
@@ -67,7 +70,7 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
     helpersAnswer.setValue(fieldValueS, true)
   }
 
-  const onDeleteWrongAnswer = (groupId: string, itemId: string) => {
+  const onDeleteAnswerItem = (groupId: string, itemId: string) => {
     const fieldValueS = fieldAnswer.value.map((item: RightAnswerTaskAnswer) => {
       if (item.id === groupId) {
         return {
@@ -89,23 +92,36 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
             <div className="circleSmall">{i + 1}</div>
             <DeleteIcon fill="#EC2028" onClick={() => onDeleteSkipGroup(item.id)} />
           </div>
-          {item.answers.map((subitem) => (
-            <AnswerInput
-              groupId={item.id}
-              itemId={subitem.id}
-              {...subitem}
-              onChange={onChangeAnswer}
-              key={subitem.id}
-              onDelete={onDeleteWrongAnswer}
-            />
-          ))}
+          {onlyCorrectAnswer
+            ? item.answers.map((subitem, number) => (
+                <AlwaysCorrectAnswerInput
+                  groupId={item.id}
+                  itemId={subitem.id}
+                  {...subitem}
+                  number={number + 1}
+                  onChange={onChangeAnswer}
+                  key={subitem.id}
+                  onDelete={onDeleteAnswerItem}
+                />
+              ))
+            : item.answers.map((subitem) => (
+                <AnswerInput
+                  groupId={item.id}
+                  itemId={subitem.id}
+                  {...subitem}
+                  onChange={onChangeAnswer}
+                  key={subitem.id}
+                  onDelete={onDeleteAnswerItem}
+                />
+              ))}
+
           {item.answers.length < 5 && (
             <Button
               shape="circle"
               type="default"
               className="blueBtn"
               style={{ width: '32px' }}
-              onClick={() => addWrongAnswer(item.id)}>
+              onClick={() => addAnswerItem(item.id)}>
               +
             </Button>
           )}

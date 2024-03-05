@@ -1,5 +1,5 @@
 import { FC, useRef, MouseEvent, CSSProperties, useEffect } from 'react'
-import { Button, Divider } from 'antd'
+import { Button, Checkbox, Divider } from 'antd'
 import { useField } from 'formik'
 import { RightAnswerTaskText } from 'types'
 import { useFormContext } from '../../utils'
@@ -11,10 +11,11 @@ interface AddSkipPutBlockProps {
   wrapperStyle?: CSSProperties
   editorStyle?: CSSProperties
   skipType: 'rectangle' | 'line'
+  onlyCorrectAnswer?: boolean
 }
 
 export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle, skipType } = props
+  const { wrapperStyle, editorStyle, skipType, onlyCorrectAnswer = false } = props
 
   const inputRef = useRef<HTMLElement>(null)
   const { difficultyLevel, isOneDifficultyLevel } = useFormContext()
@@ -57,6 +58,7 @@ export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
           type="default"
           style={{ width: '206px' }}
           className="blueBtn"
+          disabled={fieldAnswer.value.length > 14}
           onClick={onClickAddSkip}>
           Додати пропуск
         </Button>
@@ -75,6 +77,7 @@ export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
           inputName={inputName}
           answerBlockName={answerBlockName}
           inputRef={inputRef}
+          onlyCorrectAnswer={onlyCorrectAnswer}
         />
       </div>
       {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}

@@ -6,6 +6,7 @@ import {
   CategorizeTask,
   SortDialogueTask,
   TrueOrFalseTask,
+  CorrectMistakesTask,
 } from 'types'
 
 export const isRightAnswerTask = (task?: TaskType): task is RightAnswerTask => {
@@ -39,4 +40,12 @@ export const isSortDialogueTask = (task?: TaskType): task is SortDialogueTask =>
 export const isTrueOrFalseTask = (task?: TaskType): task is TrueOrFalseTask => {
   if (!task) return false
   return Object.hasOwn(task.taskText[0], 'taskItemData')
+}
+
+export const isCorrectMistakesTask = (task?: TaskType): task is CorrectMistakesTask => {
+  if (!task) return false
+  return (
+    Object.hasOwn(task.taskText[0], 'correctSentence') &&
+    Object.hasOwn(task.taskText[0], 'wrongSentence')
+  )
 }

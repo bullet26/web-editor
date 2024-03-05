@@ -37,3 +37,5 @@ export {
   type TrueOrFalseTaskText,
   type TrueOrFalseTask,
 } from './true-or-false-task'
+
+export { type CorrectMistakesText, type CorrectMistakesTask } from './correct-mistakes-task'

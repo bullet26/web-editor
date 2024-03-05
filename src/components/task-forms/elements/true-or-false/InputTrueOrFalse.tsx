@@ -3,11 +3,11 @@ import { FC, CSSProperties, useEffect } from 'react'
 import { Divider, Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import { useField } from 'formik'
-import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 import { TrueOrFalseTaskText } from 'types'
 import { useFormContext } from '../../utils'
 import { emptyMidAndHardTab } from './utils'
 import s from './InputTrueOrFalse.module.scss'
+import { Input } from '../_elements'
 
 interface InputTrueOrFalseProps {
   wrapperStyle?: CSSProperties
@@ -30,10 +30,9 @@ export const InputTrueOrFalse: FC<InputTrueOrFalseProps> = (props) => {
     ) || 0
 
   const taskItemDataName = `taskText[${index}].taskItemData`
-
+  const taskQuestionName = `${taskItemDataName}.question`
   const [fieldFormat, , helpersFormat] = useField(`${taskItemDataName}.format`)
   const [fieldAnswerValue, , helpersAnswerValue] = useField(`${taskItemDataName}.answer`)
-  const [fieldQuestion, , helpersQuestion] = useField(`${taskItemDataName}.question`)
 
   const onChangeFormat = (e: RadioChangeEvent) => {
     helpersFormat.setValue(e.target.value)
@@ -43,19 +42,10 @@ export const InputTrueOrFalse: FC<InputTrueOrFalseProps> = (props) => {
     helpersAnswerValue.setValue(e.target.value)
   }
 
-  const onChangeQuestionValue = (e: ContentEditableEvent) => {
-    helpersQuestion.setValue(e.target.value)
-  }
-
   return (
     <div style={wrapperStyle}>
       <Divider />
-      <ContentEditable
-        html={fieldQuestion.value}
-        className={s.inputDiv}
-        data-placeholder="Введіть питання"
-        onChange={onChangeQuestionValue}
-      />
+      <Input name={taskQuestionName} type="textarea" autoSize />
       <div className={s.radioGroupWrapper}>
         <div>
           <div className={s.radioGroupTitle}>Правильна відповідь</div>

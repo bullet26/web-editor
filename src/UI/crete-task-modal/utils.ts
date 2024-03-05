@@ -14,6 +14,10 @@ export const getTitle = (taskType: string | null) => {
       return 'Розставити фрази у діалозi'
     case 'trueOrFalseTask':
       return 'Правда / Неправда'
+    case 'typeAnswerTask':
+      return 'Ввести текст у пропуск'
+    case 'correctMistakesTask':
+      return 'Змінити  слова у реченні'
     default:
       return ''
   }
