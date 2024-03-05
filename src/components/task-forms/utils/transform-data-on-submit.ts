@@ -6,6 +6,7 @@ import {
   CategorizeTaskText,
   SortDialogueTaskText,
   TrueOrFalseTaskText,
+  CorrectMistakesText,
 } from 'types'
 import { sanitizeText } from './utils'
 
@@ -142,8 +143,28 @@ export const preparedTrueOrFalseTaskText = (
     ]
   }
 
-  return taskText.map((item) => ({
-    ...item,
-    taskItemData: { ...item.taskItemData, question: sanitizeText(item?.taskItemData.question) },
-  }))
+  return taskText
+}
+
+export const preparedCorrectMistakesSentences = (
+  taskTextInit: CorrectMistakesText[],
+  isOneDifficultyLevel: boolean,
+  difficultyLevel: DifficultyLevel,
+) => {
+  let taskText = taskTextInit
+  if (isOneDifficultyLevel) {
+    const { wrongSentence, correctSentence } = taskTextInit.find(
+      (item: CorrectMistakesText) => item.difficultyLevel === difficultyLevel,
+    ) || { wrongSentence: '', correctSentence: '' }
+
+    taskText = [
+      {
+        difficultyLevel: 'easy' as DifficultyLevel,
+        wrongSentence,
+        correctSentence,
+      },
+    ]
+  }
+
+  return taskText
 }

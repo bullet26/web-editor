@@ -52,6 +52,16 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Правда / Неправда',
         placeholder: '',
       }
+    case 'typeAnswerTask':
+      return {
+        label: 'Завдання: Ввести текст у пропуск',
+        placeholder: '',
+      }
+    case 'correctMistakesTask':
+      return {
+        label: 'Завдання: Змінити  слова у реченні',
+        placeholder: '',
+      }
     default:
       return { label: type, placeholder: 'Введіть текст' }
   }

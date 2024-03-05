@@ -1,0 +1,1 @@
+export { TypeAnswerView } from './TypeAnswerView'

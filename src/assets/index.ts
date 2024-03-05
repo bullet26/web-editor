@@ -21,6 +21,8 @@ import compareBlocIcon from './compare.png'
 import categorizeBlocIcon from './categorize-icon-task.png'
 import sortDialogueBlocIcon from './sort-dialogue.png'
 import trueOrFalseTaskBlocIcon from './trueOrFalseTask.png'
+import typeAnswerTaskBlocIcon from './typeAnswerTask.png'
+import correctMistakesTaskBlocIcon from './correctMistakesTask.png'
 
 export {
   DeleteIcon,
@@ -46,4 +48,6 @@ export {
   sortDialogueBlocIcon,
   HandMoveIcon,
   trueOrFalseTaskBlocIcon,
+  typeAnswerTaskBlocIcon,
+  correctMistakesTaskBlocIcon,
 }

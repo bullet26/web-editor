@@ -1,0 +1,1 @@
+export { TypeAnswerForm } from './TypeAnswerForm'

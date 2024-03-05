@@ -15,10 +15,7 @@ export const TrueOrFalseTaskView: FC<TrueOrFalseTaskViewProps> = (props) => {
 
   return (
     <>
-      <div
-        className={s.question}
-        dangerouslySetInnerHTML={{ __html: data?.taskText[0].taskItemData.question || '' }}
-      />
+      <div className={s.question}>{data?.taskText[0].taskItemData.question}</div>
       <Button
         style={{
           width: '100%',

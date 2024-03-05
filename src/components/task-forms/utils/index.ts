@@ -6,6 +6,7 @@ export {
   validateCategorizeGroup,
   validateSortDialogue,
   validateTrueOrFalse,
+  validateCorrectMistakesSentences,
 } from './validation-utils'
 export {
   preparedAndSanitizeTaskText,
@@ -14,4 +15,5 @@ export {
   preparedCategorizeTaskText,
   preparedSortDialogueTaskText,
   preparedTrueOrFalseTaskText,
+  preparedCorrectMistakesSentences,
 } from './transform-data-on-submit'

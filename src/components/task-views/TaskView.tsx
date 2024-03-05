@@ -10,6 +10,8 @@ import {
   CategorizeTaskView,
   SortDialogueTaskView,
   TrueOrFalseTaskView,
+  TypeAnswerView,
+  CorrectMistakesTaskView,
 } from './elements'
 import {
   isRightAnswerTask,
@@ -18,6 +20,7 @@ import {
   isCategorizeTask,
   isSortDialogueTask,
   isTrueOrFalseTask,
+  isCorrectMistakesTask,
 } from './utils'
 import s from './TaskView.module.scss'
 
@@ -72,6 +75,11 @@ export const TaskView: FC<TaskViewProps> = (props) => {
       {type === 'trueOrFalseTask' && (
         <TrueOrFalseTaskView data={isTrueOrFalseTask(data) ? data : null} />
       )}
+      {type === 'typeAnswerTask' && <TypeAnswerView data={isRightAnswerTask(data) ? data : null} />}
+      {type === 'correctMistakesTask' && (
+        <CorrectMistakesTaskView data={isCorrectMistakesTask(data) ? data : null} />
+      )}
+
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити
       </Button>

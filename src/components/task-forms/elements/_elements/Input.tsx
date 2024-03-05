@@ -13,6 +13,7 @@ interface InputProps {
   className?: string
   textareaRows?: number
   resize?: boolean
+  autoSize?: boolean
 }
 
 export const Input: FC<InputProps> = (props) => {
@@ -25,6 +26,7 @@ export const Input: FC<InputProps> = (props) => {
     className,
     textareaRows = 4,
     resize = false,
+    autoSize,
   } = props
   const [field, meta, helpers] = useField(name)
 
@@ -60,6 +62,7 @@ export const Input: FC<InputProps> = (props) => {
             onChange={(e) => helpers.setValue(e?.target.value, true)}
             rows={textareaRows}
             style={{ ...style, resize: isTextAreaResize }}
+            autoSize={autoSize}
             ref={refProp}
             className={className}
           />

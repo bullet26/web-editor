@@ -1,0 +1,1 @@
+export { InputCorrectWrongSentences } from './InputCorrectWrongSentences'

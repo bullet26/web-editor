@@ -1,4 +1,7 @@
+@import '../theme/variables.scss';
+
 .skip {
+  width: fit-content;
   display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
@@ -6,12 +9,25 @@
   column-gap: 4px;
   height: 32px;
 
-  .rectangle {
+  .rectangle,
+  input {
     display: inline-block;
     border: 1px solid lightgrey;
     border-radius: 6px;
-    width: 104px;
     height: 32px;
+  }
+  .rectangle {
+    width: 104px;
+  }
+
+  input {
+    padding: 2px 5px;
+    min-width: 104px;
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      border-color: $main;
+    }
   }
 
   select {
@@ -24,7 +40,7 @@
   .line {
     display: inline-block;
     width: 38px;
-    border-bottom: 3px solid #2d8cff;
+    border-bottom: 3px solid $accent;
   }
 }
 
@@ -38,7 +54,7 @@
   align-items: center;
   font-size: 24px;
   background-color: #d5e8ff;
-  color: #2d8cff;
+  color: $accent;
 }
 
 .circleSmall {
@@ -50,5 +66,5 @@
   align-items: center;
   font-size: 14px;
   background-color: #d5e8ff;
-  color: #2d8cff;
+  color: $accent;
 }

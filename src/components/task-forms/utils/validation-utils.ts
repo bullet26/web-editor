@@ -7,6 +7,7 @@ import {
   CategorizeTaskText,
   SortDialogueTaskText,
   TrueOrFalseTaskText,
+  CorrectMistakesText,
 } from 'types'
 import { message } from 'antd'
 import { convertDifficultyLevel } from './utils'
@@ -170,6 +171,31 @@ export const validateTrueOrFalse = (
       isOneDifficultyLevel
         ? 'Не заповненe питання'
         : `Не заповнене питання на: ${tabNotFilled.join(', ')} рівень`,
+    )
+    return false
+  }
+  return true
+}
+
+export const validateCorrectMistakesSentences = (
+  taskText: CorrectMistakesText[],
+  isOneDifficultyLevel: boolean,
+) => {
+  const tabNotFilled: string[] = []
+
+  taskText.forEach((item) => {
+    if (!item.correctSentence || item.correctSentence.length < 10) {
+      tabNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
+    } else if (!item.wrongSentence || item.wrongSentence.length < 10) {
+      tabNotFilled.push(convertDifficultyLevel(item.difficultyLevel))
+    }
+  })
+
+  if (tabNotFilled.length) {
+    message.error(
+      isOneDifficultyLevel
+        ? 'Не заповнені речення'
+        : `Не заповнені речення на: ${Array.from(new Set(tabNotFilled)).join(', ')} рівень`,
     )
     return false
   }
