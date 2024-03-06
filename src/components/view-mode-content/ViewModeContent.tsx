@@ -22,7 +22,8 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
     type === 'sortDialogue' ||
     type === 'trueOrFalseTask' ||
     type === 'typeAnswerTask' ||
-    type === 'correctMistakesTask'
+    type === 'correctMistakesTask' ||
+    type === 'onlyOneOrTwoRightAnswerTask'
 
   return (
     <div className={s.wrapper}>

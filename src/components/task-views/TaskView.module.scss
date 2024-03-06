@@ -76,3 +76,11 @@
   flex-wrap: wrap;
   margin-bottom: 8px;
 }
+
+.answerInColumnGroupWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 16px;
+  margin-bottom: 8px;
+}

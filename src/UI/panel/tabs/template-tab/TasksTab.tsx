@@ -12,6 +12,7 @@ import {
   trueOrFalseTaskBlocIcon,
   typeAnswerTaskBlocIcon,
   correctMistakesTaskBlocIcon,
+  onlyOneRightAnswerBlockIcon,
 } from 'assets'
 import s from './TemplatesTab.module.scss'
 
@@ -40,6 +41,26 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={rightAnswerBlockIcon} alt="rightAnswerBlockIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Одна правильна відповідь"
+        className={s.card}
+        onClick={() => {
+          clickCard('onlyOneOrTwoRightAnswerTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={onlyOneRightAnswerBlockIcon} alt="onlyOneRightAnswerBlockIcon" />
+        </div>
+      </Card>
+      <Card
+        title="Правда / Неправда"
+        className={s.card}
+        onClick={() => {
+          clickCard('trueOrFalseTask')
+        }}>
+        <div className={s.cardBody}>
+          <img src={trueOrFalseTaskBlocIcon} alt="trueOrFalseTaskBlocIcon" />
         </div>
       </Card>
       <Card
@@ -80,16 +101,6 @@ export const TasksTab: FC = () => {
         }}>
         <div className={s.cardBody}>
           <img src={sortDialogueBlocIcon} alt="sortDialogueBlocIcon" />
-        </div>
-      </Card>
-      <Card
-        title="Правда / Неправда"
-        className={s.card}
-        onClick={() => {
-          clickCard('trueOrFalseTask')
-        }}>
-        <div className={s.cardBody}>
-          <img src={trueOrFalseTaskBlocIcon} alt="trueOrFalseTaskBlocIcon" />
         </div>
       </Card>
       <Card

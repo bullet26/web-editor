@@ -15,6 +15,7 @@ export const types = [
   'image',
   'table',
   'rightAnswerTask',
+  'onlyOneOrTwoRightAnswerTask',
   'answerFromSelect',
   'orderSplitSentence',
   'compareTask',

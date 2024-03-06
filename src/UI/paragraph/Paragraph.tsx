@@ -65,7 +65,8 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
     type === 'sortDialogue' ||
     type === 'trueOrFalseTask' ||
     type === 'typeAnswerTask' ||
-    type === 'correctMistakesTask'
+    type === 'correctMistakesTask' ||
+    type === 'onlyOneOrTwoRightAnswerTask'
 
   return (
     <>

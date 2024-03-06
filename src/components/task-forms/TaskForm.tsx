@@ -12,6 +12,7 @@ import {
   TrueOrFalseTask,
   TypeAnswerForm,
   CorrectMistakesForm,
+  OnlyOneRightAnswerForm,
 } from './forms'
 
 interface TaskFormProps {
@@ -41,6 +42,7 @@ export const TaskForm: FC<TaskFormProps> = (props) => {
       {taskType === 'trueOrFalseTask' && <TrueOrFalseTask />}
       {taskType === 'typeAnswerTask' && <TypeAnswerForm />}
       {taskType === 'correctMistakesTask' && <CorrectMistakesForm />}
+      {taskType === 'onlyOneOrTwoRightAnswerTask' && <OnlyOneRightAnswerForm />}
     </FormContext.Provider>
   )
 }

@@ -1,5 +1,5 @@
 import { FC, useRef, MouseEvent, CSSProperties, useEffect } from 'react'
-import { Button, Checkbox, Divider } from 'antd'
+import { Button, Divider } from 'antd'
 import { useField } from 'formik'
 import { RightAnswerTaskText } from 'types'
 import { useFormContext } from '../../utils'
@@ -12,10 +12,17 @@ interface AddSkipPutBlockProps {
   editorStyle?: CSSProperties
   skipType: 'rectangle' | 'line'
   onlyCorrectAnswer?: boolean
+  onlyOneOrTwoAnswer?: boolean
 }
 
 export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
-  const { wrapperStyle, editorStyle, skipType, onlyCorrectAnswer = false } = props
+  const {
+    wrapperStyle,
+    editorStyle,
+    skipType,
+    onlyCorrectAnswer = false,
+    onlyOneOrTwoAnswer = false,
+  } = props
 
   const inputRef = useRef<HTMLElement>(null)
   const { difficultyLevel, isOneDifficultyLevel } = useFormContext()
@@ -39,7 +46,14 @@ export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
   const [fieldAnswer, meta, helpersAnswer] = useField(answerBlockName)
 
   const onClickAddSkip = (event: MouseEvent<HTMLElement>) => {
-    const { answerValue, questionValue } = addSkip(event, inputRef, fieldAnswer.value, skipType)
+    const checkQuantIncorrectAnswersInPrevGroup = onlyOneOrTwoAnswer
+    const { answerValue, questionValue } = addSkip(
+      event,
+      inputRef,
+      fieldAnswer.value,
+      skipType,
+      checkQuantIncorrectAnswersInPrevGroup,
+    )
     helpersAnswer.setValue(answerValue, true)
     helpersQuestion.setValue(questionValue, true)
   }
@@ -58,7 +72,9 @@ export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
           type="default"
           style={{ width: '206px' }}
           className="blueBtn"
-          disabled={fieldAnswer.value.length > 14}
+          disabled={
+            onlyOneOrTwoAnswer ? fieldAnswer.value.length > 1 : fieldAnswer.value.length > 14
+          }
           onClick={onClickAddSkip}>
           Додати пропуск
         </Button>
@@ -78,6 +94,7 @@ export const AddSkipPutBlock: FC<AddSkipPutBlockProps> = (props) => {
           answerBlockName={answerBlockName}
           inputRef={inputRef}
           onlyCorrectAnswer={onlyCorrectAnswer}
+          onlyOneOrTwoAnswer={onlyOneOrTwoAnswer}
         />
       </div>
       {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}

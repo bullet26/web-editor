@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
 import { MouseEvent, RefObject } from 'react'
-import { RightAnswerTaskAnswer } from 'types'
+import { RightAnswerTaskAnswer, RightAnswerTaskItem } from 'types'
 import { generateId } from 'utils'
 import { moveCursorToEnd, getCursorPosition, sortAnswers } from './add-skip-elements/utils'
 
@@ -34,6 +34,7 @@ export const addSkip = (
   inputRef: RefObject<HTMLElement>,
   prevStateFieldValue: RightAnswerTaskAnswer[],
   skipType: 'rectangle' | 'line',
+  checkQuantIncorrectAnswersInPrevGroup: boolean = false,
 ) => {
   event.preventDefault() // fix for move cursor in the end
 
@@ -61,15 +62,27 @@ export const addSkip = (
 
   document.execCommand('insertHTML', false, skipItem)
 
+  const answers: RightAnswerTaskItem[] = [
+    {
+      id: generateId(),
+      type: 'correct',
+      value: '',
+    },
+  ]
+
+  if (checkQuantIncorrectAnswersInPrevGroup) {
+    prevStateFieldValue.map((item) =>
+      item.answers.forEach((subitem) => {
+        if (subitem.type === 'incorrect') {
+          answers.push({ id: generateId(), type: 'incorrect', value: '' })
+        }
+      }),
+    )
+  }
+
   const currentValue: RightAnswerTaskAnswer = {
     id,
-    answers: [
-      {
-        id: generateId(),
-        type: 'correct',
-        value: '',
-      },
-    ],
+    answers,
   }
 
   const answerValue = sortAnswers(inputRef, [...prevStateFieldValue, currentValue])

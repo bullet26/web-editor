@@ -1,23 +1,27 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { FC, RefObject } from 'react'
 import { useField } from 'formik'
 import { Button } from 'antd'
+import classNames from 'classnames'
 import { DeleteIcon } from 'assets'
-import { RightAnswerTaskAnswer, RightAnswerTaskItem } from 'types'
-import { generateId } from 'utils'
+import { RightAnswerTaskAnswer } from 'types'
 import { updateCircleNumber } from '../utils'
 import { AnswerInput } from './AnswerInput'
 import { AlwaysCorrectAnswerInput } from './AlwaysCorrectAnswerInput'
+import { OnlyOneOrTwoAnswerInput } from './OnlyOneOrTwoAnswer'
 import s from '../AddSkip.module.scss'
+import { addAnswerOrGroupAnswers, deleteAnswerOrGroupAnswers } from './utils'
 
 interface AnswerInputBlockProps {
   inputName: string
   answerBlockName: string
   inputRef: RefObject<HTMLElement>
   onlyCorrectAnswer: boolean
+  onlyOneOrTwoAnswer: boolean
 }
 
 export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
-  const { inputName, answerBlockName, inputRef, onlyCorrectAnswer } = props
+  const { inputName, answerBlockName, inputRef, onlyCorrectAnswer, onlyOneOrTwoAnswer } = props
 
   const [fieldAnswer, , helpersAnswer] = useField(answerBlockName)
   const [fieldTaskQuestion, , helpersTaskQuestion] = useField(inputName)
@@ -41,18 +45,13 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
 
   const addAnswerItem = (groupId: string) => {
     const type = onlyCorrectAnswer ? 'correct' : 'incorrect'
-    const currentValue: RightAnswerTaskItem = {
+    const createAnswersInTwoGroups = onlyOneOrTwoAnswer
+    const fieldValueS = addAnswerOrGroupAnswers(
+      fieldAnswer.value,
+      groupId,
       type,
-      id: generateId(),
-      value: '',
-    }
-
-    const fieldValueS = fieldAnswer.value.map((item: RightAnswerTaskAnswer) => {
-      if (item.id === groupId) {
-        return { ...item, answers: [...item.answers, currentValue] }
-      }
-      return item
-    })
+      createAnswersInTwoGroups,
+    )
 
     helpersAnswer.setValue(fieldValueS, true)
   }
@@ -71,51 +70,78 @@ export const AnswerInputBlock: FC<AnswerInputBlockProps> = (props) => {
   }
 
   const onDeleteAnswerItem = (groupId: string, itemId: string) => {
-    const fieldValueS = fieldAnswer.value.map((item: RightAnswerTaskAnswer) => {
-      if (item.id === groupId) {
-        return {
-          ...item,
-          answers: item?.answers.filter((subitem: RightAnswerTaskItem) => subitem.id !== itemId),
-        }
-      }
-      return item
-    })
-
+    const deleteAnswersInTwoGroups = onlyOneOrTwoAnswer
+    const fieldValueS = deleteAnswerOrGroupAnswers(
+      fieldAnswer.value,
+      groupId,
+      itemId,
+      deleteAnswersInTwoGroups,
+    )
     helpersAnswer.setValue(fieldValueS, true)
   }
 
   return (
-    <div className={s.answerBlockWrapper}>
+    <div
+      className={classNames({
+        [s.answerBlockWrapper]: !onlyOneOrTwoAnswer,
+        [s.onlyOneAnswerBlockWrapper]: onlyOneOrTwoAnswer,
+      })}>
       {fieldAnswer.value.map((item: RightAnswerTaskAnswer, i: number) => (
-        <div className={s.answerGroupWrapper} key={item.id}>
-          <div className={s.answerGroupIconWrapper}>
-            <div className="circleSmall">{i + 1}</div>
-            <DeleteIcon fill="#EC2028" onClick={() => onDeleteSkipGroup(item.id)} />
-          </div>
-          {onlyCorrectAnswer
-            ? item.answers.map((subitem, number) => (
-                <AlwaysCorrectAnswerInput
-                  groupId={item.id}
-                  itemId={subitem.id}
-                  {...subitem}
-                  number={number + 1}
-                  onChange={onChangeAnswer}
-                  key={subitem.id}
-                  onDelete={onDeleteAnswerItem}
-                />
-              ))
-            : item.answers.map((subitem) => (
-                <AnswerInput
-                  groupId={item.id}
-                  itemId={subitem.id}
-                  {...subitem}
-                  onChange={onChangeAnswer}
-                  key={subitem.id}
-                  onDelete={onDeleteAnswerItem}
-                />
-              ))}
+        <div
+          className={classNames({
+            [s.answerGroupWrapper]: !onlyOneOrTwoAnswer,
+            [s.onlyOneAnswerGroupWrapper]: onlyOneOrTwoAnswer,
+          })}
+          key={item.id}>
+          {!onlyOneOrTwoAnswer && (
+            <div className={s.answerGroupIconWrapper}>
+              <div className="circleSmall">{i + 1}</div>
+              <DeleteIcon fill="#EC2028" onClick={() => onDeleteSkipGroup(item.id)} />
+            </div>
+          )}
+          {onlyCorrectAnswer &&
+            item.answers.map((subitem, number) => (
+              <AlwaysCorrectAnswerInput
+                groupId={item.id}
+                itemId={subitem.id}
+                {...subitem}
+                number={number + 1}
+                onChange={onChangeAnswer}
+                key={subitem.id}
+                onDelete={onDeleteAnswerItem}
+              />
+            ))}
+          {onlyOneOrTwoAnswer &&
+            item.answers.map((subitem, number) => (
+              <OnlyOneOrTwoAnswerInput
+                groupNumber={i + 1}
+                elementNumber={number + 1}
+                elemQuant={item.answers.length}
+                groupQuant={fieldAnswer.value.length}
+                key={subitem.id}
+                groupId={item.id}
+                itemId={subitem.id}
+                {...subitem}
+                onChange={onChangeAnswer}
+                onDeleteItem={onDeleteAnswerItem}
+                onDeleteGroup={onDeleteSkipGroup}
+                addAnswerItem={addAnswerItem}
+              />
+            ))}
+          {!onlyCorrectAnswer &&
+            !onlyOneOrTwoAnswer &&
+            item.answers.map((subitem) => (
+              <AnswerInput
+                groupId={item.id}
+                itemId={subitem.id}
+                {...subitem}
+                onChange={onChangeAnswer}
+                key={subitem.id}
+                onDelete={onDeleteAnswerItem}
+              />
+            ))}
 
-          {item.answers.length < 5 && (
+          {!onlyOneOrTwoAnswer && item.answers.length < 5 && (
             <Button
               shape="circle"
               type="default"

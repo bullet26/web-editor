@@ -34,6 +34,13 @@
   margin: 16px 0;
 }
 
+.onlyOneAnswerBlockWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .answerGroupWrapper {
   display: flex;
   flex-direction: row;
@@ -48,6 +55,12 @@
   }
 }
 
+.onlyOneAnswerGroupWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .answerGroupIconWrapper {
   align-self: flex-start;
   display: flex;
@@ -56,6 +69,36 @@
   align-items: center;
   gap: 8px;
   height: 100%;
+}
+
+.buttonItemWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.answerItemWrapper {
+  flex: 1;
+  .answerTitle {
+    padding-left: 25px;
+  }
+}
+
+.answerInputWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.answerCorrectInputWrapper {
+  padding-left: 25px;
 }
 
 .answerTitle {
@@ -78,4 +121,10 @@
 
 .error {
   color: tomato;
+}
+
+.slash {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 8px;
 }
