@@ -2,6 +2,8 @@ export const getTitle = (taskType: string | null) => {
   switch (taskType) {
     case 'rightAnswerTask':
       return 'Правильна відповідь'
+    case 'onlyOneOrTwoRightAnswerTask':
+      return 'Одна правильна відповідь'
     case 'answerFromSelect':
       return 'Варіант зі списку в тексті'
     case 'orderSplitSentence':

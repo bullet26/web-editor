@@ -12,6 +12,7 @@ import {
   TrueOrFalseTaskView,
   TypeAnswerView,
   CorrectMistakesTaskView,
+  OnlyOneOrTwoRightAnswerTaskView,
 } from './elements'
 import {
   isRightAnswerTask,
@@ -79,7 +80,9 @@ export const TaskView: FC<TaskViewProps> = (props) => {
       {type === 'correctMistakesTask' && (
         <CorrectMistakesTaskView data={isCorrectMistakesTask(data) ? data : null} />
       )}
-
+      {type === 'onlyOneOrTwoRightAnswerTask' && (
+        <OnlyOneOrTwoRightAnswerTaskView data={isRightAnswerTask(data) ? data : null} />
+      )}
       <Button type="primary" shape="round" disabled={mode === 'edit'} style={{ width: '100%' }}>
         Перевірити
       </Button>

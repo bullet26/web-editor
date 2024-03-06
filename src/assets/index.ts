@@ -23,6 +23,7 @@ import sortDialogueBlocIcon from './sort-dialogue.png'
 import trueOrFalseTaskBlocIcon from './trueOrFalseTask.png'
 import typeAnswerTaskBlocIcon from './typeAnswerTask.png'
 import correctMistakesTaskBlocIcon from './correctMistakesTask.png'
+import onlyOneRightAnswerBlockIcon from './only-one-right-answer.png'
 
 export {
   DeleteIcon,
@@ -50,4 +51,5 @@ export {
   trueOrFalseTaskBlocIcon,
   typeAnswerTaskBlocIcon,
   correctMistakesTaskBlocIcon,
+  onlyOneRightAnswerBlockIcon,
 }

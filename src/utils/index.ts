@@ -22,6 +22,11 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
         label: 'Завдання: Правильна відповідь',
         placeholder: '',
       }
+    case 'onlyOneOrTwoRightAnswerTask':
+      return {
+        label: 'Завдання: Одна правильна відповідь',
+        placeholder: '',
+      }
     case 'answerFromSelect':
       return {
         label: 'Завдання: Варіант зі списку в тексті',

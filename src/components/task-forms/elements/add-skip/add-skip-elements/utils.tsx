@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import { RefObject } from 'react'
-import { RightAnswerTaskAnswer } from 'types'
+import { RightAnswerTaskAnswer, RightAnswerTaskItem } from 'types'
+import { generateId } from 'utils'
 
 export const sortAnswers = (inputRef: RefObject<HTMLElement>, arr: RightAnswerTaskAnswer[]) => {
   const idMatches = inputRef.current?.innerHTML?.match(/data-skip="([^"]+)"/g)
@@ -39,4 +40,62 @@ export const getCursorPosition = (ContentEditableRef: RefObject<HTMLElement>) =>
   clonedRange?.setEnd(range.endContainer, range.endOffset)
 
   return clonedRange.toString().length
+}
+
+export const deleteAnswerOrGroupAnswers = (
+  fieldValueS: RightAnswerTaskAnswer[],
+  groupId: string,
+  itemId: string,
+  deleteAnswersInTwoGroups: boolean,
+) => {
+  if (deleteAnswersInTwoGroups && fieldValueS.length === 2) {
+    let deletedIndex: number | null = null
+    fieldValueS.forEach((item: RightAnswerTaskAnswer) => {
+      if (item.id === groupId) {
+        deletedIndex = item?.answers.findIndex(
+          (subitem: RightAnswerTaskItem) => subitem.id === itemId,
+        )
+      }
+    })
+    return fieldValueS.map((item: RightAnswerTaskAnswer) => {
+      return {
+        ...item,
+        answers: deletedIndex ? item?.answers.toSpliced(deletedIndex, 1) : item?.answers,
+      }
+    })
+  }
+  return fieldValueS.map((item: RightAnswerTaskAnswer) => {
+    if (item.id === groupId) {
+      return {
+        ...item,
+        answers: item?.answers.filter((subitem: RightAnswerTaskItem) => subitem.id !== itemId),
+      }
+    }
+    return item
+  })
+}
+
+export const addAnswerOrGroupAnswers = (
+  fieldValueS: RightAnswerTaskAnswer[],
+  groupId: string,
+  type: 'correct' | 'incorrect',
+  createAnswersInTwoGroups: boolean,
+) => {
+  const currentValue: RightAnswerTaskItem = {
+    type,
+    id: generateId(),
+    value: '',
+  }
+
+  if (createAnswersInTwoGroups) {
+    return fieldValueS.map((item: RightAnswerTaskAnswer) => {
+      return { ...item, answers: [...item.answers, currentValue] }
+    })
+  }
+  return fieldValueS.map((item: RightAnswerTaskAnswer) => {
+    if (item.id === groupId) {
+      return { ...item, answers: [...item.answers, currentValue] }
+    }
+    return item
+  })
 }
