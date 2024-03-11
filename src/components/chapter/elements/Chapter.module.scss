@@ -1,0 +1,102 @@
+@import '../../../theme/variables.scss';
+
+.wrapper {
+  width: 186px;
+  padding: 8px;
+  background-color: $main-light;
+  border-radius: 6px;
+}
+
+.buttonTitleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.inputIconsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  column-gap: 8px;
+}
+
+.inputWrapper {
+  flex: 1;
+  cursor: pointer;
+}
+
+.input {
+  padding: 4px 11px;
+}
+
+.chapterList {
+  margin-top: 16px;
+}
+
+.listItem {
+  cursor: pointer;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.favChapter {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  column-gap: 3px;
+  svg {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.divider {
+  height: 2px;
+  width: 100%;
+  background-color: $main;
+}
+
+.percentWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 8px;
+  margin-bottom: 16px;
+}
+
+.percent {
+  width: 100px;
+  height: 8px;
+  border-radius: 15px;
+  background: #f2f2f2;
+  margin-top: 3px;
+}
+
+.percentValue {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.activePercent {
+  position: absolute;
+  left: 0;
+  border-radius: 15px;
+  background: $main;
+  height: 8px;
+}

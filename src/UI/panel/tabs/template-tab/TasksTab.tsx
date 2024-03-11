@@ -124,7 +124,7 @@ export const TasksTab: FC = () => {
         </div>
       </Card>
       <Card
-        title="Змінити  слова у реченн"
+        title="Змінити  слова у реченнi"
         className={s.card}
         onClick={() => {
           clickCard('correctMistakesTask')

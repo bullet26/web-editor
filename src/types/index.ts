@@ -1,3 +1,5 @@
+export { type ChapterType, type LessonType } from './lesson-type'
+
 export {
   types,
   type Type,

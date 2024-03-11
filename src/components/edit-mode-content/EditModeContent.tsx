@@ -12,10 +12,11 @@ interface EditModeContentProps {
 export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const { onViewClick } = props
   const data = useBlocks((state) => state.data)
+  const selectedChapterID = useBlocks((state) => state.selectedChapterID)
   const openPanel = useModal((state) => state.openPanel)
 
   return (
-    <>
+    <div style={{ flex: 1 }}>
       <div className={s.buttonGroup}>
         <Button type="default" shape="circle" className={`${['greenBtn', s.iconBtn].join(' ')}`}>
           <CloudSyncIcon fill="#fff" />
@@ -29,35 +30,41 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
       </div>
       <div className={s.wrapper}>
         <div className={s.paragraphWrapper}>
-          {data.map(
-            (
-              { type, text, url, id, tableColumns, taskData, imageCaption, savedInLibrary },
-              index,
-            ) => (
-              <DragAndDropParagraph
-                key={id}
-                id={id}
-                type={type}
-                savedInLibrary={savedInLibrary}
-                text={text}
-                url={url}
-                imageCaption={imageCaption}
-                tableColumns={tableColumns}
-                taskData={taskData}
-                index={index}
-              />
-            ),
-          )}
+          {data.chapters
+            .find((item) => item.id === selectedChapterID)
+            ?.blocks.map(
+              (
+                { type, text, url, id, tableColumns, taskData, imageCaption, savedInLibrary },
+                index,
+              ) => (
+                <DragAndDropParagraph
+                  key={id}
+                  id={id}
+                  type={type}
+                  savedInLibrary={savedInLibrary}
+                  text={text}
+                  url={url}
+                  imageCaption={imageCaption}
+                  tableColumns={tableColumns}
+                  taskData={taskData}
+                  index={index}
+                />
+              ),
+            )}
         </div>
         <Button
           className={s.addBlockBtn}
-          style={{ height: data.length ? 'auto' : '80vh' }}
+          style={{
+            height: data.chapters.find((item) => item.id === selectedChapterID)?.blocks.length
+              ? 'auto'
+              : '80vh',
+          }}
           onClick={openPanel}>
           + Додати блок
         </Button>
       </div>
       <Panel />
       <CreateTaskModal />
-    </>
+    </div>
   )
 }

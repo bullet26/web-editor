@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { FC, useState } from 'react'
-import { Type, DifficultyLevel } from 'types'
+import { Type, DifficultyLevel, TaskType } from 'types'
 import { FormContext } from './utils'
 import {
   RightAnswerForm,

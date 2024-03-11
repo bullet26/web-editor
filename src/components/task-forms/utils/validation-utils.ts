@@ -41,20 +41,20 @@ export const validateCorrectAnswer = (
   const res: string[] = []
   taskText.forEach(({ taskAnswers, difficultyLevel }) =>
     taskAnswers.forEach(({ answers }) =>
-      answers.forEach(({ type, value }) => {
-        if (type === 'correct' && !value) {
+      answers.forEach(({ value }) => {
+        if (!value) {
           res.push(convertDifficultyLevel(difficultyLevel))
         }
       }),
     ),
   )
-  const tabNotFilledCorrectAnswer = Array.from(new Set(res))
+  const tabNotFilledAnswer = Array.from(new Set(res))
 
-  if (tabNotFilledCorrectAnswer.length) {
+  if (tabNotFilledAnswer.length) {
     message.error(
       isOneDifficultyLevel
-        ? 'Не заповнена правильна відповідь'
-        : `Не заповнена правильна відповідь на: ${tabNotFilledCorrectAnswer.join(', ')} рівень`,
+        ? 'Не заповнена відповід(ь|i)'
+        : `Не заповнена відповід(ь|i) на: ${tabNotFilledAnswer.join(', ')} рівень`,
     )
     return false
   }

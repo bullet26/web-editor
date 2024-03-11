@@ -12,6 +12,9 @@ import WarningIcon from './warning.svg?react'
 import EditIcon from './edit-icon.svg?react'
 import ArrowIcon from './arrow.svg?react'
 import HandMoveIcon from './hand-move.svg?react'
+import CrossIcon from './cross.svg?react'
+import PenEditIcon from './pen-edit.svg?react'
+import TickIcon from './tick.svg?react'
 import editorBlockIcon from './editor.png'
 import imageBlockIcon from './image.png'
 import rightAnswerBlockIcon from './right-answer.png'
@@ -52,4 +55,7 @@ export {
   typeAnswerTaskBlocIcon,
   correctMistakesTaskBlocIcon,
   onlyOneRightAnswerBlockIcon,
+  CrossIcon,
+  PenEditIcon,
+  TickIcon,
 }

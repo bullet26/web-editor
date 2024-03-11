@@ -50,8 +50,8 @@ export type DataTypeItem = {
   imageCaption?: string
 }
 
-export type DataType = DataTypeItem[]
-
 export type DataTypeItemTask = Pick<DataTypeItem, 'type' | 'id'> & {
   taskData: TaskType
 }
+
+export type DataType = DataTypeItem[]
