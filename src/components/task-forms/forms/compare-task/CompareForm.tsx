@@ -23,13 +23,13 @@ export const CompareForm: FC = () => {
   const CURRENT_TASK_TYPE = 'compareTask'
 
   const addBlock = useBlocks((state) => state.addBlock)
-  const data = useBlocks((state) => state.data)
+  const getBlocksInCurrentChapter = useBlocks((state) => state.getBlocksInCurrentChapter)
   const chosenTaskID = useChosenTask((state) => state.chosenTaskID)
   const closeModal = useModal((state) => state.closeModal)
 
   const { isOneDifficultyLevel, setDifficultyLevel, difficultyLevel } = useFormContext()
 
-  const currentValuesData = (data.find((item) => item.id === chosenTaskID) ||
+  const currentValuesData = (getBlocksInCurrentChapter().find((item) => item.id === chosenTaskID) ||
     null) as DataTypeItemTask | null
 
   const checkingRules =

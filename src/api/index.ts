@@ -1,5 +1,5 @@
 import ky from 'ky'
-import { DataType } from 'types'
+import { LessonType } from 'types'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 const accessToken = localStorage.getItem('token')
@@ -21,9 +21,9 @@ const $request = ky.create({
   },
 })
 
-export const getBlocks = async (state: string = ''): Promise<DataType> => {
+export const getBlocks = async (state: string = ''): Promise<LessonType> => {
   try {
-    const res: DataType = await $request.get(`lesson/${state}`).json()
+    const res: LessonType = await $request.get(`lesson/${state}`).json()
     return res
   } catch (error: any) {
     if (error?.name === 'HTTPError') {

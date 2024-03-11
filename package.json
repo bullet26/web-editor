@@ -20,6 +20,7 @@
     "draftjs-to-html": "^0.9.1",
     "formik": "^2.4.5",
     "html-to-draftjs": "^1.5.0",
+    "immer": "^10.0.3",
     "ky": "^1.2.0",
     "nanoid": "^5.0.6",
     "react": "^18.2.0",

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { Input } from 'antd'
 import { CorrectMistakesTask } from 'types'
 import s from './CorrectMistakesTaskView.module.scss'
@@ -13,6 +13,10 @@ export const CorrectMistakesTaskView: FC<TypeAnswerViewProps> = (props) => {
   const { TextArea } = Input
 
   const [value, setValue] = useState(data?.taskText[0].wrongSentence)
+
+  useEffect(() => {
+    setValue(data?.taskText[0].wrongSentence)
+  }, [data])
 
   return (
     <div className="view">

@@ -1,0 +1,27 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  width: 195px;
+  padding: 2px 8px;
+  border: solid 0.5px lightgrey;
+  border-radius: 12px;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 450;
+}
+
+.divider {
+  height: 3px;
+  width: 100%;
+  background-color: $main;
+}
