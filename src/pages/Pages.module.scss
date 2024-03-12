@@ -1,0 +1,14 @@
+.dictionaryWrapper {
+  position: fixed;
+  right: 5px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 25px;
+}
+
+.chapterWrapper {
+  position: fixed;
+  left: 5px;
+}
