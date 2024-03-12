@@ -16,7 +16,7 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const openPanel = useModal((state) => state.openPanel)
 
   return (
-    <div style={{ flex: 1 }}>
+    <>
       <div className={s.buttonGroup}>
         <Button type="default" shape="circle" className={`${['greenBtn', s.iconBtn].join(' ')}`}>
           <CloudSyncIcon fill="#fff" />
@@ -65,6 +65,6 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
       </div>
       <Panel />
       <CreateTaskModal />
-    </div>
+    </>
   )
 }
