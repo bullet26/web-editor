@@ -16,16 +16,11 @@ export const CorrectOrderSplitSentenceView: FC<CorrectOrderSplitSentenceViewProp
       <div className={s.taskTextAloneBlock}>
         <Divider />
         <Divider style={{ marginTop: '48px' }} />
-        {data?.taskText[0].taskQuestion.split(' ').map((item, i) => {
-          if (item) {
-            return (
-              <Button key={i} style={{ marginRight: '8px', marginBottom: '10px' }}>
-                {item}
-              </Button>
-            )
-          }
-          return ''
-        })}
+        {data?.taskText[0].taskQuestion.split(' ').map((item, i) => (
+          <Button key={i} style={{ marginRight: '8px', marginBottom: '10px' }}>
+            {item || ''}
+          </Button>
+        ))}
       </div>
     </div>
   )
