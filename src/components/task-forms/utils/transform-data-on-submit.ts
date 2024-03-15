@@ -55,7 +55,10 @@ export const preparedTaskQuestionText = (
     ]
   }
 
-  return taskText
+  return taskText.map((item) => ({
+    ...item,
+    taskQuestion: item.taskQuestion.replace(/\s+/g, ' '),
+  }))
 }
 
 export const preparedWordPairsTaskText = (
