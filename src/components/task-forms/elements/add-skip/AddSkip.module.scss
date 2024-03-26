@@ -22,6 +22,10 @@
   &:focus-visible {
     border-color: $main;
   }
+  div:not(:has(span)):not(:has(br)) {
+    display: inline-block;
+    // TODO fix bug with enter
+  }
 }
 
 [contentEditable='true']:empty:not(:focus):before {

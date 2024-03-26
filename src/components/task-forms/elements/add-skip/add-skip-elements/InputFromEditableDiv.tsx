@@ -32,6 +32,7 @@ export const InputFromEditableDiv: FC<InputProps> = (props) => {
   return (
     <>
       <ContentEditable
+        tagName="pre"
         html={field.value}
         className={s.inputDiv}
         data-placeholder={placeholder}

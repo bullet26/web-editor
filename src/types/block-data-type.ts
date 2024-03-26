@@ -39,8 +39,11 @@ export type TaskType =
   | TrueOrFalseTask
   | CorrectMistakesTask
 
+export type BlockTYPE = 'NON_INTERACTIVE' | 'INTERACTIVE'
+
 export type DataTypeItem = {
   text?: string
+  blockType: BlockTYPE
   type: Type
   savedInLibrary: boolean
   id: string

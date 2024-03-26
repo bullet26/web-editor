@@ -3,6 +3,7 @@ import { FC, Fragment } from 'react'
 import { Button } from 'antd'
 import { useBlocks } from 'store'
 import { TaskView } from 'components'
+import { IsTaskType } from 'utils'
 import s from './ViewModeContent.module.scss'
 
 interface ViewModeContentProps {
@@ -12,18 +13,6 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
   const { onEditClick } = props
 
   const getBlocksInCurrentChapter = useBlocks((state) => state.getBlocksInCurrentChapter)
-
-  const IS_TASK_TYPES = (type: string) =>
-    type === 'rightAnswerTask' ||
-    type === 'answerFromSelect' ||
-    type === 'orderSplitSentence' ||
-    type === 'compareTask' ||
-    type === 'categorizeTask' ||
-    type === 'sortDialogue' ||
-    type === 'trueOrFalseTask' ||
-    type === 'typeAnswerTask' ||
-    type === 'correctMistakesTask' ||
-    type === 'onlyOneOrTwoRightAnswerTask'
 
   return (
     <div className={s.wrapper}>
@@ -71,7 +60,7 @@ export const ViewModeContent: FC<ViewModeContentProps> = (props) => {
             {(type === 'title' || type === 'subtitle' || type === 'note') && (
               <div className={s[type]}>{text}</div>
             )}
-            {IS_TASK_TYPES(type) && <TaskView data={taskData} mode="view" type={type} />}
+            {IsTaskType(type) && <TaskView data={taskData} mode="view" type={type} />}
           </Fragment>
         ),
       )}

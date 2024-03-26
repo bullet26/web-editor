@@ -24,7 +24,11 @@ export const EditPage: FC<EditPageProps> = (props) => {
         <ChapterPanel mode="edit" />
       </div>
       <div style={{ maxWidth: `${width}px`, marginLeft: `${chapterWidth}px` }}>
-        {selectedChapterID && <EditModeContent onViewClick={() => setEditModeStatus(false)} />}
+        {selectedChapterID ? (
+          <EditModeContent onViewClick={() => setEditModeStatus(false)} />
+        ) : (
+          <div className={s.largeText}>Оберіть розділ уроку</div>
+        )}
       </div>
       <div className={s.dictionaryWrapper}>
         <Dictionary mode="edit" />

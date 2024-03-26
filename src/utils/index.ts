@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid'
+import { Type } from 'types/block-data-type'
 
 export const generateId = () => nanoid()
 
@@ -70,4 +71,19 @@ export const getLabel = (type: string): { label: string; placeholder: string } =
     default:
       return { label: type, placeholder: 'Введіть текст' }
   }
+}
+
+export const IsTaskType = (type: Type) => {
+  return (
+    type === 'rightAnswerTask' ||
+    type === 'answerFromSelect' ||
+    type === 'orderSplitSentence' ||
+    type === 'compareTask' ||
+    type === 'categorizeTask' ||
+    type === 'sortDialogue' ||
+    type === 'trueOrFalseTask' ||
+    type === 'typeAnswerTask' ||
+    type === 'correctMistakesTask' ||
+    type === 'onlyOneOrTwoRightAnswerTask'
+  )
 }
