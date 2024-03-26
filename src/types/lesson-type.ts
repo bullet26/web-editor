@@ -1,4 +1,4 @@
-import { DataType } from 'types'
+import { BlockTYPE, DataType, DataTypeItem } from 'types'
 
 export interface ChapterType {
   id: string
@@ -7,7 +7,21 @@ export interface ChapterType {
 }
 
 export interface LessonType {
-  id: string
   title: string
   chapters: ChapterType[]
+}
+
+export interface LessonFromAPIType {
+  name: string
+  type: string
+  chapters: {
+    id: string
+    name: string
+    blocks: {
+      id: string
+      blockType: BlockTYPE
+      savedInLibrary: boolean
+      blockBody: DataTypeItem
+    }[]
+  }[]
 }

@@ -2,24 +2,15 @@ import { FC } from 'react'
 import { Modal, Divider } from 'antd'
 import { useChosenTask, useModal } from 'store'
 import { TaskForm } from 'components'
+import { IsTaskType } from 'utils'
 import { getTitle } from './utils'
 
 export const CreateTaskModal: FC = () => {
-  const taskType = useChosenTask((state) => state.taskType)
+  const taskType = useChosenTask((state) => state.taskType) || ''
   const isModalOpen = useModal((state) => state.isModalOpen)
   const closeModal = useModal((state) => state.closeModal)
 
-  const IS_TASK_TYPES =
-    taskType === 'rightAnswerTask' ||
-    taskType === 'answerFromSelect' ||
-    taskType === 'orderSplitSentence' ||
-    taskType === 'compareTask' ||
-    taskType === 'categorizeTask' ||
-    taskType === 'sortDialogue' ||
-    taskType === 'trueOrFalseTask' ||
-    taskType === 'typeAnswerTask' ||
-    taskType === 'correctMistakesTask' ||
-    taskType === 'onlyOneOrTwoRightAnswerTask'
+  const IS_TASK_TYPES = IsTaskType(taskType)
 
   return (
     <Modal

@@ -41,7 +41,7 @@ export const addSkip = (
   const id = generateId()
   const number = (inputRef.current?.querySelectorAll('div').length || 0) + 1
 
-  let skipItem
+  let skipItem = ''
   const skipItemLine = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">${number}</span><span class="line"></span></div>&nbsp;`
   const skipItemRectangle = `&nbsp;<div contentEditable=false class="skip" data-skip="${id}"><span class="circle">${number}</span><span class="rectangle"></span></div>&nbsp;`
 

@@ -15,7 +15,7 @@ import {
   CloudIcon,
   EditIcon,
 } from 'assets'
-import { getLabel } from 'utils'
+import { IsTaskType, getLabel } from 'utils'
 import s from './Paragraph.module.scss'
 
 interface ParagraphProps extends DataTypeItem {}
@@ -56,17 +56,7 @@ export const Paragraph: FC<ParagraphProps> = (props) => {
     openModal()
   }
 
-  const TASK_TYPES =
-    type === 'rightAnswerTask' ||
-    type === 'answerFromSelect' ||
-    type === 'orderSplitSentence' ||
-    type === 'compareTask' ||
-    type === 'categorizeTask' ||
-    type === 'sortDialogue' ||
-    type === 'trueOrFalseTask' ||
-    type === 'typeAnswerTask' ||
-    type === 'correctMistakesTask' ||
-    type === 'onlyOneOrTwoRightAnswerTask'
+  const TASK_TYPES = IsTaskType(type)
 
   return (
     <>

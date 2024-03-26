@@ -3,6 +3,8 @@ import { Button } from 'antd'
 import { useBlocks, useModal } from 'store'
 import { CloudSyncIcon } from 'assets'
 import { Panel, DragAndDropParagraph, CreateTaskModal } from 'UI'
+import { useBubbleState, useBubbleStateManager } from 'provider'
+import { ComponentStateType } from 'main'
 import s from './EditModeContent.module.scss'
 
 interface EditModeContentProps {
@@ -12,9 +14,19 @@ interface EditModeContentProps {
 export const EditModeContent: FC<EditModeContentProps> = (props) => {
   const { onViewClick } = props
   const data = useBlocks((state) => state.data)
+  const uploadBlocks = useBlocks((state) => state.uploadBlocks)
   const selectedChapterID = useBlocks((state) => state.selectedChapterID)
   const openPanel = useModal((state) => state.openPanel)
 
+  const state = useBubbleState<ComponentStateType>()
+  const stateManager = useBubbleStateManager<ComponentStateType>()
+
+  const uploadBlocksRequest = async () => {
+    const versionId = await uploadBlocks(state.apiKey, state.versionId)
+    if (versionId) {
+      stateManager.updateState({ ...state, versionId })
+    }
+  }
   return (
     <>
       <div className={s.buttonGroup}>
@@ -24,7 +36,7 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
         <Button type="default" className="blueBtn" shape="round" onClick={onViewClick}>
           Попередній перегляд
         </Button>
-        <Button type="primary" shape="round">
+        <Button type="primary" shape="round" onClick={uploadBlocksRequest}>
           Опублікувати
         </Button>
       </div>
@@ -32,25 +44,9 @@ export const EditModeContent: FC<EditModeContentProps> = (props) => {
         <div className={s.paragraphWrapper}>
           {data.chapters
             .find((item) => item.id === selectedChapterID)
-            ?.blocks.map(
-              (
-                { type, text, url, id, tableColumns, taskData, imageCaption, savedInLibrary },
-                index,
-              ) => (
-                <DragAndDropParagraph
-                  key={id}
-                  id={id}
-                  type={type}
-                  savedInLibrary={savedInLibrary}
-                  text={text}
-                  url={url}
-                  imageCaption={imageCaption}
-                  tableColumns={tableColumns}
-                  taskData={taskData}
-                  index={index}
-                />
-              ),
-            )}
+            ?.blocks.map((item, index) => (
+              <DragAndDropParagraph key={item.id} index={index} {...item} />
+            ))}
         </div>
         <Button
           className={s.addBlockBtn}

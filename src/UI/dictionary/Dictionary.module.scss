@@ -15,13 +15,45 @@
   margin-bottom: 8px;
 }
 
+.wordWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
 .title {
   font-size: 14px;
   font-weight: 450;
 }
 
-.divider {
+.sectionTitle {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dividerMain {
   height: 3px;
-  width: 100%;
   background-color: $main;
+  margin: 8px 0;
+}
+
+.divider {
+  margin: 5px 0;
+  background-color: $main;
+  margin-bottom: 8px;
+}
+
+.word {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.translationWord {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.dash {
+  padding: 0 8px;
 }
